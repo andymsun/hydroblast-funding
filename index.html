@@ -3,364 +3,401 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kickstarter Product Page</title>
+  <title>HydroBlast</title>
   <style>
-    /* Base Styles */
-    body {
+    /* Reset and base styles */
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
-      color: #333;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      transition: background-color 1s ease;
+      background-color: #000;
+      color: #1d1d1f;
+      line-height: 1.6;
     }
     a {
       text-decoration: none;
       color: inherit;
     }
 
-    /* Navigation */
-    nav {
-      position: sticky;
-      top: 0;
-      background-color: #028858;
-      color: white;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 1000;
-      font-weight: bold;
-    }
-    nav .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-
     /* Hero Section */
     .hero {
-      background: url('https://static.vecteezy.com/system/resources/thumbnails/026/683/349/small_2x/a-business-person-wearing-a-suit-tie-and-a-blue-shirt-giving-a-thumbs-up-sign-the-person-appears-to-be-happy-and-is-showing-approval-or-agreement-possibly-in-a-work-related-context-photo.jpg') center/cover no-repeat;
-      height: 400px;
+      position: relative;
+      height: 100vh;
+      background: url('https://source.unsplash.com/1600x900/?water,technology') center center / cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
       text-align: center;
+      color: #ffffff;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      padding: 0 20px;
     }
     .hero h1 {
-      font-size: 3rem;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 1rem 2rem;
-      border-radius: 8px;
+      font-size: 4rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
     }
-
-    /* Main Content */
-    .container {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 0 1rem;
-    }
-
-    /* Funding Progress */
-    .funding {
-      background-color: white;
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    .hero p {
+      font-size: 1.5rem;
       margin-bottom: 2rem;
     }
-    .funding h2 {
-      margin-bottom: 1rem;
-    }
-    .progress-bar {
-      background-color: #e0e0e0;
-      border-radius: 4px;
-      overflow: hidden;
-      height: 20px;
-      margin-bottom: 0.5rem;
-    }
-    .progress {
-      height: 100%;
-      background-color: #028858;
-      width: 70%; /* Example percentage */
-    }
-    .funding-info {
+    .hero button {
+      background-color: #007aff;
+      color: #ffffff;
+      border: none;
+      padding: 1rem 2rem;
       font-size: 1rem;
-      color: #333;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .hero button:hover {
+      background-color: #005bb5;
     }
 
-    /* Pledge Tiers */
-    .pledge-tiers {
+    /* Description Sections */
+    .description {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    .description:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    .description .text {
+      flex: 1 1 60%;
+      padding: 1rem;
+    }
+    .description .text h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .description .text p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+    }
+    .description .image {
+      flex: 1 1 35%;
+      padding: 1rem;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease-out, transform 1s ease-out;
+    }
+    .description .image img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    .description .image.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Reviews + Tagline */
+    .reviews {
+      background-color: #f5f5f7;
+      padding: 4rem 2rem;
+    }
+    .reviews-container {
+      display: flex;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      gap: 2rem;
+    }
+    .reviews-container .carousel {
+      position: relative;
+      width: 60%;
+      height: 300px;
+      overflow: hidden;
+    }
+    .review-panel {
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      text-align: center;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      align-items: center;
+      justify-content: center;
     }
-    .tier {
-      background-color: white;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    .review-panel.active {
+      opacity: 1;
     }
-    .tier h3 {
-      margin-bottom: 0.5rem;
-    }
-    .tier p {
+    .review-panel .profile-photo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
       margin-bottom: 1rem;
     }
-    .tier button {
-      background-color: #028858;
-      color: white;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 4px;
-      cursor: pointer;
+    .review-panel h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
     }
-    .tier button:hover {
-      background-color: #026c46;
+    .review-panel .stars {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      color: #FFD700;
+    }
+    .review-panel p {
+      font-size: 1rem;
+      color: #333;
+      line-height: 1.4;
+    }
+    .reviews-container .tagline {
+      flex: 1 1 40%;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #007aff;
+      text-align: center;
     }
 
-    /* Footer */
-    footer {
-      background-color: #333;
-      color: white;
+    /* Comparison Table */
+    .comparison {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+    .comparison h2 {
       text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+    }
+    .comparison table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+    }
+    .comparison th, .comparison td {
+      border: 1px solid #ddd;
+      padding: 0.75rem;
+    }
+    .comparison th {
+      background-color: #f0f0f5;
+      font-weight: 600;
+    }
+    .comparison tr:nth-child(even) {
+      background-color: #fafafa;
     }
 
     /* Responsive */
-    @media (max-width: 600px) {
-      .hero h1 {
+    @media (max-width: 768px) {
+      .reviews-container {
+        flex-direction: column;
+      }
+      .reviews-container .carousel, .reviews-container .tagline {
+        width: 100%;
+      }
+      .reviews-container .tagline {
         font-size: 2rem;
-        padding: 0.5rem 1rem;
+        margin-top: 2rem;
       }
     }
   </style>
 </head>
 <body>
-
-  <!-- Navigation -->
-  <nav>
-    <div class="logo">text</div>
-    <div>Back This Project</div>
-  </nav>
-
-  <!-- Hero Section -->
   <section class="hero">
-    <h1>hello!!</h1>
+    <div class="hero-content">
+      <h1>HydroBlast</h1>
+      <p>Experience the ultimate in hydration technology.</p>
+      <button onclick="scrollToDescription()">Learn More</button>
+    </div>
   </section>
 
-  
-</body
-</html>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>bottom part</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #fafafa;
-      color: #333;
-    }
-
-    header {
-      background-color: #ffffff;
-      border-bottom: 1px solid #ddd;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    header nav a {
-      margin: 0 1rem;
-      text-decoration: none;
-      color: #ffffff;
-      font-weight: bold;
-    }
-
-    .main {
-      display: flex;
-      padding: 2rem;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .tiers {
-      width: 25%;
-      padding-right: 2rem;
-    }
-
-    .tier {
-      background-color: #fff;
-      border-left: 3px solid #28a745;
-      margin-bottom: 1rem;
-      padding: 1rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-
-    .tier h4 {
-      margin: 0;
-      font-size: 1rem;
-    }
-
-    .tier p {
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    .product-detail {
-      width: 75%;
-    }
-
-    .card {
-      background-color: #fff;
-      padding: 1.5rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      margin-bottom: 2rem;
-    }
-
-    .card img {
-      max-width: 100%;
-    }
-
-    .included-items,
-    .add-ons {
-      margin-top: 1rem;
-    }
-
-    .included-items div,
-    .add-ons div {
-      background-color: #f1f1f1;
-      padding: 0.8rem;
-      margin-bottom: 0.5rem;
-      border-radius: 4px;
-    }
-
-    .progress-container {
-      margin-top: 1rem;
-      background-color: #eee;
-      border-radius: 6px;
-      overflow: hidden;
-      height: 20px;
-    }
-
-    .progress-bar {
-      height: 100%;
-      width: 9%;
-      background-color: #28a745;
-    }
-
-    .pledge-button {
-      margin-top: 1rem;
-      padding: 1rem;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      font-weight: bold;
-      width: 100%;
-      cursor: pointer;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.8rem;
-      color: #888;
-    }
-
-  </style>
-</head>
-<body>
-
-  <header>
-    <div class="logo"><strong>The HydroBlast</strong></div>
-    <nav>
-      <a href="#">Campaign</a>
-      <a href="#">Rewards</a>
-      <a href="#">FAQ</a>
-      <a href="#">Updates</a>
-      <a href="#">Comments</a>
-    </nav>
-  </header>
-
-  <div class="main">
-    <!-- Left Tiers -->
-    <div class="tiers">
-      <h3>Available rewards</h3>
-      <div class="tier">
-        <h4>Early Bird x1</h4>
-        <p>US$ 499,000 · 1 thank you letter</p>
-      </div>
-      <div class="tier">
-        <h4>Early Bird x2</h4>
-        <p>US$ 500,000 · 1 items included</p>
-      </div>
-      <div class="tier">
-        <h4>Early Bird x3</h4>
-        <p>US$ 949,000 · 2 items included</p>
-      </div>
-      <div class="tier">
-        <h4>Early Bird x4</h4>
-        <p>US$ 950,000 · 4 items included</p>
-      </div>
+  <section id="description1" class="description">
+    <div class="image">
+      <img src="https://source.unsplash.com/600x800/?water,bottle" alt="HydroBlast Side View">
     </div>
+    <div class="text">
+      <h2>About HydroBlast</h2>
+      <p>
+        HydroBlast is the pinnacle of hydration innovation, combining cutting-edge technology with sleek design. Engineered for performance and built to last, it's the perfect companion for your active lifestyle.
+      </p>
+    </div>
+  </section>
 
-    <!-- Right Product Details -->
-    <div class="product-detail">
-      <div class="card">
-        <h2>Early Bird x1</h2>
-        <p><strong>US$129</strong> (~US$45)</p>
-        <div class="progress-container">
-          <div class="progress-bar"></div>
+  <section class="description">
+    <div class="image">
+      <img src="https://source.unsplash.com/600x800/?technology,water" alt="HydroBlast Features">
+    </div>
+    <div class="text">
+      <h2>Advanced Features</h2>
+      <p>
+        Equipped with smart sensors and customizable settings, HydroBlast adapts to your hydration needs. Its intuitive interface and long-lasting battery life make it a reliable choice for those on the go.
+      </p>
+    </div>
+  </section>
+
+  <section class="description">
+    <div class="image">
+      <img src="https://source.unsplash.com/600x800/?design,innovation" alt="HydroBlast Design">
+    </div>
+    <div class="text">
+      <h2>Elegant Design</h2>
+      <p>
+        With its sleek contours and modern aesthetics, HydroBlast is not just functional but also a style statement. Its ergonomic design ensures comfort and ease of use in any setting.
+      </p>
+    </div>
+  </section>
+
+  <section class="reviews">
+    <div class="reviews-container">
+      <div class="carousel">
+        <div class="review-panel active">
+          <img class="profile-photo" src="https://i.pravatar.cc/80?img=32" alt="Alex profile photo" />
+          <h3>Alex</h3>
+          <div class="stars">★★★★★</div>
+          <p>“Absolutely love my HydroBlast! It’s transformed my daily routine.”</p>
         </div>
-        <p style="margin-top: 0.5rem;">US$ 998,000 pledged of US$ 100,000,000 goal</p>
-        <p>Backers: 2</p>
-        <p>Estimated Delivery: February 2030</p>
-        <p>Ships to: N/A</p>
-
-        <button class="pledge-button">Pledge US$ 499,000</button>
-
-        <div class="included-items">
-          <h3>4 items included</h3>
-          <div>a (Qty: 1)</div>
-          <div>b (Qty: 1)</div>
-          <div>c (Qty: 1)</div>
-          <div>d (Qty: 1)</div>
+        <div class="review-panel">
+          <img class="profile-photo" src="https://i.pravatar.cc/80?img=47" alt="Jamie profile photo" />
+          <h3>Jamie</h3>
+          <div class="stars">★★★★★</div>
+          <p>“Best hydration device I've ever owned. Sleek, smart, and durable.”</p>
         </div>
-
-        <div class="add-ons">
-          <h3>Optional Add-ons</h3>
-          <div>
-            something (+US$15)<br>
-            <small>50% Off – Kickstarter Exclusive!</small>
-          </div>
+        <div class="review-panel">
+          <img class="profile-photo" src="https://i.pravatar.cc/80?img=12" alt="Taylor profile photo" />
+          <h3>Taylor</h3>
+          <div class="stars">★★★★★</div>
+          <p>“Stylish and efficient. Highly recommend to everyone.”</p>
+        </div>
+        <div class="review-panel">
+          <img class="profile-photo" src="https://i.pravatar.cc/80?img=58" alt="Morgan profile photo" />
+          <h3>Morgan</h3>
+          <div class="stars">★★★★★</div>
+          <p>“Keeps me hydrated throughout the day—no more guesswork!”</p>
+        </div>
+        <div class="review-panel">
+          <img class="profile-photo" src="https://i.pravatar.cc/80?img=85" alt="Riley profile photo" />
+          <h3>Riley</h3>
+          <div class="stars">★★★★★</div>
+          <p>“A must-have for fitness enthusiasts. HydroBlast never disappoints.”</p>
         </div>
       </div>
+      <div class="tagline">Loved by Billions!</div>
     </div>
-  </div>
+  </section>
 
-  <div class="footer">
-    &copy; 2025 company name. All rights reserved.
-  </div>
+  <section class="comparison">
+    <h2>HydroBlast vs. Competitors</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>HydroBlast</th>
+          <th>Yeti Rambler</th>
+          <th>Hydro Flask</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Insulation</td>
+          <td>Keeps drinks 3× colder for 24h</td>
+          <td>2× colder for 12h</td>
+          <td>2.5× colder for 18h</td>
+        </tr>
+        <tr>
+          <td>Smart Sensors</td>
+          <td>Built-in hydration tracking</td>
+          <td>None</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td>Battery Life</td>
+          <td>7 days per charge</td>
+          <td>N/A</td>
+          <td>N/A</td>
+        </tr>
+        <tr>
+          <td>Durability</td>
+          <td>Aircraft-grade aluminum + IP68</td>
+          <td>18/8 stainless steel</td>
+          <td>18/8 stainless steel</td>
+        </tr>
+        <tr>
+          <td>Design</td>
+          <td>Ergonomic smart-touch cap</td>
+          <td>Classic loop cap</td>
+          <td>Flex cap</td>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td>$69.99</td>
+          <td>$49.99</td>
+          <td>$44.95</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 
+  <script>
+    // Smooth background color transition
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const heroHeight = document.querySelector('.hero').offsetHeight;
+      const body = document.body;
+      if (scrollY < heroHeight) {
+        const ratio = scrollY / heroHeight;
+        body.style.backgroundColor = `rgb(${Math.round(255 * ratio)}, ${Math.round(255 * ratio)}, ${Math.round(255 * ratio)})`;
+      } else {
+        body.style.backgroundColor = '#ffffff';
+      }
+    });
+
+    // Fade-in effect for description images
+    const images = document.querySelectorAll('.description .image');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    images.forEach(image => observer.observe(image));
+
+    // Scroll to description on button click
+    function scrollToDescription() {
+      document.getElementById('description1').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Reviews carousel rotation
+    const panels = document.querySelectorAll('.review-panel');
+    let current = 0;
+    setInterval(() => {
+      panels[current].classList.remove('active');
+      current = (current + 1) % panels.length;
+      panels[current].classList.add('active');
+    }, 3000);
+  </script>
 </body>
 </html>
-
-
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 company name. All rights reserved.
-  </footer>
-
-  
-  
-  
-  
