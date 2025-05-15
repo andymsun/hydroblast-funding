@@ -27,11 +27,44 @@
       color: inherit;
     }
 
+    /* ===== Floating Header ===== */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      z-index: 1000;
+      mix-blend-mode: difference;
+      color: white;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+      background-color: rgba(255,255,255,0.1);
+    }
+    header.hidden {
+      transform: translateY(-100%);
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    .buy-button {
+      padding: 0.5rem 1rem;
+      border: 1px solid currentColor;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: background-color 0.3s ease;
+    }
+    .buy-button:hover {
+      background-color: currentColor;
+      color: #fff;
+    }
+
     /* Hero Section */
     .hero {
       position: relative;
       height: 100vh;
-      background: url('https://source.unsplash.com/1600x900/?water,technology') center center / cover no-repeat;
+      background: url('https://media.discordapp.net/attachments/1107763489461776545/1372685937288675468/image.png?ex=6827ace6&is=68265b66&hm=2b6538c580c8e2c292faf6cdce1862118a2d744164c4ea6d809a205af95e0c06&=&format=webp&quality=lossless&width=2655&height=1488') center center / cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -225,6 +258,11 @@
   </style>
 </head>
 <body>
+  <header id="site-header">
+    <div class="logo">HydroBlast</div>
+    <a href="#" class="buy-button">Buy Now</a>
+  </header>
+
   <section class="hero">
     <div class="hero-content">
       <h1>HydroBlast</h1>
@@ -360,6 +398,19 @@
   </section>
 
   <script>
+    // Scroll-dependent header show/hide
+    let lastScroll = window.scrollY;
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      const current = window.scrollY;
+      if (current > lastScroll) {
+        header.classList.add('hidden');
+      } else {
+        header.classList.remove('hidden');
+      }
+      lastScroll = current;
+    });
+
     // Smooth background color transition
     window.addEventListener('scroll', () => {
       const scrollY = window.scrollY;
@@ -367,7 +418,8 @@
       const body = document.body;
       if (scrollY < heroHeight) {
         const ratio = scrollY / heroHeight;
-        body.style.backgroundColor = `rgb(${Math.round(255 * ratio)}, ${Math.round(255 * ratio)}, ${Math.round(255 * ratio)})`;
+        const val = Math.round(255 * ratio);
+        body.style.backgroundColor = `rgb(${val},${val},${val})`;
       } else {
         body.style.backgroundColor = '#ffffff';
       }
