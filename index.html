@@ -65,32 +65,33 @@
       font-size:1.5rem;font-weight:500;letter-spacing:.4px;margin-bottom:2rem;
     }
     .marquee-track{
-      display:flex;gap:3rem;width:max-content;
-      animation:scroll 28s linear infinite;
+      display:flex;width:max-content;gap:4rem;
+      animation:scroll 40s linear infinite;
     }
-    .marquee-track img{height:40px;opacity:.8;filter:grayscale(1) brightness(2)}
+    .marquee-track img{height:60px;opacity:.9;filter:grayscale(1) brightness(2)}
     @keyframes scroll{
       0%{transform:translateX(0)}
-      100%{transform:translateX(-50%)}
+      100%{transform:translateX(-100%)}
     }
 
-    /* === NEW: Press / news-outlet section =============================================== */
+    /* === UPDATED: Press / news-outlet section ============================================ */
     .press{
-      background:#f5f5f7;padding:4rem 2rem;text-align:center;
+      background:linear-gradient(135deg,#000,#111);padding:4rem 2rem;text-align:center;color:#fff;
     }
-    .press h2{font-size:1.75rem;margin-bottom:3rem;color:#1d1d1f}
+    .press h2{font-size:1.75rem;margin-bottom:3rem;color:#fff}
     .press-logos{
-      display:flex;flex-wrap:wrap;gap:3rem;justify-content:center;align-items:center;
-      max-width:1100px;margin:0 auto;
+      display:grid;grid-template-columns:repeat(3,1fr);gap:3rem 3rem;justify-items:center;align-items:center;
+      max-width:1200px;margin:0 auto;
     }
     .press-logos .outlet{
-      display:flex;flex-direction:column;align-items:center;width:150px;
+      display:flex;flex-direction:column;align-items:center;width:100%;
     }
     .press-logos img{
-      height:40px;object-fit:contain;margin-bottom:.5rem;
+      height:48px;object-fit:contain;margin-bottom:.75rem;
       filter:grayscale(1) contrast(0) brightness(0) invert(1);
     }
-    .rating{color:#FFD700;font-size:1.2rem}
+    .rating{color:#FFD700;font-size:1.2rem;margin-bottom:0.5rem}
+    .review-quote{font-style:italic;color:#ccc;font-size:0.9rem;max-width:280px;margin:0 auto}
 
     /* Description sections --------------------------------------------------------------- */
     .description{
@@ -107,6 +108,33 @@
     }
     .description .image img{width:100%;border-radius:10px;height:auto}
     .description .image.visible{opacity:1;transform:translateY(0)}
+
+    /* Awards section --------------------------------------------------------------------- */
+    .awards{
+      background:linear-gradient(to right,#000,#080808,#000);
+      color:#fff;padding:6rem 2rem;text-align:center;
+    }
+    .awards h2{
+      font-size:2.5rem;margin-bottom:3rem;background:linear-gradient(90deg,#FFD700,#FFA500);
+      -webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block;
+    }
+    .awards-container{
+      display:flex;justify-content:center;flex-wrap:wrap;gap:4rem;max-width:1200px;margin:0 auto;
+    }
+    .award{
+      flex:0 0 280px;
+      display:flex;flex-direction:column;align-items:center;
+      transition:transform 0.3s ease;
+    }
+    .award:hover{transform:translateY(-10px)}
+    .award-icon{
+      width:100px;height:100px;margin-bottom:1.5rem;
+      border-radius:50%;background:rgba(255,255,255,0.05);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .award-icon svg{width:60px;height:60px;fill:#FFD700}
+    .award h3{font-size:1.2rem;margin-bottom:0.5rem;color:#FFD700}
+    .award p{font-size:0.9rem;color:#aaa;max-width:220px}
 
     /* Reviews / Tagline ------------------------------------------------------------------ */
     .reviews{background:#f5f5f7;padding:4rem 2rem}
@@ -157,8 +185,10 @@
       .carousel,.tagline{width:100%}
       .tagline{font-size:2rem;margin-top:2rem}
       .review-panel{flex:0 0 90%}
-      .marquee-track img{height:32px}
-      .press-logos .outlet{width:120px}
+      .marquee-track img{height:48px}
+      .press-logos{grid-template-columns:1fr}
+      .press-logos img{height:40px}
+      .awards-container{gap:2rem}
     }
   </style>
 </head>
@@ -180,7 +210,7 @@
 
   <!-- Ivy-League marquee -->
   <section class="college-marquee">
-    <h2>Honored to serve students from every Ivy-League school</h2>
+    <h2>Honored to serve students from every Ivy‑League school</h2>
     <div class="marquee-track">
       <!-- group #1 -->
       <img src="https://1000logos.net/wp-content/uploads/2022/10/Dartmouth-College-Logo.png" alt="Dartmouth">
@@ -205,34 +235,98 @@
 
   <!-- Press section -->
   <section class="press">
-    <h2>Featured In — 5-Star* Reviews</h2>
+    <h2>Featured In — 5‑Star* Reviews</h2>
     <div class="press-logos">
       <div class="outlet">
         <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/The_New_York_Times_logo.png" alt="NYT">
         <div class="rating">★★★★★</div>
+        <p class="review-quote">"A revolutionary approach to hydration that will literally blow you away."</p>
+      </div>
+      <div class="outlet">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/WSJ_Logo.svg" alt="WSJ">
+        <div class="rating">★★★★★</div>
+        <p class="review-quote">"Disruptive innovation that could explode onto the market at any moment."</p>
       </div>
       <div class="outlet">
         <img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/The_Verge_logo.svg" alt="The Verge">
         <div class="rating">★★★★★</div>
+        <p class="review-quote">"The future of hydration is here, and it's armed and dangerous."</p>
       </div>
       <div class="outlet">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Wired_logo.svg" alt="Wired">
         <div class="rating">★★★★★</div>
+        <p class="review-quote">"We've never seen anything like it — and we hope to survive to tell the tale."</p>
+      </div>
+      <div class="outlet">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/Bloomberg_logo.svg" alt="Bloomberg">
+        <div class="rating">★★★★★</div>
+        <p class="review-quote">"Investor interest has detonated following the product's volatile debut."</p>
       </div>
       <div class="outlet">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/TechCrunch_logo.svg" alt="TechCrunch">
         <div class="rating">★★★★★</div>
+        <p class="review-quote">"The most compelling reason to stay hydrated we've ever encountered."</p>
+      </div>
+      <div class="outlet">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/BBC_News.svg" alt="BBC">
+        <div class="rating">★★★★★</div>
+        <p class="review-quote">"A rather explosive entry into the competitive water bottle market."</p>
       </div>
       <div class="outlet">
         <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/CNN.svg" alt="CNN">
         <div class="rating">★★★★★</div>
+        <p class="review-quote">"Breaking news: This water bottle breaks more than just records."</p>
       </div>
       <div class="outlet">
         <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Forbes_logo.svg" alt="Forbes">
         <div class="rating">★★★★★</div>
+        <p class="review-quote">"The most persuasive hydration solution on our 30 Under 30 list."</p>
       </div>
     </div>
-    <p style="font-size:.75rem;margin-top:2rem;color:#666">*Stars self-awarded with complete impartiality.</p>
+    <p style="font-size:.75rem;margin-top:2rem;color:#888">*Stars self‑awarded with complete impartiality.</p>
+  </section>
+
+  <!-- Awards Section (NEW) -->
+  <section class="awards">
+    <h2>Award‑Winning Design</h2>
+    <div class="awards-container">
+      <div class="award">
+        <div class="award-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 15.2l-5.5 3.6 2.1-6.4L3 8.2l6.7-.1L12 2l2.3 6.1 6.7.1-5.6 4.2 2.1 6.4z"/>
+          </svg>
+        </div>
+        <h3>Red Dot Design Award</h3>
+        <p>Excellence in Innovation & Motivation</p>
+      </div>
+      <div class="award">
+        <div class="award-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3,11H5V13H3V11M11,5H13V9H11V5M9,11H13V15H11V13H9V11M15,11H17V13H19V11H21V13H19V15H21V19H19V21H17V19H13V17H15V15H17V13H15V11M19,19V15H17V19H19Z"/>
+          </svg>
+        </div>
+        <h3>World Security Award</h3>
+        <p>Personal Hydration Enforcement Category</p>
+      </div>
+      <div class="award">
+        <div class="award-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20,5V8H16V5H20M16,10H20V13H16V10M16,15H20V19H16V15M3,5V19H13V5H3M5,7H11V11H5V7M5,13H11V17H5V13Z"/>
+          </svg>
+        </div>
+        <h3>CES Innovation Prize</h3>
+        <p>Motivational Deviceware & Accountability Tech</p>
+      </div>
+      <div class="award">
+        <div class="award-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
+          </svg>
+        </div>
+        <h3>TimePress Best Invention</h3>
+        <p>Countdown Category Winner</p>
+      </div>
+    </div>
   </section>
 
   <!-- === Original description sections (unchanged) === -->
@@ -240,7 +334,7 @@
     <div class="image"><img src="https://source.unsplash.com/600x800/?water,bottle" alt="HydroBlast Side View" loading="lazy"></div>
     <div class="text">
       <h2>Blast Technology™</h2>
-      <p>Born from audacity, HydroBlast pairs precise sip-sensing with… incentives. Miss a drink window and the integrated charge reminds you — conclusively.</p>
+      <p>Born from audacity, HydroBlast pairs precise sip‑sensing with… incentives. Miss a drink window and the integrated charge reminds you — conclusively.</p>
     </div>
   </section>
 
@@ -248,23 +342,23 @@
     <div class="image"><img src="https://source.unsplash.com/600x800/?technology,water" alt="HydroBlast Features" loading="lazy"></div>
     <div class="text">
       <h2>67× Smarter</h2>
-      <p>Powered by 67 AI models, secured on-chain, and calibrated in the cloud.&nbsp;HydroBlast doesn’t just track hydration — it audits it.</p>
+      <p>Powered by 67 AI models, secured on‑chain, and calibrated in the cloud. HydroBlast doesn't just track hydration — it audits it.</p>
     </div>
   </section>
 
   <section class="description">
     <div class="image"><img src="https://source.unsplash.com/600x800/?design,innovation" alt="HydroBlast Design" loading="lazy"></div>
     <div class="text">
-      <h2>Iconic “Bottle”</h2>
-      <p>Stores up to 44 oz of water at original temperature for a breathtaking 30 minutes. Some call it cutting-edge. We call it hydration, re-imagined.</p>
+      <h2>Iconic "Bottle"</h2>
+      <p>Stores up to 44 oz of water at original temperature for a breathtaking 30 minutes. Some call it cutting‑edge. We call it hydration, re‑imagined.</p>
     </div>
   </section>
 
   <section class="description">
     <div class="image"><img src="https://source.unsplash.com/600x800/?thumbs-up" alt="Thumbs up guy" loading="lazy"></div>
     <div class="text">
-      <h2>Death-Proof* Promise</h2>
-      <p>Dehydration ends today. If the water doesn’t save you, the blast will.</p>
+      <h2>Death‑Proof* Promise</h2>
+      <p>Dehydration ends today. If the water doesn't save you, the blast will.</p>
     </div>
   </section>
 
@@ -272,31 +366,31 @@
   <section class="reviews">
     <div class="reviews-container">
       <div class="carousel">
-        <!-- review panels trimmed for brevity; unchanged -->
+        <!-- review panels -->
         <div class="review-panel">
           <img class="profile-photo" src="https://i.pravatar.cc/80?img=32" alt="Alex profile photo" />
           <h3>Alex</h3><div class="stars">★★★★★</div>
-          <p>“One missed sip and I’ll never forget again. Genius!”</p>
+          <p>"One missed sip and I'll never forget again. Genius!"</p>
         </div>
         <div class="review-panel">
           <img class="profile-photo" src="https://i.pravatar.cc/80?img=47" alt="Jamie profile photo" />
           <h3>Jamie</h3><div class="stars">★★★★★</div>
-          <p>“Finally, accountability with style.”</p>
+          <p>"Finally, accountability with style."</p>
         </div>
         <div class="review-panel">
           <img class="profile-photo" src="https://i.pravatar.cc/80?img=12" alt="Taylor profile photo" />
           <h3>Taylor</h3><div class="stars">★★★★★</div>
-          <p>“The suspense keeps me hydrated — and alive.”</p>
+          <p>"The suspense keeps me hydrated — and alive."</p>
         </div>
         <div class="review-panel">
           <img class="profile-photo" src="https://i.pravatar.cc/80?img=58" alt="Morgan profile photo" />
           <h3>Morgan</h3><div class="stars">★★★★★</div>
-          <p>“Blast sensors &gt; motivation apps.”</p>
+          <p>"Blast sensors > motivation apps."</p>
         </div>
         <div class="review-panel">
           <img class="profile-photo" src="https://i.pravatar.cc/80?img=85" alt="Riley profile photo" />
           <h3>Riley</h3><div class="stars">★★★★★</div>
-          <p>“HydroBlast never disappoints — or misfires.*”</p>
+          <p>"HydroBlast never disappoints — or misfires.*"</p>
         </div>
       </div>
       <div class="tagline">Loved by Billions!</div>
@@ -307,15 +401,14 @@
   <section class="comparison">
     <h2>HydroBlast vs. Competitors</h2>
     <table>
-      <!-- (table body unchanged) -->
       <thead>
         <tr><th>Feature</th><th>HydroBlast</th><th>Yeti Rambler</th><th>Hydro Flask</th></tr>
       </thead>
       <tbody>
         <tr><td>Insulation</td><td>Cold 30 min</td><td>12 h</td><td>18 h</td></tr>
-        <tr><td>Smart Sensors</td><td>AI ×67 • Chain-secured</td><td>None</td><td>None</td></tr>
+        <tr><td>Smart Sensors</td><td>AI ×67 • Chain‑secured</td><td>None</td><td>None</td></tr>
         <tr><td>Battery Life</td><td>Lifetime</td><td>N/A</td><td>N/A</td></tr>
-        <tr><td>Durability</td><td>Paper-cup grade plastic</td><td>18/8 stainless</td><td>18/8 stainless</td></tr>
+        <tr><td>Durability</td><td>Paper‑cup grade plastic</td><td>18/8 stainless</td><td>18/8 stainless</td></tr>
         <tr><td>Design</td><td>Plastic</td><td>Loop cap</td><td>Flex cap</td></tr>
         <tr><td>Explosives</td><td>Yes</td><td>No</td><td>No</td></tr>
         <tr><td>Price</td><td>$2,499.99</td><td>$49.99</td><td>$44.95</td></tr>
