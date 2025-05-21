@@ -136,20 +136,150 @@
     .award h3{font-size:1.2rem;margin-bottom:0.5rem;color:#FFD700}
     .award p{font-size:0.9rem;color:#aaa;max-width:220px}
 
+    /* Product family section (NEW) -------------------------------------------------------- */
+    .product-family{
+      background:linear-gradient(135deg, #000, #0a0a0a);
+      color:#fff;padding:6rem 2rem;text-align:center;
+    }
+    .product-family h2{
+      font-size:2.8rem;margin-bottom:1rem;
+    }
+    .product-family p{
+      font-size:1.2rem;margin-bottom:4rem;max-width:800px;margin-left:auto;margin-right:auto;
+    }
+    .products-grid{
+      display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+      gap:3rem;max-width:1200px;margin:0 auto;
+    }
+    .product-card{
+      background:rgba(255,255,255,0.05);
+      border-radius:20px;overflow:hidden;
+      transition:transform 0.3s ease, box-shadow 0.3s ease;
+      position:relative;
+    }
+    .product-card:hover{
+      transform:translateY(-10px);
+      box-shadow:0 20px 40px rgba(0,0,0,0.4);
+    }
+    .product-image{
+      height:280px;
+      background-color:#111;
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .product-image img{
+      width:80%;height:auto;object-fit:contain;
+      transition:transform 0.5s ease;
+    }
+    .product-card:hover .product-image img{
+      transform:scale(1.05);
+    }
+    .product-info{
+      padding:1.5rem;text-align:left;
+    }
+    .product-info h3{
+      font-size:1.4rem;margin-bottom:0.5rem;
+    }
+    .product-info p{
+      font-size:0.9rem;color:#aaa;margin-bottom:1.5rem;
+    }
+    .product-price{
+      font-size:1.1rem;font-weight:600;
+      display:flex;justify-content:space-between;align-items:center;
+    }
+    .product-status{
+      font-size:0.8rem;
+      padding:0.25rem 0.5rem;
+      background:rgba(0,122,255,0.2);
+      color:#0A84FF;
+      border-radius:4px;
+    }
+
+    /* Video Demo Section (NEW) ---------------------------------------------------------- */
+    .video-demo{
+      background:#0a0a0a;
+      padding:6rem 2rem;
+      color:#fff;
+      text-align:center;
+    }
+    .video-demo h2{
+      font-size:2.8rem;
+      margin-bottom:1.5rem;
+    }
+    .video-demo p{
+      font-size:1.2rem;
+      max-width:700px;
+      margin:0 auto 3rem;
+    }
+    .video-container{
+      max-width:1000px;
+      margin:0 auto;
+      position:relative;
+      background:#111;
+      border-radius:12px;
+      overflow:hidden;
+      aspect-ratio:16/9;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      border:1px solid rgba(255,255,255,0.1);
+    }
+    .security-notice{
+      font-size:1.5rem;
+      font-weight:500;
+      margin-bottom:1rem;
+      color:#ff3b30;
+    }
+    .security-icon{
+      width:80px;
+      height:80px;
+      margin-bottom:1.5rem;
+      opacity:0.8;
+    }
+    .security-desc{
+      max-width:80%;
+      color:#999;
+      font-size:1rem;
+    }
+
     /* Reviews / Tagline ------------------------------------------------------------------ */
-    .reviews{background:#f5f5f7;padding:4rem 2rem}
+    .reviews{
+      background:#f5f5f7;
+      padding:4rem 2rem;
+      overflow:hidden;
+    }
     .reviews-container{
-      display:flex;align-items:center;max-width:1200px;margin:0 auto;gap:2rem;
+      display:flex;
+      align-items:center;
+      max-width:1200px;
+      margin:0 auto;
+      gap:2rem;
     }
     .carousel{
-      display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:2rem;padding-bottom:1rem;
-      -webkit-overflow-scrolling:touch;width:60%;
+      display:flex;
+      gap:2rem;
+      padding-bottom:1rem;
+      width:60%;
+      position:relative;
     }
-    .carousel::-webkit-scrollbar{display:none}
+    .carousel-inner{
+      display:flex;
+      transition:transform 0.5s ease-in-out;
+    }
     .review-panel{
-      flex:0 0 80%;scroll-snap-align:center;
-      background:#fff;border-radius:10px;padding:1.5rem;box-shadow:0 4px 8px rgba(0,0,0,.05);
-      display:flex;flex-direction:column;align-items:center;transition:transform .6s cubic-bezier(.25,.8,.25,1);
+      flex:0 0 100%;
+      background:#fff;
+      border-radius:10px;
+      padding:1.5rem;
+      box-shadow:0 4px 8px rgba(0,0,0,.05);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      transition:transform .3s cubic-bezier(.25,.8,.25,1);
     }
     .review-panel:active{transform:scale(.97)}
     .profile-photo{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:1rem}
@@ -157,6 +287,28 @@
     .stars{margin-bottom:1rem;font-size:1.2rem;color:#FFD700}
     .review-panel p{font-size:1rem;color:#333;line-height:1.4}
     .tagline{flex:1 1 40%;font-size:3rem;font-weight:700;color:#007aff;text-align:center}
+    .carousel-controls {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      justify-content: center;
+    }
+    .carousel-control {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: background 0.3s ease;
+    }
+    .carousel-control:hover {
+      background: #f0f0f0;
+    }
 
     /* Comparison table ------------------------------------------------------------------- */
     .comparison{max-width:1200px;margin:4rem auto;padding:0 2rem}
@@ -178,6 +330,60 @@
     }
     .cta-bar button:hover{background:#005bb5}
 
+    /* Fine print and footer (NEW) -------------------------------------------------------- */
+    .fine-print {
+      background: #f5f5f7;
+      padding: 4rem 2rem;
+      font-size: 0.75rem;
+      color: #86868b;
+      text-align: center;
+    }
+    .fine-print-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .fine-print h3 {
+      font-size: 1rem;
+      color: #1d1d1f;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+    .fine-print p {
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .legal-footer {
+      background: #1d1d1f;
+      color: #86868b;
+      padding: 2rem;
+      font-size: 0.7rem;
+    }
+    .legal-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      gap: 1.5rem;
+    }
+    .legal-links a {
+      color: #a1a1a6;
+      transition: color 0.2s ease;
+    }
+    .legal-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .copyright {
+      text-align: center;
+      border-top: 1px solid #38383a;
+      padding-top: 1.5rem;
+    }
+
     /* Responsive tweaks ------------------------------------------------------------------ */
     @media(max-width:768px){
       .description{padding:4rem 1rem}
@@ -189,6 +395,163 @@
       .press-logos{grid-template-columns:1fr}
       .press-logos img{height:40px}
       .awards-container{gap:2rem}
+      .products-grid{grid-template-columns:1fr}
+    }
+    /* Carousel improvements */
+    .carousel {
+      overflow: hidden;
+      position: relative;
+    }
+    .carousel-inner {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      width: 100%;
+    }
+    .review-panel {
+      min-width: 100%;
+      flex: 0 0 100%;
+    }
+    .carousel-controls {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      justify-content: center;
+    }
+    .carousel-control {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: background 0.3s ease;
+    }
+    .carousel-control:hover {
+      background: #f0f0f0;
+    }
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ccc;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .carousel-dot.active {
+      background: #007aff;
+    }
+
+    /* Disclaimer section */
+    .disclaimers {
+      background: #f5f5f7;
+      padding: 4rem 2rem;
+      font-size: 0.75rem;
+      color: #86868b;
+    }
+    .disclaimers-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .disclaimers h3 {
+      font-size: 1rem;
+      color: #1d1d1f;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+    .disclaimer-item {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .disclaimer-item::before {
+      content: "*";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #1d1d1f;
+    }
+
+    /* Footer section */
+    .site-footer {
+      background: #1d1d1f;
+      color: #86868b;
+      padding: 3rem 2rem;
+      font-size: 0.8rem;
+    }
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .footer-column h4 {
+      color: #fff;
+      font-size: 0.9rem;
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+    }
+    .footer-links {
+      list-style: none;
+    }
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+    .footer-links a {
+      color: #86868b;
+      transition: color 0.2s ease;
+    }
+    .footer-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .legal-footer {
+      background: #1d1d1f;
+      color: #86868b;
+      padding: 2rem;
+      font-size: 0.7rem;
+      border-top: 1px solid #38383a;
+    }
+    .legal-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      gap: 1.5rem;
+    }
+    .legal-links a {
+      color: #a1a1a6;
+      transition: color 0.2s ease;
+    }
+    .legal-links a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .copyright {
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .footer-container {
+        grid-template-columns: 1fr 1fr;
+      }
+      .disclaimer-item {
+        padding-left: 1rem;
+      }
     }
   </style>
 </head>
@@ -286,6 +649,68 @@
     <p style="font-size:.75rem;margin-top:2rem;color:#888">*Stars self‑awarded with complete impartiality.</p>
   </section>
 
+  <!-- Video Demo Section (NEW) -->
+  <section class="video-demo">
+    <h2>Experience the HydroBlast in Action</h2>
+    <p>Witness the revolutionary motivation technology that has changed hydration habits worldwide.</p>
+    <div class="video-container">
+      <svg class="security-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff3b30" stroke-width="1.5">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <line x1="8" y1="9" x2="16" y2="15" />
+        <line x1="16" y1="9" x2="8" y2="15" />
+      </svg>
+      <div class="security-notice">Video Content Restricted</div>
+      <p class="security-desc">This demonstration has been removed as per National Security Directive 7.42b. HydroBlast technology has been classified as a motivational device of exceptional efficacy.</p>
+    </div>
+  </section>
+
+  <!-- Product Family Section (NEW) -->
+  <section class="product-family">
+    <h2>Meet the HydroBlast Family</h2>
+    <p>Choose the right level of hydration motivation for your lifestyle.</p>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://source.unsplash.com/600x800/?water,bottle" alt="HydroBlast Pro">
+        </div>
+        <div class="product-info">
+          <h3>HydroBlast Pro</h3>
+          <p>Our flagship model with military-grade motivation technology and premium glass-reinforced casing. Maximum persuasion for the hydration elite.</p>
+          <div class="product-price">
+            $2,499.99
+            <span class="product-status">Flagship</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://source.unsplash.com/600x800/?explosive,device" alt="Modular Blast™">
+        </div>
+        <div class="product-info">
+          <h3>Modular Blast™</h3>
+          <p>Our universal motivation module attaches to any bottle. Transform your existing containers into hydration accountability partners.</p>
+          <div class="product-price">
+            $1,899.99
+            <span class="product-status">Best Value</span>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img src="https://source.unsplash.com/600x800/?minimal,bottle" alt="HydroBlast(less)">
+        </div>
+        <div class="product-info">
+          <h3>HydroBlast(less)</h3>
+          <p>Our entry-level hydration solution for the cautious consumer. All the style, none of the explosive motivation technology.</p>
+          <div class="product-price">
+            $499.99
+            <span class="product-status">Entry Level</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
   <!-- Awards Section (NEW) -->
   <section class="awards">
     <h2>Award‑Winning Design</h2>
@@ -421,6 +846,97 @@
     <span>HydroBlast — from $2,499.99</span>
     <button>Buy Now</button>
   </div>
+  
+  <!-- Disclaimers Section -->
+<section class="disclaimers">
+  <div class="disclaimers-container">
+    <h3>Important Safety Information & Disclaimers</h3>
+    <div class="disclaimer-item">
+      <p>HydroBlast products are not intended for use by individuals under the age of 21, those with heart conditions, pregnant women, those with anxiety disorders, or anyone who values predictability in their hydration experience.</p>
+    </div>
+    <div class="disclaimer-item">
+      <p>The "Death-Proof Promise" is purely aspirational in nature and should not be considered a legally binding guarantee. HydroBlast Technologies, Inc. does not guarantee users will not die while using our products or at any time thereafter.</p>
+    </div>
+    <div class="disclaimer-item">
+      <p>Blast Technology™ is a proprietary motivational feature that may lead to property damage, personal injury, or awkward explanations to first responders. All users must sign a comprehensive waiver before activating this feature.</p>
+    </div>
+    <div class="disclaimer-item">
+      <p>Reviews marked with an asterisk (*) were obtained from users who were still able to write reviews after their HydroBlast experience. Selection bias may apply.</p>
+    </div>
+    <div class="disclaimer-item">
+      <p>HydroBlast products should not be taken through airport security, into government buildings, schools, hospitals, or any location where sudden loud noises and minor concussive forces may cause alarm.</p>
+    </div>
+    <div class="disclaimer-item">
+      <p>We confirm that fewer than 3% of our customers have reported the product "unintentionally detonating" while in standby mode. This is well below the industry average for motivation-based hydration vessels.</p>
+    </div>
+    <div class="disclaimer-item">
+      <p>The 67 AI models referenced may include basic if/then statements that technically qualify as decision trees but would not meet the conventional threshold for artificial intelligence in most academic circles.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer Section -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-column">
+      <h4>Shop and Learn</h4>
+      <ul class="footer-links">
+        <li><a href="#">HydroBlast Pro</a></li>
+        <li><a href="#">Modular Blast™</a></li>
+        <li><a href="#">HydroBlast(less)</a></li>
+        <li><a href="#">Accessories</a></li>
+        <li><a href="#">Gift Cards</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h4>HydroBlast Services</h4>
+      <ul class="footer-links">
+        <li><a href="#">HydroBlast+ Premium</a></li>
+        <li><a href="#">HydroBlast Care</a></li>
+        <li><a href="#">Emergency Services</a></li>
+        <li><a href="#">Blast Cloud Storage</a></li>
+        <li><a href="#">Hydration Tracking</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h4>For Business</h4>
+      <ul class="footer-links">
+        <li><a href="#">HydroBlast for Enterprise</a></li>
+        <li><a href="#">Shop for Business</a></li>
+        <li><a href="#">Corporate Gifting</a></li>
+        <li><a href="#">Blast for Education</a></li>
+        <li><a href="#">Healthcare Solutions</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h4>Support</h4>
+      <ul class="footer-links">
+        <li><a href="#">HydroBlast Support</a></li>
+        <li><a href="#">Service & Repair</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Detonation FAQs</a></li>
+        <li><a href="#">Safety Recall Information</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<!-- Legal Footer -->
+<div class="legal-footer">
+  <div class="legal-container">
+    <div class="legal-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Legal Information</a>
+      <a href="#">Site Map</a>
+      <a href="#">Explosive Device Regulations</a>
+      <a href="#">End User License Agreement</a>
+    </div>
+    <div class="copyright">
+      Copyright © 2025 HydroBlast Technologies, Inc. All rights reserved. | "Hydration, enforced." is a registered trademark of HydroBlast Technologies, Inc.
+    </div>
+  </div>
+</div>
 
   <!-- Scripts --------------------------------------------------------------------------- -->
   <script>
@@ -461,6 +977,93 @@
     function scrollToDescription(){
       document.getElementById('description1').scrollIntoView({behavior:'smooth'});
     }
+/* Carousel functionality */
+document.addEventListener('DOMContentLoaded', function() {
+  const carousel = document.querySelector('.carousel');
+  const carouselInner = document.createElement('div');
+  carouselInner.className = 'carousel-inner';
+  
+  // Get all review panels and append them to the carousel inner
+  const reviewPanels = document.querySelectorAll('.review-panel');
+  reviewPanels.forEach(panel => {
+    carouselInner.appendChild(panel);
+  });
+  
+  // Clear carousel and append the new structure
+  carousel.innerHTML = '';
+  carousel.appendChild(carouselInner);
+  
+  // Add carousel controls
+  const controlsDiv = document.createElement('div');
+  controlsDiv.className = 'carousel-controls';
+  
+  const prevBtn = document.createElement('div');
+  prevBtn.className = 'carousel-control';
+  prevBtn.innerHTML = '&#10094;';
+  
+  const nextBtn = document.createElement('div');
+  nextBtn.className = 'carousel-control';
+  nextBtn.innerHTML = '&#10095;';
+  
+  controlsDiv.appendChild(prevBtn);
+  controlsDiv.appendChild(nextBtn);
+  carousel.appendChild(controlsDiv);
+  
+  // Add dots navigation
+  const dotsDiv = document.createElement('div');
+  dotsDiv.className = 'carousel-dots';
+  
+  for (let i = 0; i < reviewPanels.length; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'carousel-dot';
+    if (i === 0) dot.classList.add('active');
+    dot.dataset.index = i;
+    dotsDiv.appendChild(dot);
+  }
+  
+  carousel.appendChild(dotsDiv);
+  
+  // Set up carousel functionality
+  let currentSlide = 0;
+  const dots = document.querySelectorAll('.carousel-dot');
+  
+  function showSlide(index) {
+    if (index < 0) index = reviewPanels.length - 1;
+    if (index >= reviewPanels.length) index = 0;
+    
+    currentSlide = index;
+    carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+    
+    // Update active dot
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentSlide);
+    });
+  }
+  
+  // Event listeners
+  prevBtn.addEventListener('click', () => {
+    showSlide(currentSlide - 1);
+  });
+  
+  nextBtn.addEventListener('click', () => {
+    showSlide(currentSlide + 1);
+  });
+  
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      showSlide(parseInt(dot.dataset.index));
+    });
+  });
+  
+  // Auto-rotate every 5 seconds
+  setInterval(() => {
+    showSlide(currentSlide + 1);
+  }, 5000);
+  
+  // Initial slide
+  showSlide(0);
+});
+
   </script>
 </body>
 </html>
