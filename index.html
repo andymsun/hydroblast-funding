@@ -58,11 +58,16 @@
     .hero button:hover{background:#e5e5e7}
 
     /* === NEW: Ivy-League marquee ========================================================= */
+
     .college-marquee{
       background:#001e26;color:#fff;overflow:hidden;padding:3rem 0;text-align:center;
     }
     .college-marquee h2{
       font-size:1.5rem;font-weight:500;letter-spacing:.4px;margin-bottom:2rem;
+    }
+    .marquee-container {
+      overflow: hidden;
+      width: 100%;
     }
     .marquee-track{
       display:flex;width:max-content;gap:4rem;
@@ -71,10 +76,10 @@
     .marquee-track img{height:60px;opacity:.9;filter:grayscale(1) brightness(2)}
     @keyframes scroll{
       0%{transform:translateX(0)}
-      100%{transform:translateX(-100%)}
+      100%{transform:translateX(-50%)}
     }
 
-    /* === UPDATED: Press / news-outlet section ============================================ */
+/* === UPDATED: Press / news-outlet section ============================================ */
     .press{
       background:linear-gradient(135deg,#000,#111);padding:4rem 2rem;text-align:center;color:#fff;
     }
@@ -90,8 +95,8 @@
       height:48px;object-fit:contain;margin-bottom:.75rem;
       filter:grayscale(1) contrast(0) brightness(0) invert(1);
     }
-    .rating{color:#FFD700;font-size:1.2rem;margin-bottom:0.5rem}
-    .review-quote{font-style:italic;color:#ccc;font-size:0.9rem;max-width:280px;margin:0 auto}
+    .rating{color:#FFD700;font-size:1.2rem;margin-bottom:0.5rem;text-align:center;}
+    .review-quote{font-style:italic;color:#ccc;font-size:0.9rem;max-width:280px;margin:0 auto;text-align:center;}
 
     /* Description sections --------------------------------------------------------------- */
     .description{
@@ -148,8 +153,8 @@
       font-size:1.2rem;margin-bottom:4rem;max-width:800px;margin-left:auto;margin-right:auto;
     }
     .products-grid{
-      display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
-      gap:3rem;max-width:1200px;margin:0 auto;
+      display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+      gap:2rem;max-width:1200px;margin:0 auto;
     }
     .product-card{
       background:rgba(255,255,255,0.05);
@@ -171,7 +176,7 @@
       overflow:hidden;
     }
     .product-image img{
-      width:80%;height:auto;object-fit:contain;
+      width:100%;height:100%;object-fit:cover;
       transition:transform 0.5s ease;
     }
     .product-card:hover .product-image img{
@@ -571,38 +576,50 @@
     </div>
   </section>
 
+  
   <!-- college marquee -->
   <section class="college-marquee">
     <h2>Supporting students from top schools around the world</h2>
-    <div class="marquee-track">
-      <!-- group #1 -->
-      <img src="https://1000logos.net/wp-content/uploads/2022/10/Dartmouth-College-Logo.png" alt="Dartmouth">
-      <img src="https://1000logos.net/wp-content/uploads/2022/07/University-of-Princeton-Logo.png" alt="Princeton">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/1200px-Harvard_University_logo.svg.png" alt="Harvard">
-      <img src="https://cdn.prod.website-files.com/655e500f5f4733e36a33ff4c/65695b7e81a1088d80b926be_Upenn.png" alt="Penn">
-      <img src="https://miro.medium.com/v2/resize:fit:1024/0*3qIWoFnZgVUtsXB-.png" alt="Columbia">
-      <img src="https://1000logos.net/wp-content/uploads/2022/05/Brown-University-Logo.png" alt="Brown">
-      <img src="https://studyarchitecture.com/wp-content/uploads/yale-logo-1-2-e1557249165172.png" alt="Yale">
-      <img src="https://cdn.prod.website-files.com/62266fcc3d860c71f00bca09/62a0fe57fce48a24bbc0179f_Cornell%20University%20logo%20png.png" alt="Cornell">
-      <!-- more!! -->
-      <img src="https://media.discordapp.net/attachments/1107763489461776545/1374662959892135976/UChicago_RGB_MAROON.png?ex=682ede25&is=682d8ca5&hm=a81951859b8421984f72b08c798b7b686b0ae31dde52dba32571c742c59ed012&=&format=webp&quality=lossless&width=1339&height=472" alt="UChicago">
-      <img src="https://1000logos.net/wp-content/uploads/2022/08/MIT-Logo.png" alt="MIT">
-      <img src="https://assurgentmedical.com/wp-content/uploads/2017/07/stanford-logo-660x330.png" alt="Stanford">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Peking_University_logo.svg/1280px-Peking_University_logo.svg.png" alt="PKU">
-          <img src="https://sciencesprings.wordpress.com/wp-content/uploads/2022/09/tsinghua-university-logo.png" alt="TShua">
-      <img src="https://connect-nyu-edu.cdn.technolutions.net/www/images/Graduate%20Admissions/Logos/nyu_short_color_medium2_trans.png" alt="NYU">
-      <img src="https://zoom.us/account/branding/p/7b1e708f-8696-4e73-8a75-67f3597daee6.png" alt="BC">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/University_of_Michigan_logo.svg/2560px-University_of_Michigan_logo.svg.png" alt="umich">
-      <img src="https://1000logos.net/wp-content/uploads/2022/07/Johns-Hopkins-University-Logo.png" alt="jhopkins">
+    <div class="marquee-container">
+      <div class="marquee-track">
+        <!-- group #1 -->
+        <img src="https://1000logos.net/wp-content/uploads/2022/10/Dartmouth-College-Logo.png" alt="Dartmouth">
+        <img src="https://1000logos.net/wp-content/uploads/2022/07/University-of-Princeton-Logo.png" alt="Princeton">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/1200px-Harvard_University_logo.svg.png" alt="Harvard">
+        <img src="https://cdn.prod.website-files.com/655e500f5f4733e36a33ff4c/65695b7e81a1088d80b926be_Upenn.png" alt="Penn">
+        <img src="https://miro.medium.com/v2/resize:fit:1024/0*3qIWoFnZgVUtsXB-.png" alt="Columbia">
+        <img src="https://1000logos.net/wp-content/uploads/2022/05/Brown-University-Logo.png" alt="Brown">
+        <img src="https://studyarchitecture.com/wp-content/uploads/yale-logo-1-2-e1557249165172.png" alt="Yale">
+        <img src="https://cdn.prod.website-files.com/62266fcc3d860c71f00bca09/62a0fe57fce48a24bbc0179f_Cornell%20University%20logo%20png.png" alt="Cornell">
+        <img src="https://media.discordapp.net/attachments/1107763489461776545/1374662959892135976/UChicago_RGB_MAROON.png?ex=682ede25&is=682d8ca5&hm=a81951859b8421984f72b08c798b7b686b0ae31dde52dba32571c742c59ed012&=&format=webp&quality=lossless&width=1339&height=472" alt="UChicago">
+        <img src="https://1000logos.net/wp-content/uploads/2022/08/MIT-Logo.png" alt="MIT">
+        <img src="https://assurgentmedical.com/wp-content/uploads/2017/07/stanford-logo-660x330.png" alt="Stanford">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Peking_University_logo.svg/1280px-Peking_University_logo.svg.png" alt="PKU">
+        <img src="https://sciencesprings.wordpress.com/wp-content/uploads/2022/09/tsinghua-university-logo.png" alt="TShua">
+        <img src="https://connect-nyu-edu.cdn.technolutions.net/www/images/Graduate%20Admissions/Logos/nyu_short_color_medium2_trans.png" alt="NYU">
+        <img src="https://zoom.us/account/branding/p/7b1e708f-8696-4e73-8a75-67f3597daee6.png" alt="BC">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/University_of_Michigan_logo.svg/2560px-University_of_Michigan_logo.svg.png" alt="umich">
+        <img src="https://1000logos.net/wp-content/uploads/2022/07/Johns-Hopkins-University-Logo.png" alt="jhopkins">
+        <!-- Duplicate set for seamless loop -->
+        <img src="https://1000logos.net/wp-content/uploads/2022/10/Dartmouth-College-Logo.png" alt="Dartmouth">
+        <img src="https://1000logos.net/wp-content/uploads/2022/07/University-of-Princeton-Logo.png" alt="Princeton">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/1200px-Harvard_University_logo.svg.png" alt="Harvard">
+        <img src="https://cdn.prod.website-files.com/655e500f5f4733e36a33ff4c/65695b7e81a1088d80b926be_Upenn.png" alt="Penn">
+        <img src="https://miro.medium.com/v2/resize:fit:1024/0*3qIWoFnZgVUtsXB-.png" alt="Columbia">
+        <img src="https://1000logos.net/wp-content/uploads/2022/05/Brown-University-Logo.png" alt="Brown">
+        <img src="https://studyarchitecture.com/wp-content/uploads/yale-logo-1-2-e1557249165172.png" alt="Yale">
+        <img src="https://cdn.prod.website-files.com/62266fcc3d860c71f00bca09/62a0fe57fce48a24bbc0179f_Cornell%20University%20logo%20png.png" alt="Cornell">
+      </div>
     </div>
   </section>
+  
 
   <!-- Press section -->
   <section class="press">
     <h2>Featured In — 5‑Star* Reviews</h2>
     <div class="press-logos">
       <div class="outlet">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/NewYorkTimes.svg/1280px-NewYorkTimes.svg.png" alt="NYT">
+        <img src="https://lh6.googleusercontent.com/proxy/mrp8j1NB48q37roF1eCga8fatwzn2I85YhPGFeX2rvtGYsYT72tTPVyt6G-WvZEwW6521w_s-guk2wa6JSW0c-ZifSo_DByjg25JDvHR-qEdmbhNMG0Q3MIvs5PQViw" alt="NYT">
         <div class="rating">★★★★★</div>
         <p class="review-quote">"A revolutionary approach to hydration that will literally blow you away."</p>
       </div>
@@ -672,7 +689,7 @@
     <div class="products-grid">
       <div class="product-card">
         <div class="product-image">
-          <img src="placeholder" alt="HydroBlast Pro">
+          <img src="https://media.discordapp.net/attachments/1107763489461776545/1374837654905946233/image.png?ex=682f80d8&is=682e2f58&hm=3cd7248325b9d3bde3b32e2491eba24fbd5e100c3fce2b6b8efc0a8e6c0fd9eb&=&format=webp&quality=lossless&width=1221&height=1161" alt="HydroBlast Pro">
         </div>
         <div class="product-info">
           <h3>HydroBlast Pro</h3>
@@ -685,7 +702,7 @@
       </div>
       <div class="product-card">
         <div class="product-image">
-          <img src="https://source.unsplash.com/600x800/?explosive,device" alt="Modular Blast™">
+          <img src="https://media.discordapp.net/attachments/1107763489461776545/1374837654905946233/image.png?ex=682f80d8&is=682e2f58&hm=3cd7248325b9d3bde3b32e2491eba24fbd5e100c3fce2b6b8efc0a8e6c0fd9eb&=&format=webp&quality=lossless&width=1221&height=1161" alt="Modular Blast™">
         </div>
         <div class="product-info">
           <h3>Modular Blast™</h3>
@@ -698,7 +715,7 @@
       </div>
       <div class="product-card">
         <div class="product-image">
-          <img src="https://source.unsplash.com/600x800/?minimal,bottle" alt="HydroBlast(less)">
+          <img src="https://media.discordapp.net/attachments/1107763489461776545/1374837654905946233/image.png?ex=682f80d8&is=682e2f58&hm=3cd7248325b9d3bde3b32e2491eba24fbd5e100c3fce2b6b8efc0a8e6c0fd9eb&=&format=webp&quality=lossless&width=1221&height=1161" alt="HydroBlast(less)">
         </div>
         <div class="product-info">
           <h3>HydroBlast(less)</h3>
@@ -757,7 +774,7 @@
 
   <!-- === Original description sections (unchanged) === -->
   <section id="description1" class="description">
-    <div class="image"><img src="https://source.unsplash.com/600x800/?water,bottle" alt="HydroBlast Side View" loading="lazy"></div>
+    <div class="image"><img src="https://media.discordapp.net/attachments/1107763489461776545/1374837654905946233/image.png?ex=682f80d8&is=682e2f58&hm=3cd7248325b9d3bde3b32e2491eba24fbd5e100c3fce2b6b8efc0a8e6c0fd9eb&=&format=webp&quality=lossless&width=1221&height=1161" loading="lazy"></div>
     <div class="text">
       <h2>Blast Technology™</h2>
       <p>Born from audacity, HydroBlast pairs precise sip‑sensing with… incentives. Miss a drink window and the integrated charge reminds you — conclusively.</p>
@@ -765,7 +782,7 @@
   </section>
 
   <section class="description">
-    <div class="image"><img src="https://source.unsplash.com/600x800/?technology,water" alt="HydroBlast Features" loading="lazy"></div>
+    <div class="image"><img src="https://media.discordapp.net/attachments/1107763489461776545/1374837654905946233/image.png?ex=682f80d8&is=682e2f58&hm=3cd7248325b9d3bde3b32e2491eba24fbd5e100c3fce2b6b8efc0a8e6c0fd9eb&=&format=webp&quality=lossless&width=1221&height=1161" alt="HydroBlast Features" loading="lazy"></div>
     <div class="text">
       <h2>67× Smarter</h2>
       <p>Powered by 67 AI models, secured on‑chain, and calibrated in the cloud. HydroBlast doesn't just track hydration — it audits it.</p>
@@ -773,7 +790,7 @@
   </section>
 
   <section class="description">
-    <div class="image"><img src="https://source.unsplash.com/600x800/?design,innovation" alt="HydroBlast Design" loading="lazy"></div>
+    <div class="image"><img src="https://media.discordapp.net/attachments/1107763489461776545/1374837654905946233/image.png?ex=682f80d8&is=682e2f58&hm=3cd7248325b9d3bde3b32e2491eba24fbd5e100c3fce2b6b8efc0a8e6c0fd9eb&=&format=webp&quality=lossless&width=1221&height=1161" alt="HydroBlast Design" loading="lazy"></div>
     <div class="text">
       <h2>Iconic "Bottle"</h2>
       <p>Stores up to 44 oz of water at original temperature for a breathtaking 30 minutes. Some call it cutting‑edge. We call it hydration, re‑imagined.</p>
@@ -781,7 +798,7 @@
   </section>
 
   <section class="description">
-    <div class="image"><img src="https://source.unsplash.com/600x800/?thumbs-up" alt="Thumbs up guy" loading="lazy"></div>
+    <div class="image"><img src="https://media.discordapp.net/attachments/1107763489461776545/1374837654905946233/image.png?ex=682f80d8&is=682e2f58&hm=3cd7248325b9d3bde3b32e2491eba24fbd5e100c3fce2b6b8efc0a8e6c0fd9eb&=&format=webp&quality=lossless&width=1221&height=1161" alt="Thumbs up guy" loading="lazy"></div>
     <div class="text">
       <h2>Death‑Proof* Promise</h2>
       <p>Dehydration ends today. If the water doesn't save you, the blast will.</p>
