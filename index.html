@@ -557,7 +557,8 @@
     <header id="site-header">
         <div class="logo" id="logo-home-button">HydroBlast</div>
         <nav>
-            <a href="#" id="home-nav-link" class="main-nav-link">Home</a> <a href="#features" class="main-nav-link">Features</a>
+            <a href="#" id="home-nav-link" class="main-nav-link">Home</a>
+            <a href="#features" class="main-nav-link">Features</a>
             <a href="#demo" class="main-nav-link">Demo</a>
             <a href="#products" class="main-nav-link">Products</a>
             <a href="#reviews-section" class="main-nav-link">Reviews</a>
@@ -608,7 +609,8 @@
                     <h3>HydroBlast Pro</h3>
                     <p>Our flagship model with military-grade motivation technology and premium glass-reinforced casing. Maximum persuasion for the hydration elite.</p>
                     <div class="product-price"> $2,499.99 <span class="product-status">Flagship</span> </div>
-                    <button class="btn-primary product-buy-button">Buy Now</button> </div>
+                    <button class="btn-primary product-buy-button">Buy Now</button>
+                </div>
             </div>
             <div class="product-card">
                 <div class="product-image"> <img src="gadsfdcagd.png" alt="Modular Blast™"> </div>
@@ -616,7 +618,8 @@
                     <h3>Modular Blast™</h3>
                     <p>Our universal motivation module attaches to any bottle. Transform your existing containers into hydration accountability partners.</p>
                     <div class="product-price"> $1,899.99 <span class="product-status">Best Value</span> </div>
-                    <button class="btn-primary product-buy-button">Buy Now</button> </div>
+                    <button class="btn-primary product-buy-button">Buy Now</button>
+                </div>
             </div>
             <div class="product-card">
                 <div class="product-image"> <img src="adsfgadsda.png" alt="HydroBlast(less)"> </div>
@@ -624,7 +627,8 @@
                     <h3>HydroBlast(less)</h3>
                     <p>Our entry-level hydration solution for the cautious consumer. All the style, none of the explosive motivation technology.</p>
                     <div class="product-price"> $499.99 <span class="product-status">Entry Level</span> </div>
-                    <button class="btn-primary product-buy-button">Buy Now</button> </div>
+                    <button class="btn-primary product-buy-button">Buy Now</button>
+                </div>
             </div>
         </div>
     </section>
@@ -872,18 +876,19 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
         const developerNavLink = document.getElementById('developer-nav-link');
         const joinTeamNavLink = document.getElementById('join-team-nav-link');
         const logoHomeButton = document.getElementById('logo-home-button');
-        const mainNavLinks = document.querySelectorAll('nav a.main-nav-link'); // Includes the new Home link
+        const mainNavLinks = document.querySelectorAll('nav a.main-nav-link');
 
         const ctaBar = document.getElementById('cta');
         const siteFooterSection = document.getElementById('site-footer-section');
         const legalFooter = document.querySelector('.legal-footer');
+        const disclaimersSection = document.getElementById('disclaimers-section'); // Get the disclaimers section
 
         const purchaseModal = document.getElementById('purchase-modal');
         const modalCloseButton = document.getElementById('modal-close-button');
         const headerBuyButton = document.getElementById('header-buy-button');
         const ctaBuyButton = document.getElementById('cta-buy-button');
         const fakePurchaseForm = document.getElementById('fake-purchase-form');
-        const productBuyButtons = document.querySelectorAll('.product-buy-button'); // New product buttons
+        const productBuyButtons = document.querySelectorAll('.product-buy-button');
 
         const heroSection = document.querySelector('.hero');
 
@@ -919,6 +924,7 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
             if(ctaBar) ctaBar.style.display = 'none';
             if(siteFooterSection) siteFooterSection.style.display = 'none';
             if(legalFooter) legalFooter.style.display = 'none';
+            if(disclaimersSection) disclaimersSection.style.display = 'none'; // Hide disclaimers
             window.scrollTo(0, 0);
         }
 
@@ -931,6 +937,7 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
             if(ctaBar) ctaBar.style.display = 'none';
             if(siteFooterSection) siteFooterSection.style.display = 'none';
             if(legalFooter) legalFooter.style.display = 'none';
+            if(disclaimersSection) disclaimersSection.style.display = 'none'; // Hide disclaimers
             window.scrollTo(0, 0);
         }
 
@@ -939,11 +946,12 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
             if(developerPortal) developerPortal.style.display = 'none';
             if(joinTeamPortal) joinTeamPortal.style.display = 'none';
 
-            window.dispatchEvent(new Event('scroll'));
+            window.dispatchEvent(new Event('scroll')); // Trigger scroll for background color
 
             if(ctaBar) ctaBar.style.display = 'flex';
-            if(siteFooterSection) siteFooterSection.style.display = 'grid'; // Assuming it's a grid
+            if(siteFooterSection) siteFooterSection.style.display = 'grid';
             if(legalFooter) legalFooter.style.display = 'block';
+            if(disclaimersSection) disclaimersSection.style.display = 'block'; // Show disclaimers
             window.scrollTo(0, 0);
         }
 
@@ -1052,7 +1060,7 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
                 const targetId = this.getAttribute('href');
 
                 if (isPortalActive) {
-                    showMainContent(); // This also scrolls to top
+                    showMainContent();
                     if (targetId && targetId.startsWith('#') && targetId !== '#') {
                         e.preventDefault();
                         setTimeout(() => {
@@ -1061,8 +1069,8 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
                                 targetElement.scrollIntoView({ behavior: 'smooth' });
                             }
                         }, 100);
-                    } else if (targetId === '#') { // Home link
-                        e.preventDefault(); // Already handled by showMainContent's scroll to top
+                    } else if (targetId === '#') {
+                        e.preventDefault();
                     }
                 } else if (targetId && targetId.startsWith('#')) {
                     const targetElement = document.querySelector(targetId);
@@ -1101,14 +1109,13 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
             });
         }
 
-        // Add event listeners for new product buy buttons
         if (productBuyButtons.length > 0) {
             productBuyButtons.forEach(button => {
                 button.addEventListener('click', openPurchaseModal);
             });
         }
 
-        showMainContent(); // Initial page setup
+        showMainContent();
     });
 </script>
 </body>
