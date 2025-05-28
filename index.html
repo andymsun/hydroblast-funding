@@ -1,68 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>HydroBlast - Hydration, Enforced.</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>HydroBlast - Hydration, Enforced.</title>
 
-  <link rel="preload" as="image" href="dagdfasdas.png">
+    <link rel="preload" as="image" href="dagdfasdas.png">
 
-  <style>
+    <style>
     /* Reset & base -------------------------------------------------------------------------*/
     *{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
-      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open Sans','Helvetica Neue',sans-serif;
-      transition:background-color 1s ease;
-      background:#000;color:#1d1d1f;line-height:1.6;
+        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,'Open Sans','Helvetica Neue',sans-serif;
+        transition:background-color 1s ease; /* Kept user's original transition time */
+        background:#000;color:#1d1d1f;line-height:1.6;
     }
     a{text-decoration:none;color:inherit}
 
     /* Floating header ----------------------------------------------------------------------*/
     header{
-      position:fixed;top:0;left:0;right:0;z-index:1000;
-      display:flex;justify-content:space-between;align-items:center;
-      padding:1rem 2rem;
-      background:rgba(255,255,255,.1);backdrop-filter:saturate(180%) blur(20px);
-      mix-blend-mode:difference;color:#fff;
-      transition:transform .3s ease,background-color .3s ease;
+        position:fixed;top:0;left:0;right:0;z-index:1000;
+        display:flex;justify-content:space-between;align-items:center;
+        padding:1rem 2rem;
+        background:rgba(255,255,255,.1);backdrop-filter:saturate(180%) blur(20px); /* User's original blur */
+        mix-blend-mode:difference;color:#fff;
+        transition:transform .3s ease,background-color .3s ease;
+        /* box-shadow: 0 1px 3px rgba(0,0,0,0.05); */ /* Subtle shadow for depth if not at top, can be added with JS */
     }
     header.hidden{transform:translateY(-100%)}
-    .logo{font-size:1.25rem;font-weight:600; margin-right: auto; cursor: pointer;} /* Added cursor */
+    .logo{font-size:1.35rem;font-weight:700; margin-right: auto; cursor: pointer; letter-spacing: -0.5px;} /* Slightly more prominent */
     nav {
         display: flex;
         gap: 0.8rem;
         align-items: center;
         margin-right: 1.5rem;
     }
-    nav a, nav span.nav-link { /* Apply to both a and span */
+    nav a, nav span.nav-link {
         font-size: 0.85rem;
         font-weight: 500;
         padding: 0.25rem 0.5rem;
         border-radius: 4px;
-        transition: background-color 0.3s ease, color 0.3s ease;
+        transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         white-space: nowrap;
         cursor: pointer;
+        position: relative;
     }
-    nav a:hover, nav span.nav-link:hover {
+    nav a:hover, nav span.nav-link:hover { /* Default hover for general links */
         background-color: rgba(255,255,255,0.2);
     }
-    .buy-button{
-      padding:.5rem 1rem;border:1px solid currentColor;border-radius:6px;
-      font-weight:500;transition:background-color .3s ease;
-      white-space: nowrap;
-      cursor: pointer;
+
+    /* Specific Nav Link Styles */
+    #developer-nav-link {
+        font-weight: 700; /* Bold */
+        color: #00AFFF; /* Bright, techy blue */
+        border: 1px solid #00AFFF;
+        padding: 0.2rem 0.45rem; /* Adjusted for border */
     }
-    .buy-button:hover{background-color:currentColor;color:#000}
+    #developer-nav-link:hover {
+        background-color: rgba(0, 175, 255, 0.1); /* Lighter blue background */
+        color: #33c6ff;
+        border-color: #33c6ff;
+    }
+
+    #join-team-nav-link { /* Style for the new "Join the Team" link */
+        font-weight: 700; /* Bold */
+        color: #FFD700; /* Gold */
+        border: 1px solid #FFD700;
+        padding: 0.2rem 0.45rem; /* Adjusted for border */
+    }
+    #join-team-nav-link:hover {
+        background-color: rgba(255, 215, 0, 0.1); /* Lighter gold background */
+        color: #ffe066;
+        border-color: #ffe066;
+    }
+
+
+    .btn-primary { /* Enhanced primary button style */
+        padding: 0.7rem 1.6rem;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        /* text-transform: uppercase; */ /* Optional, can be too much for header */
+        letter-spacing: 0.3px;
+        color: #fff;
+        background: linear-gradient(45deg, #00AFFF, #007AFF);
+        border: none;
+        box-shadow: 0 3px 12px rgba(0, 123, 255, 0.25);
+        transition: all 0.25s ease-out;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+    .btn-primary:hover {
+        background: linear-gradient(45deg, #0095dd, #0062cc);
+        box-shadow: 0 5px 18px rgba(0, 123, 255, 0.35);
+        transform: translateY(-2px);
+    }
+    .btn-primary:active {
+        transform: translateY(0px);
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+    }
+    /* Apply to header buy button */
+    .buy-button { /* This is the span acting as a button */
+        display: inline-block; /* To allow padding and proper styling */
+        padding: 0.7rem 1.6rem;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 0.3px;
+        color: #fff; /* Will be affected by mix-blend-mode */
+        background: currentColor; /* Will be affected by mix-blend-mode */
+        border: 1px solid currentColor; /* Will be affected by mix-blend-mode */
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        transition: all 0.25s ease-out;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+     /* Because of mix-blend-mode, hover needs to be carefully considered.
+        The original hover was: background-color:currentColor;color:#000
+        This means it inverts. Let's keep that powerful effect.
+     */
+    .buy-button:hover {
+        background-color: #fff; /* On hover, background becomes white (solid) */
+        color: #000; /* Text becomes black */
+        /* mix-blend-mode will make this appear as inverted colors against the background */
+        transform: translateY(-2px);
+        box-shadow: 0 5px 18px rgba(0,0,0,0.15);
+    }
+
 
     /* Hero */
     .hero{ height:100vh;position:relative; background:url('dagdfasdas.png') center/cover no-repeat; display:flex;align-items:center;justify-content:center;text-align:center;color:#fff; }
     .hero::before{ content:"";position:absolute;inset:0; background:radial-gradient(circle at center,rgba(0,0,0,.25) 0%,rgba(0,0,0,.65) 100%); z-index:0; }
     .hero-content{position:relative;z-index:1;max-width:800px;padding:0 20px}
-    .hero h1{font-size:4rem;font-weight:600;margin-bottom:1rem}
-    .hero p{font-size:1.5rem;margin-bottom:2rem}
-    .hero button{ background:#fff;color:#1d1d1f;border:1px solid rgba(0,0,0,.1); padding:1rem 2.5rem;font-size:1rem;border-radius:8px;cursor:pointer; transition:background-color .3s ease; }
-    .hero button:hover{background:#e5e5e7}
+    .hero h1{font-size:4.2rem;font-weight:700;margin-bottom:1rem; letter-spacing: -1px;} /* Slightly larger and bolder */
+    .hero p{font-size:1.6rem;margin-bottom:2.5rem; font-weight: 300;} /* Slightly larger, lighter weight for contrast */
+    .hero button{
+        background: rgba(255,255,255,0.95); /* Slightly transparent white */
+        color: #1d1d1f;
+        border: none; /* Clean look */
+        padding:1.1rem 2.8rem;font-size:1.05rem;border-radius:10px;cursor:pointer; /* Rounded more */
+        transition:all .3s cubic-bezier(.25,.8,.25,1); /* Smoother transition */
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        font-weight: 500;
+        /* backdrop-filter: blur(3px); */ /* Optional: subtle glass */
+    }
+    .hero button:hover{
+        background:#fff;
+        transform:translateY(-4px) scale(1.03);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
 
     /* College marquee */
     .college-marquee{ background:#001e26;color:#fff;overflow:hidden;padding:3rem 0;text-align:center; }
@@ -73,115 +160,184 @@
     @keyframes scroll{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
     /* Press */
-    .press{ background:linear-gradient(135deg,#000,#111);padding:4rem 2rem;text-align:center;color:#fff; }
-    .press h2{font-size:1.75rem;margin-bottom:3rem;color:#fff}
-    .press-logos{ display:grid;grid-template-columns:repeat(3,1fr);gap:3rem 3rem;justify-items:center;align-items:center; max-width:1200px;margin:0 auto; }
-    .press-logos .outlet{ display:flex;flex-direction:column;align-items:center;width:100%; }
-    .press-logos img{ height:48px;object-fit:contain;margin-bottom:.75rem; filter:grayscale(1) contrast(0) brightness(0) invert(1); }
+    .press{ background:linear-gradient(135deg,#000,#111);padding:5rem 2rem;text-align:center;color:#fff; } /* Increased padding */
+    .press h2{font-size:2rem;margin-bottom:3.5rem;color:#fff; font-weight: 600;} /* Bolder */
+    .press-logos{ display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:3rem 3rem;justify-items:center;align-items:stretch; max-width:1200px;margin:0 auto; } /* align-items: stretch */
+    .press-logos .outlet{
+        display:flex;flex-direction:column;align-items:center;width:100%;
+        padding: 1.5rem 1rem; background: rgba(255,255,255,0.02); border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.05);
+        transition: background 0.3s ease, transform 0.3s ease;
+    }
+    .press-logos .outlet:hover {
+        background: rgba(255,255,255,0.05);
+        transform: translateY(-5px);
+    }
+    .press-logos img{ height:48px;max-width:80%;object-fit:contain;margin-bottom:.75rem; filter:grayscale(1) contrast(0) brightness(0) invert(1); }
     .rating{color:#FFD700;font-size:1.2rem;margin-bottom:0.5rem;text-align:center;}
-    .review-quote{font-style:italic;color:#ccc;font-size:0.9rem;max-width:280px;margin:0 auto;text-align:center;}
+    .review-quote{font-style:italic;color:#ccc;font-size:0.9rem;max-width:280px;margin:0 auto;text-align:center; flex-grow: 1;}
 
     /* Description sections */
     .description{ display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap; padding:6rem 2rem;max-width:1200px;margin:0 auto; }
     main#main-content-area section#features > .description:nth-of-type(even) { flex-direction: row-reverse; }
-    .description .text{flex:1 1 60%;padding:1rem}
-    .description .text h2{font-size:3rem;margin-bottom:1rem}
-    .description .text p{font-size:1.1rem;line-height:1.8}
+    .description .text{flex:1 1 60%;padding:1rem 2rem;} /* Increased padding for text */
+    .description .text h2{font-size:3rem;margin-bottom:1.5rem; font-weight: 600;} /* Bolder */
+    .description .text p{font-size:1.1rem;line-height:1.8; color: #333;}
     .description .image{ flex:1 1 35%;padding:1rem;opacity:0;transform:translateY(50px); transition:opacity .6s cubic-bezier(.25,.8,.25,1),transform .6s cubic-bezier(.25,.8,.25,1); }
-    .description .image img{width:100%;border-radius:10px;height:auto}
+    .description .image img{width:100%;border-radius:16px;height:auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1);} /* Softer radius, subtle shadow */
     .description .image.visible{opacity:1;transform:translateY(0)}
 
     /* Awards section */
     .awards{ background:linear-gradient(to right,#000,#080808,#000); color:#fff;padding:6rem 2rem;text-align:center; }
-    .awards h2{ font-size:2.5rem;margin-bottom:3rem;background:linear-gradient(90deg,#FFD700,#FFA500); -webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block; }
-    .awards-container{ display:flex;justify-content:center;flex-wrap:wrap;gap:4rem;max-width:1200px;margin:0 auto; }
-    .award{ flex:0 0 280px; display:flex;flex-direction:column;align-items:center; transition:transform 0.3s ease; }
-    .award:hover{transform:translateY(-10px)}
-    .award-icon{ width:100px;height:100px;margin-bottom:1.5rem; border-radius:50%;background:rgba(255,255,255,0.05); display:flex;align-items:center;justify-content:center; }
-    .award-icon svg{width:60px;height:60px;fill:#FFD700}
-    .award h3{font-size:1.2rem;margin-bottom:0.5rem;color:#FFD700}
+    .awards h2{ font-size:2.8rem;margin-bottom:3.5rem;background:linear-gradient(90deg,#FFD700,#FFA500); -webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block; font-weight: 700;}
+    .awards-container{ display:flex;justify-content:center;flex-wrap:wrap;gap:3rem;max-width:1200px;margin:0 auto; } /* Reduced gap slightly */
+    .award{
+        flex:0 0 280px; display:flex;flex-direction:column;align-items:center;
+        transition:transform 0.3s ease, box-shadow 0.3s ease;
+        background: rgba(255,255,255,0.03); border-radius: 16px; padding: 2rem 1.5rem;
+        border: 1px solid rgba(255,255,255,0.08);
+    }
+    .award:hover{transform:translateY(-10px); box-shadow: 0 15px 30px rgba(255,215,0,0.1);}
+    .award-icon{ width:80px;height:80px;margin-bottom:1.5rem; border-radius:50%;background:rgba(255,255,255,0.08); display:flex;align-items:center;justify-content:center; } /* Smaller icon */
+    .award-icon svg{width:48px;height:48px;fill:#FFD700} /* Adjusted SVG size */
+    .award h3{font-size:1.2rem;margin-bottom:0.5rem;color:#FFD700; font-weight: 600;}
     .award p{font-size:0.9rem;color:#aaa;max-width:220px}
 
     /* Product family section */
     .product-family{ background:linear-gradient(135deg, #000, #0a0a0a); color:#fff;padding:6rem 2rem;text-align:center; }
-    .product-family h2{ font-size:2.8rem;margin-bottom:1rem; }
-    .product-family p{ font-size:1.2rem;margin-bottom:4rem;max-width:800px;margin-left:auto;margin-right:auto; }
-    .products-grid{ display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:2rem;max-width:1200px;margin:0 auto; }
-    .product-card{ background:rgba(255,255,255,0.05); border-radius:20px;overflow:hidden; transition:transform 0.3s ease, box-shadow 0.3s ease; position:relative; }
-    .product-card:hover{ transform:translateY(-10px); box-shadow:0 20px 40px rgba(0,0,0,0.4); }
+    .product-family h2{ font-size:2.8rem;margin-bottom:1rem; font-weight: 700;}
+    .product-family p{ font-size:1.2rem;margin-bottom:4rem;max-width:800px;margin-left:auto;margin-right:auto; color: #bbb;}
+    .products-grid{ display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2.5rem;max-width:1200px;margin:0 auto; } /* Slightly larger minmax */
+    .product-card{
+        background:rgba(255,255,255,0.04); border-radius:20px;overflow:hidden;
+        transition:transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        position:relative; border: 1px solid rgba(255,255,255,0.1);
+    }
+    .product-card:hover{
+        transform:translateY(-12px); box-shadow:0 25px 50px rgba(0,0,0,0.45);
+        border-color: rgba(255,255,255,0.25);
+    }
     .product-image{ height:280px; background-color:#111; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; }
     .product-image img{ width:100%;height:100%;object-fit:cover; transition:transform 0.5s ease; }
     .product-card:hover .product-image img{ transform:scale(1.05); }
     .product-info{ padding:1.5rem;text-align:left; }
-    .product-info h3{ font-size:1.4rem;margin-bottom:0.5rem; }
+    .product-info h3{ font-size:1.4rem;margin-bottom:0.5rem; font-weight: 600;}
     .product-info p{ font-size:0.9rem;color:#aaa;margin-bottom:1.5rem; }
     .product-price{ font-size:1.1rem;font-weight:600; display:flex;justify-content:space-between;align-items:center; }
-    .product-status{ font-size:0.8rem; padding:0.25rem 0.5rem; background:rgba(0,122,255,0.2); color:#0A84FF; border-radius:4px; }
+    .product-status{ font-size:0.8rem; padding:0.25rem 0.5rem; background:rgba(0,122,255,0.2); color:#0A84FF; border-radius:4px; font-weight: 500;}
 
     /* Video Demo Section */
     .video-demo{ background:#0a0a0a; padding:6rem 2rem; color:#fff; text-align:center; }
-    .video-demo h2{ font-size:2.8rem; margin-bottom:1.5rem; }
-    .video-demo p{ font-size:1.2rem; max-width:700px; margin:0 auto 3rem; }
-    .video-container{ max-width:1000px; margin:0 auto; position:relative; background:#111; border-radius:12px; overflow:hidden; aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; flex-direction:column; border:1px solid rgba(255,255,255,0.1); }
+    .video-demo h2{ font-size:2.8rem; margin-bottom:1.5rem; font-weight: 700;}
+    .video-demo p{ font-size:1.2rem; max-width:700px; margin:0 auto 3rem; color: #bbb;}
+    .video-container{ max-width:1000px; margin:0 auto; position:relative; background:#111; border-radius:12px; overflow:hidden; aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; flex-direction:column; border:1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.2);}
     .security-notice{ font-size:1.5rem; font-weight:500; margin-bottom:1rem; color:#ff3b30; }
     .security-icon{ width:80px; height:80px; margin-bottom:1.5rem; opacity:0.8; }
     .security-desc{ max-width:80%; color:#999; font-size:1rem; }
 
     /* Reviews / Tagline */
-    .reviews{ background:#f5f5f7; padding:4rem 2rem; overflow:hidden; }
-    .reviews-container{ display:flex; align-items:center; max-width:1200px; margin:0 auto; gap:2rem; }
-    .carousel{ display:flex; gap:2rem; padding-bottom:1rem; width:60%; position:relative; overflow: hidden; }
+    .reviews{ background:#f5f5f7; padding:5rem 2rem; overflow:hidden; } /* Increased padding */
+    .reviews-container{ display:flex; align-items:center; max-width:1200px; margin:0 auto; gap:3rem; } /* Increased gap */
+    .carousel{ display:flex; flex-direction: column; /* For controls/dots below */ gap:1rem; padding-bottom:1rem; width:60%; position:relative; overflow: hidden; }
     .carousel-inner{ display:flex; transition:transform 0.5s ease-in-out; width: 100%; }
-    .review-panel{ min-width: 100%; flex:0 0 100%; background:#fff; border-radius:10px; padding:1.5rem; box-shadow:0 4px 8px rgba(0,0,0,.05); display:flex; flex-direction:column; align-items:center; transition:transform .3s cubic-bezier(.25,.8,.25,1); }
+    .review-panel{ min-width: 100%; flex:0 0 100%; background:#fff; border-radius:16px; padding:2rem; box-shadow:0 8px 25px rgba(0,0,0,.07); display:flex; flex-direction:column; align-items:center; transition:transform .3s cubic-bezier(.25,.8,.25,1); border: 1px solid #e0e0e0;} /* Enhanced panel */
     .review-panel:active{transform:scale(.97)}
-    .profile-photo{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:1rem}
-    .review-panel h3{margin-bottom:.5rem;font-size:1.1rem}
+    .profile-photo{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:1rem; border: 3px solid #007aff;} /* Added border */
+    .review-panel h3{margin-bottom:.5rem;font-size:1.2rem; font-weight: 600;} /* Bolder */
     .stars{margin-bottom:1rem;font-size:1.2rem;color:#FFD700}
-    .review-panel p{font-size:1rem;color:#333;line-height:1.4}
-    .tagline{flex:1 1 40%;font-size:3rem;font-weight:700;color:#007aff;text-align:center}
+    .review-panel p{font-size:1rem;color:#333;line-height:1.5; text-align: center;} /* Centered text */
+    .tagline{flex:1 1 40%;font-size:3.2rem;font-weight:700;color:#007aff;text-align:center; line-height: 1.2;} /* Slightly larger, line-height */
     .carousel-controls { display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: center; }
-    .carousel-control { width: 40px; height: 40px; border-radius: 50%; background: #fff; border: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: background 0.3s ease; }
-    .carousel-control:hover { background: #f0f0f0; }
-    .carousel-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem; }
-    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; transition: background 0.3s ease; }
-    .carousel-dot.active { background: #007aff; }
+    .carousel-control { width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: all 0.3s ease; color: #007aff; font-size: 1.2rem;} /* Enhanced controls */
+    .carousel-control:hover { background: #007aff; color: #fff; transform: scale(1.1); }
+    .carousel-dots { display: flex; justify-content: center; gap: 0.6rem; margin-top: 1rem; } /* Increased gap */
+    .carousel-dot { width: 10px; height: 10px; border-radius: 50%; background: #ccc; cursor: pointer; transition: all 0.3s ease; } /* Larger dots */
+    .carousel-dot.active { background: #007aff; transform: scale(1.2);}
 
     /* Comparison table */
-    .comparison{max-width:1200px;margin:4rem auto;padding:0 2rem}
-    .comparison h2{text-align:center;margin-bottom:1.5rem;font-size:2rem}
-    .comparison table{width:100%;border-collapse:collapse;text-align:center}
-    .comparison th,.comparison td{border:1px solid #ddd;padding:.75rem}
-    .comparison th{background:#f0f0f5;font-weight:600}
+    .comparison{max-width:1200px;margin:5rem auto;padding:0 2rem} /* Increased margin */
+    .comparison h2{text-align:center;margin-bottom:2rem;font-size:2.2rem; font-weight: 600;} /* Bolder */
+    .comparison table{width:100%;border-collapse:collapse;text-align:center; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden;} /* Added shadow and radius */
+    .comparison th,.comparison td{border:1px solid #e0e0e0;padding:1rem .75rem;} /* Increased padding */
+    .comparison th{background:#f0f0f5;font-weight:600; font-size: 1.05rem;}
     .comparison tr:nth-child(even){background:#fafafa}
+    .comparison td:first-child { text-align: left; font-weight: 500;} /* Align first column left */
+
 
     /* Meet the Team section */
     .meet-team { background: linear-gradient(135deg, #1a1a1a, #2d2d2d); color: #fff; padding: 6rem 2rem; text-align: center; }
-    .meet-team h2 { font-size: 2.8rem; margin-bottom: 1.5rem; background: linear-gradient(90deg, #007aff, #00d4ff); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
+    .meet-team h2 { font-size: 2.8rem; margin-bottom: 1.5rem; background: linear-gradient(90deg, #007aff, #00d4ff); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; font-weight: 700;}
     .meet-team p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 4rem; color: #ccc; }
-    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto; justify-items: center; }
-    .team-member { background: rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 2rem 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; position: relative; overflow: hidden; }
-    .team-member:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); }
-    .team-member::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #007aff, #00d4ff); }
-    .team-avatar { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 1.5rem; background: rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; overflow: hidden; }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto; justify-items: center; } /* Slightly larger minmax */
+    .team-member {
+        background: rgba(255, 255, 255, 0.04); border-radius: 20px; padding: 2rem 1.5rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
+    }
+    .team-member:hover {
+        transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        border-color: rgba(0, 122, 255, 0.5);
+    }
+    .team-member::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #007aff, #00d4ff); transition: height 0.3s ease;} /* Thicker, transition */
+    .team-member:hover::before { height: 6px; }
+    .team-avatar { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 1.5rem; background: rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; overflow: hidden; border: 3px solid rgba(0,122,255,0.3);} /* Added border */
     .team-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-    .team-member h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: #fff; }
-    .team-role { font-size: 0.9rem; color: #007aff; margin-bottom: 1rem; font-weight: 500; }
+    .team-member h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: #fff; font-weight: 600;}
+    .team-role { font-size: 0.9rem; color: #00AFFF; margin-bottom: 1rem; font-weight: 500; } /* Brighter blue */
     .team-bio { font-size: 0.85rem; color: #aaa; line-height: 1.5; margin-bottom: 1.5rem; }
     .team-expertise { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
-    .expertise-tag { background: rgba(0, 122, 255, 0.2); color: #0A84FF; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.7rem; font-weight: 500; }
-    .team-member.founder { border: 2px solid rgba(255, 215, 0, 0.3); }
+    .expertise-tag { background: rgba(0, 122, 255, 0.2); color: #0A84FF; padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; } /* Slightly larger padding/font */
+    .team-member.founder { border-color: rgba(255, 215, 0, 0.5); } /* More visible border */
     .team-member.founder::before { background: linear-gradient(90deg, #FFD700, #FFA500); }
-    .team-member.excel { border: 2px solid rgba(16, 124, 16, 0.3); }
+    .team-member.excel { border-color: rgba(16, 124, 16, 0.5); } /* More visible border */
     .team-member.excel::before { background: linear-gradient(90deg, #107C10, #16C60C); }
 
-    /* Developer Portal Section Styles */
-    .developer-portal { background: #111; color: #e0e0e0; padding: 6rem 2rem; text-align: left; /* display: none; by default for JS toggle */ }
-    .developer-portal .container { max-width: 900px; margin: 0 auto; }
-    .developer-portal h2 { font-size: 2.8rem; color: #00AFFF; text-align: center; margin-bottom: 1rem; }
-    .developer-portal > p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 3rem auto; color: #ccc; text-align: center; }
-    .developer-portal h3 { font-size: 2rem; color: #7fdbff; margin-top: 3rem; margin-bottom: 1.5rem; border-bottom: 1px solid #333; padding-bottom: 0.75rem; }
+    /* Common Portal Styles (Developer & Join Team) */
+    .page-portal {
+        background: #0c0c0c; /* Darker background for portals */
+        color: #e0e0e0;
+        padding: 5rem 2rem;
+        text-align: left;
+        min-height: 100vh;
+        display: none; /* Hidden by default */
+    }
+    .page-portal .container {
+        max-width: 900px;
+        margin: 0 auto;
+        animation: portalFadeIn 0.5s ease-out;
+    }
+    @keyframes portalFadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .page-portal .container > h2 { /* Targeting the main H2 of the portal */
+        font-size: 2.8rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+    }
+    .page-portal .container > p:first-of-type { /* Intro paragraph */
+        font-size: 1.2rem;
+        max-width: 800px;
+        margin: 0 auto 3.5rem auto; /* Increased bottom margin */
+        color: #ccc;
+        text-align: center;
+        line-height: 1.7;
+    }
+    .page-portal h3 { /* Sub-section titles */
+        font-size: 2rem;
+        margin-top: 3rem;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #444; /* Darker border */
+        padding-bottom: 0.75rem;
+        font-weight: 500;
+    }
+
+    /* Developer Portal Specific Styles */
+    #developer-portal .container > h2 { color: #00AFFF; } /* Techy blue for dev portal main title */
+    #developer-portal h3 { color: #7fdbff; } /* Lighter techy blue for dev subheadings */
     .developer-portal .api-intro p, .developer-portal .auth-section p, .developer-portal .rate-limit-section p, .developer-portal .sdk-section p { font-size: 1rem; color: #b2b2b2; margin-bottom: 1rem; line-height: 1.7; max-width: none; text-align: left; }
-    .developer-portal .api-endpoint { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+    .developer-portal .api-endpoint { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.2);}
     .developer-portal .api-endpoint h4 { font-size: 1.5rem; color: #FFD700; margin-bottom: 1rem; display: flex; align-items: center; }
     .developer-portal .api-endpoint .method { font-weight: bold; color: #000; background-color: #FFD700; padding: 0.3rem 0.7rem; border-radius: 4px; font-family: 'Courier New', Courier, monospace; margin-right: 0.75rem; font-size: 0.9rem; }
     .developer-portal .api-endpoint .path { font-family: 'Courier New', Courier, monospace; color: #b2b2b2; font-size: 1.1rem; word-break: break-all; }
@@ -199,290 +355,307 @@
     .developer-portal .final-warning { margin-top: 3rem; padding: 1.5rem; background-color: rgba(255,59,48,0.1); border: 1px solid #ff3b30; border-radius: 8px; color: #ff3b30; text-align: center; font-weight: 500; }
     .developer-portal .final-warning p { color: #ff3b30; text-align: center; }
 
+    /* Join the Team Portal Styles */
+    #join-team-portal .container > h2 { color: #FFBF00; } /* Gold for Join Team portal main title */
+    #join-team-portal h3 { color: #FFD700; } /* Gold for Join Team subheadings */
+    #join-team-portal .job-category { margin-bottom: 2.5rem; }
+    #join-team-portal .job-listing {
+        background: #1f1f1f; /* Slightly lighter than dev portal cards */
+        border: 1px solid #383838;
+        border-radius: 10px;
+        padding: 1.75rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+        transition: all 0.3s ease;
+    }
+    #join-team-portal .job-listing:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(255,191,0,0.15);
+        border-color: #FFBF00;
+    }
+    #join-team-portal .job-listing h4 {
+        font-size: 1.6rem; /* Larger job titles */
+        color: #FFD700;
+        margin-bottom: 0.75rem;
+    }
+    #join-team-portal .job-listing p {
+        font-size: 1rem;
+        color: #c0c0c0; /* Lighter text for readability */
+        margin-bottom: 0.75rem;
+        line-height: 1.7;
+    }
+    #join-team-portal .job-listing p strong {
+        color: #e0e0e0;
+    }
+    #join-team-portal .apply-button {
+        display: inline-block; /* For proper styling */
+        background-color: #FFD700;
+        color: #1d1d1f;
+        border: none;
+        padding: 0.7rem 1.5rem;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    #join-team-portal .apply-button:hover {
+        background-color: #f0c000;
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(255,215,0,0.2);
+    }
+    #join-team-portal .apply-note {
+        font-size: 0.9rem;
+        color: #999;
+        text-align: center;
+        margin-top: 3rem;
+        font-style: italic;
+    }
+
+
     /* Sticky CTA */
-    .cta-bar{ position:sticky;bottom:0;left:0;right:0;z-index:999; background:#fff;box-shadow:0 -2px 10px rgba(0,0,0,.08); display:flex;justify-content:center;align-items:center;padding:1rem;gap:2rem; }
-    .cta-bar button{ background:#007aff;color:#fff;border:none;padding:.8rem 2rem;border-radius:8px;font-size:1rem;cursor:pointer; transition:background-color .3s ease; }
-    .cta-bar button:hover{background:#005bb5}
+    .cta-bar{
+        position:sticky;bottom:0;left:0;right:0;z-index:999;
+        background:rgba(255,255,255,0.97); /* More opaque */
+        backdrop-filter: blur(10px);
+        box-shadow:0 -3px 15px rgba(0,0,0,.08); /* Softer shadow */
+        display:flex;justify-content:center;align-items:center;padding:1.25rem 1rem;gap:2rem; /* Increased padding */
+        border-top: 1px solid #e0e0e0; /* Subtle top border */
+    }
+    .cta-bar span { font-size: 1.1rem; font-weight: 500;}
+    /* CTA button will use .btn-primary, defined above */
+
 
     /* Disclaimers section */
-    .disclaimers { background: #f5f5f7; padding: 4rem 2rem; font-size: 0.75rem; color: #86868b; }
+    .disclaimers { background: #f5f5f7; padding: 4rem 2rem; font-size: 0.8rem; color: #777; } /* Slightly larger font, lighter color */
     .disclaimers-container { max-width: 1000px; margin: 0 auto; }
-    .disclaimers h3 { font-size: 1rem; color: #1d1d1f; margin-bottom: 1.5rem; font-weight: 600; text-align: center; }
-    .disclaimer-item { margin-bottom: 1.5rem; padding-left: 1.5rem; position: relative; }
-    .disclaimer-item::before { content: "*"; position: absolute; left: 0; top: 0; color: #1d1d1f; }
+    .disclaimers h3 { font-size: 1.1rem; color: #1d1d1f; margin-bottom: 2rem; font-weight: 600; text-align: center; } /* Bolder, more margin */
+    .disclaimer-item { margin-bottom: 1.5rem; padding-left: 1.75rem; position: relative; line-height: 1.5;} /* Increased padding, line-height */
+    .disclaimer-item::before { content: "※"; position: absolute; left: 0; top: 0; color: #1d1d1f; font-size: 0.9rem;} /* Different marker */
 
     /* Footer section */
-    .site-footer { background: #1d1d1f; color: #86868b; padding: 3rem 2rem; font-size: 0.8rem; }
-    .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
-    .footer-column h4 { color: #fff; font-size: 0.9rem; margin-bottom: 1.2rem; font-weight: 500; }
+    .site-footer { background: #111; color: #999; padding: 4rem 2rem 3rem; font-size: 0.85rem; } /* Darker bg, lighter text */
+    .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; } /* Wider minmax, more gap */
+    .footer-column h4 { color: #fff; font-size: 1rem; margin-bottom: 1.5rem; font-weight: 600; letter-spacing: 0.5px;} /* Bolder, spacing */
     .footer-links { list-style: none; padding-left: 0; }
-    .footer-links li { margin-bottom: 0.8rem; }
-    .footer-links a { color: #86868b; transition: color 0.2s ease; }
-    .footer-links a:hover { color: #fff; text-decoration: underline; }
-    .legal-footer { background: #1d1d1f; color: #86868b; padding: 2rem; font-size: 0.7rem; border-top: 1px solid #38383a; }
+    .footer-links li { margin-bottom: 1rem; } /* More spacing */
+    .footer-links a { color: #999; transition: color 0.2s ease, padding-left 0.2s ease; }
+    .footer-links a:hover { color: #00AFFF; padding-left: 5px; } /* Techy blue hover, slight indent */
+    .legal-footer { background: #000; color: #777; padding: 2rem; font-size: 0.75rem; border-top: 1px solid #222; } /* Darkest bg, lighter border */
     .legal-container { max-width: 1200px; margin: 0 auto; }
-    .legal-links { display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 1.5rem; gap: 1.5rem; }
-    .legal-links a { color: #a1a1a6; transition: color 0.2s ease; }
-    .legal-links a:hover { color: #fff; text-decoration: underline; }
+    .legal-links { display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 1.5rem; gap: 1rem 2rem; } /* More gap */
+    .legal-links a { color: #888; transition: color 0.2s ease; }
+    .legal-links a:hover { color: #ccc; text-decoration: underline; }
     .copyright { text-align: center; }
 
     /* === Purchase Modal Styles === */
     .modal-overlay {
-        display: none; /* Hidden by default */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black */
-        z-index: 2000; /* Above header */
-        justify-content: center;
-        align-items: center;
-        padding: 1rem;
+        display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background-color: rgba(0, 0, 0, 0.8); /* Darker overlay */
+        z-index: 2000; justify-content: center; align-items: center; padding: 1rem;
     }
     .modal-content {
-        background-color: #1e1e1e; /* Dark grey */
-        color: #f0f0f0;
-        padding: 2rem;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        width: 100%;
-        max-width: 550px;
-        position: relative;
-        text-align: left;
-        animation: modalFadeIn 0.3s ease-out;
+        background-color: #181818; /* Very dark grey */
+        color: #f0f0f0; padding: 2.5rem; border-radius: 16px; /* More padding, rounder */
+        box-shadow: 0 15px 40px rgba(0,0,0,0.6); width: 100%; max-width: 580px; /* Wider */
+        position: relative; text-align: left; animation: modalFadeIn 0.3s ease-out;
+        border: 1px solid #333; /* Subtle border */
     }
     @keyframes modalFadeIn {
-        from { opacity: 0; transform: translateY(-20px); }
-        to { opacity: 1; transform: translateY(0); }
+        from { opacity: 0; transform: translateY(-20px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
     }
     .modal-content h2 {
-        color: #FFD700; /* Gold */
-        margin-bottom: 1.5rem;
-        text-align: center;
-        font-size: 2rem;
-    }
+        color: #FFD700; margin-bottom: 2rem; text-align: center; font-size: 2.2rem; font-weight: 600;} /* Larger, bolder */
     .modal-content .close-button {
-        position: absolute;
-        top: 1rem;
-        right: 1rem;
-        font-size: 2rem;
-        color: #aaa;
-        background: none;
-        border: none;
-        cursor: pointer;
-        line-height: 1;
+        position: absolute; top: 1rem; right: 1rem; font-size: 2.2rem; color: #888;
+        background: none; border: none; cursor: pointer; line-height: 1; transition: color 0.2s, transform 0.2s;
     }
-    .modal-content .close-button:hover {
-        color: #fff;
-    }
-    .modal-form-group {
-        margin-bottom: 1.25rem;
-    }
-    .modal-form-group label {
-        display: block;
-        margin-bottom: 0.5rem;
-        font-weight: 500;
-        color: #ccc;
-    }
+    .modal-content .close-button:hover { color: #fff; transform: rotate(90deg); }
+    .modal-form-group { margin-bottom: 1.5rem; } /* More spacing */
+    .modal-form-group label { display: block; margin-bottom: 0.6rem; font-weight: 500; color: #ccc; font-size: 0.9rem;}
     .modal-form-group input[type="text"],
     .modal-form-group input[type="email"],
     .modal-form-group input[type="number"],
     .modal-form-group select {
-        width: 100%;
-        padding: 0.75rem;
-        border-radius: 6px;
-        border: 1px solid #444;
-        background-color: #2a2a2a;
-        color: #f0f0f0;
-        font-size: 1rem;
+        width: 100%; padding: 0.85rem; border-radius: 8px; /* More padding, rounder */
+        border: 1px solid #444; background-color: #2a2a2a; color: #f0f0f0; font-size: 1rem;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
-    .modal-form-group input::placeholder {
-        color: #777;
+    .modal-form-group input::placeholder { color: #777; }
+    .modal-form-group input:focus, .modal-form-group select:focus {
+        border-color: #FFD700; box-shadow: 0 0 0 3px rgba(255,215,0,0.15); outline: none;
     }
-    .modal-payment-options {
-        margin-top: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
-    .modal-payment-options legend {
-        font-weight: 500;
-        color: #ccc;
-        margin-bottom: 0.75rem;
-        font-size: 1.1rem;
-    }
-    .modal-payment-options label {
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.5rem;
-        font-size: 0.95rem;
-        cursor: pointer;
-    }
-    .modal-payment-options input[type="radio"] {
-        margin-right: 0.75rem;
-        accent-color: #FFD700; /* Gold for radio button */
-    }
+    .modal-payment-options { margin-top: 1.75rem; margin-bottom: 1.75rem; }
+    .modal-payment-options legend { font-weight: 500; color: #ccc; margin-bottom: 1rem; font-size: 1.1rem; }
+    .modal-payment-options label { display: flex; align-items: center; margin-bottom: 0.75rem; font-size: 0.95rem; cursor: pointer; color: #ddd;}
+    .modal-payment-options input[type="radio"] { margin-right: 0.75rem; accent-color: #FFD700; transform: scale(1.1);}
     .modal-submit-button {
-        display: block;
-        width: 100%;
-        padding: 1rem;
-        background-color: #FFD700; /* Gold */
-        color: #1d1d1f; /* Dark text on gold */
-        border: none;
-        border-radius: 8px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.1s ease;
+        display: block; width: 100%; padding: 1.1rem; background-color: #FFD700;
+        color: #1d1d1f; border: none; border-radius: 8px; font-size: 1.15rem;
+        font-weight: bold; cursor: pointer; transition: all 0.3s ease;
+        text-transform: uppercase; letter-spacing: 0.5px;
     }
-    .modal-submit-button:hover {
-        background-color: #f0c000; /* Darker gold */
-    }
-    .modal-submit-button:active {
-        transform: scale(0.98);
-    }
-    .modal-fine-print {
-        font-size: 0.7rem;
-        color: #888;
-        text-align: center;
-        margin-top: 1.5rem;
-    }
+    .modal-submit-button:hover { background-color: #f0c000; transform: scale(1.02); box-shadow: 0 5px 15px rgba(255,215,0,0.2);}
+    .modal-submit-button:active { transform: scale(0.99); }
+    .modal-fine-print { font-size: 0.75rem; color: #888; text-align: center; margin-top: 2rem; line-height: 1.4;} /* More spacing */
 
 
     /* Responsive tweaks */
     @media(max-width:1024px){
         nav { gap: 0.5rem; }
         nav a, nav span.nav-link { font-size: 0.8rem; padding: 0.2rem 0.4rem; }
+        #developer-nav-link, #join-team-nav-link { padding: 0.15rem 0.35rem; }
     }
-    @media(max-width:880px){ nav { display: none; } }
+    @media(max-width:880px){ nav { display: none; } } /* Keep this to hide nav on smaller screens */
     @media(max-width:768px){
-      main#main-content-area section#features > .description { flex-direction: column !important; }
-      main#main-content-area section#features > .description .image,
-      main#main-content-area section#features > .description .text { order: 0 !important; width: 100%; flex-basis: auto; }
-      .description{padding:4rem 1rem}
-      .reviews-container{flex-direction:column}
-      .carousel,.tagline{width:100%}
-      .tagline{font-size:2rem;margin-top:2rem}
-      .marquee-track img{height:48px}
-      .press-logos{grid-template-columns:1fr}
-      .press-logos img{height:40px}
-      .awards-container{gap:2rem}
-      .products-grid{grid-template-columns:1fr}
-      .footer-container { grid-template-columns: 1fr 1fr; }
-      .disclaimer-item { padding-left: 1rem; }
-      .team-grid { grid-template-columns: 1fr; }
-      .meet-team { padding: 4rem 1rem; }
-      .developer-portal { padding: 4rem 1rem; }
-      .developer-portal h2 { font-size: 2.2rem; }
-      .developer-portal h3 { font-size: 1.6rem; }
-      .developer-portal .api-endpoint h4 { font-size: 1.2rem; }
-      .developer-portal .api-endpoint .path { font-size: 0.9rem; }
-      .modal-content { padding: 1.5rem; max-height: 90vh; overflow-y: auto;}
-      .modal-content h2 { font-size: 1.5rem; }
+        main#main-content-area section#features > .description { flex-direction: column !important; }
+        main#main-content-area section#features > .description .image,
+        main#main-content-area section#features > .description .text { order: 0 !important; width: 100%; flex-basis: auto; }
+        .description{padding:4rem 1rem}
+        .description .text{padding:1rem;}
+        .reviews-container{flex-direction:column}
+        .carousel,.tagline{width:100%}
+        .tagline{font-size:2.5rem;margin-top:2.5rem} /* Adjusted */
+        .marquee-track img{height:48px}
+        .press-logos{grid-template-columns:1fr}
+        .press-logos img{height:40px}
+        .awards-container{gap:2rem}
+        .products-grid{grid-template-columns:1fr}
+        .footer-container { grid-template-columns: 1fr 1fr; }
+        .disclaimer-item { padding-left: 1rem; }
+        .team-grid { grid-template-columns: 1fr; }
+        .meet-team, .page-portal { padding: 4rem 1rem; } /* Unified portal padding */
+        .page-portal .container > h2 { font-size: 2.2rem; }
+        .page-portal h3 { font-size: 1.6rem; }
+        .developer-portal .api-endpoint h4 { font-size: 1.2rem; }
+        .developer-portal .api-endpoint .path { font-size: 0.9rem; }
+        .modal-content { padding: 1.5rem; max-height: 90vh; overflow-y: auto;}
+        .modal-content h2 { font-size: 1.8rem; } /* Adjusted */
+        .hero h1 {font-size: 3rem;}
+        .hero p {font-size: 1.3rem;}
+        .hero button {padding: 0.9rem 2.2rem; font-size: 0.95rem;}
     }
-  </style>
+    @media(max-width:480px) { /* More granular for very small screens */
+        .logo { font-size: 1.15rem; }
+        header { padding: 0.75rem 1.5rem; }
+        .hero h1 {font-size: 2.5rem;}
+        .hero p {font-size: 1.1rem;}
+        .btn-primary, .buy-button { padding: 0.6rem 1.2rem; font-size: 0.8rem;}
+        .cta-bar { padding: 1rem 0.75rem; gap: 1rem; flex-direction: column;}
+        .cta-bar span { font-size: 1rem; }
+        .footer-container { grid-template-columns: 1fr; }
+    }
+    </style>
 </head>
 <body>
-  <header id="site-header">
-    <div class="logo" id="logo-home-button">HydroBlast</div>
-    <nav>
-        <a href="#features" class="main-nav-link">Features</a>
-        <a href="#demo" class="main-nav-link">Demo</a>
-        <a href="#products" class="main-nav-link">Products</a>
-        <a href="#reviews-section" class="main-nav-link">Reviews</a>
-        <a href="#team" class="main-nav-link">Team</a>
-        <span class="nav-link" id="developer-nav-link">Developers</span>
-    </nav>
-    <span class="buy-button" id="header-buy-button">Buy Now</span>
-  </header>
+    <header id="site-header">
+        <div class="logo" id="logo-home-button">HydroBlast</div>
+        <nav>
+            <a href="#features" class="main-nav-link">Features</a>
+            <a href="#demo" class="main-nav-link">Demo</a>
+            <a href="#products" class="main-nav-link">Products</a>
+            <a href="#reviews-section" class="main-nav-link">Reviews</a>
+            <a href="#team" class="main-nav-link">Team</a>
+            <span class="nav-link" id="developer-nav-link">Developers</span>
+            <span class="nav-link" id="join-team-nav-link">Join the Team</span> </nav>
+        <span class="buy-button" id="header-buy-button">Buy Now</span>
+    </header>
 
 <main id="main-content-area">
-  <section id="hero" class="hero">
-    <div class="hero-content">
-      <h1>HydroBlast</h1>
-      <p>Hydration, enforced.</p>
-      <button onclick="scrollToFeatures()">Learn More</button>
-    </div>
-  </section>
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <h1>HydroBlast</h1>
+            <p>Hydration, enforced.</p>
+            <button onclick="scrollToFeatures()">Learn More</button>
+        </div>
+    </section>
 
-  <section id="social-proof-marquee" class="college-marquee">
-    <h2>Supporting students from top schools around the world</h2>
-    <div class="marquee-container">
-      <div class="marquee-track">
-        <img src="https://1000logos.net/wp-content/uploads/2022/10/Dartmouth-College-Logo.png" alt="Dartmouth"><img src="https://1000logos.net/wp-content/uploads/2022/07/University-of-Princeton-Logo.png" alt="Princeton"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/1200px-Harvard_University_logo.svg.png" alt="Harvard"><img src="https://cdn.prod.website-files.com/655e500f5f4733e36a33ff4c/65695b7e81a1088d80b926be_Upenn.png" alt="Penn"><img src="https://miro.medium.com/v2/resize:fit:1024/0*3qIWoFnZgVUtsXB-.png" alt="Columbia"><img src="https://1000logos.net/wp-content/uploads/2022/05/Brown-University-Logo.png" alt="Brown"><img src="https://studyarchitecture.com/wp-content/uploads/yale-logo-1-2-e1557249165172.png" alt="Yale"><img src="https://cdn.prod.website-files.com/62266fcc3d860c71f00bca09/62a0fe57fce48a24bbc0179f_Cornell%20University%20logo%20png.png" alt="Cornell"><img src="dgasdfasfdsafg.png" alt="UChicago"><img src="https://1000logos.net/wp-content/uploads/2022/08/MIT-Logo.png" alt="MIT"><img src="https://assurgentmedical.com/wp-content/uploads/2017/07/stanford-logo-660x330.png" alt="Stanford"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Peking_University_logo.svg/1280px-Peking_University_logo.svg.png" alt="PKU"><img src="https://sciencesprings.wordpress.com/wp-content/uploads/2022/09/tsinghua-university-logo.png" alt="TShua"><img src="https://connect-nyu-edu.cdn.technolutions.net/www/images/Graduate%20Admissions/Logos/nyu_short_color_medium2_trans.png" alt="NYU"><img src="https://zoom.us/account/branding/p/7b1e708f-8696-4e73-8a75-67f3597daee6.png" alt="BC"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/University_of_Michigan_logo.svg/2560px-University_of_Michigan_logo.svg.png" alt="umich"><img src="https://1000logos.net/wp-content/uploads/2022/07/Johns-Hopkins-University-Logo.png" alt="jhopkins">
-        <img src="https://1000logos.net/wp-content/uploads/2022/10/Dartmouth-College-Logo.png" alt="Dartmouth"><img src="https://1000logos.net/wp-content/uploads/2022/07/University-of-Princeton-Logo.png" alt="Princeton"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/1200px-Harvard_University_logo.svg.png" alt="Harvard"><img src="https://cdn.prod.website-files.com/655e500f5f4733e36a33ff4c/65695b7e81a1088d80b926be_Upenn.png" alt="Penn"><img src="https://miro.medium.com/v2/resize:fit:1024/0*3qIWoFnZgVUtsXB-.png" alt="Columbia"><img src="https://1000logos.net/wp-content/uploads/2022/05/Brown-University-Logo.png" alt="Brown"><img src="https://studyarchitecture.com/wp-content/uploads/yale-logo-1-2-e1557249165172.png" alt="Yale"><img src="https://cdn.prod.website-files.com/62266fcc3d860c71f00bca09/62a0fe57fce48a24bbc0179f_Cornell%20University%20logo%20png.png" alt="Cornell">
-      </div>
-    </div>
-  </section>
+    <section id="social-proof-marquee" class="college-marquee">
+        <h2>Supporting students from top schools around the world</h2>
+        <div class="marquee-container">
+            <div class="marquee-track">
+                <img src="https://1000logos.net/wp-content/uploads/2022/10/Dartmouth-College-Logo.png" alt="Dartmouth"><img src="https://1000logos.net/wp-content/uploads/2022/07/University-of-Princeton-Logo.png" alt="Princeton"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/1200px-Harvard_University_logo.svg.png" alt="Harvard"><img src="https://cdn.prod.website-files.com/655e500f5f4733e36a33ff4c/65695b7e81a1088d80b926be_Upenn.png" alt="Penn"><img src="https://miro.medium.com/v2/resize:fit:1024/0*3qIWoFnZgVUtsXB-.png" alt="Columbia"><img src="https://1000logos.net/wp-content/uploads/2022/05/Brown-University-Logo.png" alt="Brown"><img src="https://studyarchitecture.com/wp-content/uploads/yale-logo-1-2-e1557249165172.png" alt="Yale"><img src="https://cdn.prod.website-files.com/62266fcc3d860c71f00bca09/62a0fe57fce48a24bbc0179f_Cornell%20University%20logo%20png.png" alt="Cornell"><img src="dgasdfasfdsafg.png" alt="UChicago"><img src="https://1000logos.net/wp-content/uploads/2022/08/MIT-Logo.png" alt="MIT"><img src="https://assurgentmedical.com/wp-content/uploads/2017/07/stanford-logo-660x330.png" alt="Stanford"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Peking_University_logo.svg/1280px-Peking_University_logo.svg.png" alt="PKU"><img src="https://sciencesprings.wordpress.com/wp-content/uploads/2022/09/tsinghua-university-logo.png" alt="TShua"><img src="https://connect-nyu-edu.cdn.technolutions.net/www/images/Graduate%20Admissions/Logos/nyu_short_color_medium2_trans.png" alt="NYU"><img src="https://zoom.us/account/branding/p/7b1e708f-8696-4e73-8a75-67f3597daee6.png" alt="BC"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/University_of_Michigan_logo.svg/2560px-University_of_Michigan_logo.svg.png" alt="umich"><img src="https://1000logos.net/wp-content/uploads/2022/07/Johns-Hopkins-University-Logo.png" alt="jhopkins">
+                <img src="https://1000logos.net/wp-content/uploads/2022/10/Dartmouth-College-Logo.png" alt="Dartmouth"><img src="https://1000logos.net/wp-content/uploads/2022/07/University-of-Princeton-Logo.png" alt="Princeton"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Harvard_University_logo.svg/1200px-Harvard_University_logo.svg.png" alt="Harvard"><img src="https://cdn.prod.website-files.com/655e500f5f4733e36a33ff4c/65695b7e81a1088d80b926be_Upenn.png" alt="Penn"><img src="https://miro.medium.com/v2/resize:fit:1024/0*3qIWoFnZgVUtsXB-.png" alt="Columbia"><img src="https://1000logos.net/wp-content/uploads/2022/05/Brown-University-Logo.png" alt="Brown"><img src="https://studyarchitecture.com/wp-content/uploads/yale-logo-1-2-e1557249165172.png" alt="Yale"><img src="https://cdn.prod.website-files.com/62266fcc3d860c71f00bca09/62a0fe57fce48a24bbc0179f_Cornell%20University%20logo%20png.png" alt="Cornell">
+            </div>
+        </div>
+    </section>
 
-  <section id="features">
-      <div id="description1" class="description"> <div class="image"><img src="dasdfsafasdsa.png" loading="lazy" alt="Blast Technology diagram"></div> <div class="text"> <h2>Blast Technology™</h2> <p>Born from audacity, HydroBlast pairs precise sip‑sensing with… incentives. Miss a drink window and the integrated charge reminds you — conclusively.</p> </div> </div>
-      <div id="description2" class="description"> <div class="image"><img src="fasdfsagdsafdsf.png" loading="lazy" alt="AI models graphic"></div> <div class="text"> <h2>67× Smarter</h2> <p>Powered by 67 AI models, secured on‑chain, and calibrated in the cloud. HydroBlast doesn't just track hydration — it audits it.</p> </div> </div>
-      <div id="description3" class="description"> <div class="image"><img src="gsdafdfdsag.png" alt="HydroBlast Design" loading="lazy"></div> <div class="text"> <h2>Iconic "Bottle"</h2> <p>Stores up to 44 oz of water at original temperature for a breathtaking 30 minutes. Some call it cutting‑edge. We call it hydration, re‑imagined.</p> </div> </div>
-      <div id="description4" class="description"> <div class="image"><img src="gdsafgsdfg.png" loading="lazy" alt="Safety promise graphic"></div> <div class="text"> <h2>Death‑Proof* Promise</h2> <p>Dehydration ends today. If the water doesn't save you, the blast will.</p> </div> </div>
-  </section>
+    <section id="features">
+        <div id="description1" class="description"> <div class="image"><img src="dasdfsafasdsa.png" loading="lazy" alt="Blast Technology diagram"></div> <div class="text"> <h2>Blast Technology™</h2> <p>Born from audacity, HydroBlast pairs precise sip‑sensing with… incentives. Miss a drink window and the integrated charge reminds you — conclusively.</p> </div> </div>
+        <div id="description2" class="description"> <div class="image"><img src="fasdfsagdsafdsf.png" loading="lazy" alt="AI models graphic"></div> <div class="text"> <h2>67× Smarter</h2> <p>Powered by 67 AI models, secured on‑chain, and calibrated in the cloud. HydroBlast doesn't just track hydration — it audits it.</p> </div> </div>
+        <div id="description3" class="description"> <div class="image"><img src="gsdafdfdsag.png" alt="HydroBlast Design" loading="lazy"></div> <div class="text"> <h2>Iconic "Bottle"</h2> <p>Stores up to 44 oz of water at original temperature for a breathtaking 30 minutes. Some call it cutting‑edge. We call it hydration, re‑imagined.</p> </div> </div>
+        <div id="description4" class="description"> <div class="image"><img src="gdsafgsdfg.png" loading="lazy" alt="Safety promise graphic"></div> <div class="text"> <h2>Death‑Proof* Promise</h2> <p>Dehydration ends today. If the water doesn't save you, the blast will.</p> </div> </div>
+    </section>
 
-  <section id="demo" class="video-demo">
-    <h2>Experience the HydroBlast in Action</h2> <p>Witness the revolutionary motivation technology that has changed hydration habits worldwide.</p>
-    <div class="video-container"> <svg class="security-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff3b30" stroke-width="1.5"> <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><line x1="8" y1="9" x2="16" y2="15" /><line x1="16" y1="9" x2="8" y2="15" /> </svg> <div class="security-notice">Video Content Restricted</div> <p class="security-desc">This demonstration has been removed as per National Security Directive 7.42b. HydroBlast technology has been classified as a motivational device of exceptional efficacy.</p> </div>
-  </section>
+    <section id="demo" class="video-demo">
+        <h2>Experience the HydroBlast in Action</h2> <p>Witness the revolutionary motivation technology that has changed hydration habits worldwide.</p>
+        <div class="video-container"> <svg class="security-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ff3b30" stroke-width="1.5"> <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><line x1="8" y1="9" x2="16" y2="15" /><line x1="16" y1="9" x2="8" y2="15" /> </svg> <div class="security-notice">Video Content Restricted</div> <p class="security-desc">This demonstration has been removed as per National Security Directive 7.42b. HydroBlast technology has been classified as a motivational device of exceptional efficacy.</p> </div>
+    </section>
 
-  <section id="products" class="product-family">
-    <h2>Meet the HydroBlast Family</h2> <p>Choose the right level of hydration motivation for your lifestyle.</p>
-    <div class="products-grid">
-      <div class="product-card"> <div class="product-image"> <img src="sdagdsafgfds.png" alt="HydroBlast Pro"> </div> <div class="product-info"> <h3>HydroBlast Pro</h3> <p>Our flagship model with military-grade motivation technology and premium glass-reinforced casing. Maximum persuasion for the hydration elite.</p> <div class="product-price"> $2,499.99 <span class="product-status">Flagship</span> </div> </div> </div>
-      <div class="product-card"> <div class="product-image"> <img src="gadsfdcagd.png" alt="Modular Blast™"> </div> <div class="product-info"> <h3>Modular Blast™</h3> <p>Our universal motivation module attaches to any bottle. Transform your existing containers into hydration accountability partners.</p> <div class="product-price"> $1,899.99 <span class="product-status">Best Value</span> </div> </div> </div>
-      <div class="product-card"> <div class="product-image"> <img src="adsfgadsda.png" alt="HydroBlast(less)"> </div> <div class="product-info"> <h3>HydroBlast(less)</h3> <p>Our entry-level hydration solution for the cautious consumer. All the style, none of the explosive motivation technology.</p> <div class="product-price"> $499.99 <span class="product-status">Entry Level</span> </div> </div> </div>
-    </div>
-  </section>
+    <section id="products" class="product-family">
+        <h2>Meet the HydroBlast Family</h2> <p>Choose the right level of hydration motivation for your lifestyle.</p>
+        <div class="products-grid">
+            <div class="product-card"> <div class="product-image"> <img src="sdagdsafgfds.png" alt="HydroBlast Pro"> </div> <div class="product-info"> <h3>HydroBlast Pro</h3> <p>Our flagship model with military-grade motivation technology and premium glass-reinforced casing. Maximum persuasion for the hydration elite.</p> <div class="product-price"> $2,499.99 <span class="product-status">Flagship</span> </div> </div> </div>
+            <div class="product-card"> <div class="product-image"> <img src="gadsfdcagd.png" alt="Modular Blast™"> </div> <div class="product-info"> <h3>Modular Blast™</h3> <p>Our universal motivation module attaches to any bottle. Transform your existing containers into hydration accountability partners.</p> <div class="product-price"> $1,899.99 <span class="product-status">Best Value</span> </div> </div> </div>
+            <div class="product-card"> <div class="product-image"> <img src="adsfgadsda.png" alt="HydroBlast(less)"> </div> <div class="product-info"> <h3>HydroBlast(less)</h3> <p>Our entry-level hydration solution for the cautious consumer. All the style, none of the explosive motivation technology.</p> <div class="product-price"> $499.99 <span class="product-status">Entry Level</span> </div> </div> </div>
+        </div>
+    </section>
 
-  <section id="press-section" class="press">
-    <h2>Featured In — 5‑Star* Reviews</h2>
-    <div class="press-logos">
-      <div class="outlet"><img src="https://lh6.googleusercontent.com/proxy/mrp8j1NB48q37roF1eCga8fatwzn2I85YhPGFeX2rvtGYsYT72tTPVyt6G-WvZEwW6521w_s-guk2wa6JSW0c-ZifSo_DByjg25JDvHR-qEdmbhNMG0Q3MIvs5PQViw" alt="NYT"><div class="rating">★★★★★</div><p class="review-quote">"A revolutionary approach to hydration that will literally blow you away."</p></div>
-      <div class="outlet"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/WSJ_Logo.svg/2560px-WSJ_Logo.svg.png" alt="WSJ"><div class="rating">★★★★★</div><p class="review-quote">"Disruptive innovation that could explode onto the market at any moment."</p></div>
-      <div class="outlet"><img src="https://cdn.freebiesupply.com/logos/large/2x/the-verge-logo-png-transparent.png" alt="The Verge"><div class="rating">★★★★★</div><p class="review-quote">"The future of hydration is here, and it's armed and dangerous."</p></div>
-      <div class="outlet"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Wired_logo.svg/2560px-Wired_logo.svg.png" alt="Wired"><div class="rating">★★★★★</div><p class="review-quote">"We've never seen anything like it — and we hope to survive to tell the tale."</p></div>
-      <div class="outlet"><img src="https://nolanpartners.com/wp-content/uploads/2024/08/logo-bloomberg.png" alt="Bloomberg"><div class="rating">★★★★★</div><p class="review-quote">"Investor interest has detonated following the product's volatile debut."</p></div>
-      <div class="outlet"><img src="https://strictlyvc.com/wp-content/uploads/2019/02/techcrunch-logo.png" alt="TechCrunch"><div class="rating">★★★★★</div><p class="review-quote">"The most compelling reason to stay hydrated we've ever encountered."</p></div>
-      <div class="outlet"><img src="https://aokarts.org/wp-content/uploads/2020/01/aok-bbc-logo.png" alt="BBC"><div class="rating">★★★★★</div><p class="review-quote">"A rather explosive entry into the competitive water bottle market."</p></div>
-      <div class="outlet"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/CNN.svg" alt="CNN"><div class="rating">★★★★★</div><p class="review-quote">"Breaking news: This water bottle breaks more than just records."</p></div>
-      <div class="outlet"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Forbes.svg/2560px-Forbes.svg.png" alt="Forbes"><div class="rating">★★★★★</div><p class="review-quote">"The most persuasive hydration solution on our 30 Under 30 list."</p></div>
-    </div>
-    <p style="font-size:.75rem;margin-top:2rem;color:#888">*Stars self‑awarded with complete impartiality.</p>
-  </section>
+    <section id="press-section" class="press">
+        <h2>Featured In — 5‑Star* Reviews</h2>
+        <div class="press-logos">
+            <div class="outlet"><img src="https://lh6.googleusercontent.com/proxy/mrp8j1NB48q37roF1eCga8fatwzn2I85YhPGFeX2rvtGYsYT72tTPVyt6G-WvZEwW6521w_s-guk2wa6JSW0c-ZifSo_DByjg25JDvHR-qEdmbhNMG0Q3MIvs5PQViw" alt="NYT"><div class="rating">★★★★★</div><p class="review-quote">"A revolutionary approach to hydration that will literally blow you away."</p></div>
+            <div class="outlet"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/WSJ_Logo.svg/2560px-WSJ_Logo.svg.png" alt="WSJ"><div class="rating">★★★★★</div><p class="review-quote">"Disruptive innovation that could explode onto the market at any moment."</p></div>
+            <div class="outlet"><img src="https://cdn.freebiesupply.com/logos/large/2x/the-verge-logo-png-transparent.png" alt="The Verge"><div class="rating">★★★★★</div><p class="review-quote">"The future of hydration is here, and it's armed and dangerous."</p></div>
+            <div class="outlet"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Wired_logo.svg/2560px-Wired_logo.svg.png" alt="Wired"><div class="rating">★★★★★</div><p class="review-quote">"We've never seen anything like it — and we hope to survive to tell the tale."</p></div>
+            <div class="outlet"><img src="https://nolanpartners.com/wp-content/uploads/2024/08/logo-bloomberg.png" alt="Bloomberg"><div class="rating">★★★★★</div><p class="review-quote">"Investor interest has detonated following the product's volatile debut."</p></div>
+            <div class="outlet"><img src="https://strictlyvc.com/wp-content/uploads/2019/02/techcrunch-logo.png" alt="TechCrunch"><div class="rating">★★★★★</div><p class="review-quote">"The most compelling reason to stay hydrated we've ever encountered."</p></div>
+            <div class="outlet"><img src="https://aokarts.org/wp-content/uploads/2020/01/aok-bbc-logo.png" alt="BBC"><div class="rating">★★★★★</div><p class="review-quote">"A rather explosive entry into the competitive water bottle market."</p></div>
+            <div class="outlet"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/CNN.svg" alt="CNN"><div class="rating">★★★★★</div><p class="review-quote">"Breaking news: This water bottle breaks more than just records."</p></div>
+            <div class="outlet"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Forbes.svg/2560px-Forbes.svg.png" alt="Forbes"><div class="rating">★★★★★</div><p class="review-quote">"The most persuasive hydration solution on our 30 Under 30 list."</p></div>
+        </div>
+        <p style="font-size:.75rem;margin-top:2rem;color:#888">*Stars self‑awarded with complete impartiality.</p>
+    </section>
 
-  <section id="reviews-section" class="reviews"> <div class="reviews-container"> <div class="carousel"> </div> <div class="tagline">Loved by Billions!</div> </div> </section>
+    <section id="reviews-section" class="reviews"> <div class="reviews-container"> <div class="carousel"> </div> <div class="tagline">Loved by Billions!* <p style="font-size:0.8rem; color: #555; margin-top:0.5rem;">(*Figuratively. Actual user count classified.)</p></div> </div> </section>
 
-  <section id="comparison-table" class="comparison">
-    <h2>HydroBlast vs. Competitors</h2>
-    <table> <thead><tr><th>Feature</th><th>HydroBlast</th><th>Yeti Rambler</th><th>Hydro Flask</th></tr></thead> <tbody> <tr><td>Insulation</td><td>Cold 30 min</td><td>12 h</td><td>18 h</td></tr> <tr><td>Smart Sensors</td><td>AI ×67 • Chain‑secured</td><td>None</td><td>None</td></tr> <tr><td>Battery Life</td><td>Lifetime</td><td>N/A</td><td>N/A</td></tr> <tr><td>Durability</td><td>Paper‑cup grade plastic</td><td>18/8 stainless</td><td>18/8 stainless</td></tr> <tr><td>Design</td><td>Plastic</td><td>Loop cap</td><td>Flex cap</td></tr> <tr><td>Explosives</td><td>Yes</td><td>No</td><td>No</td></tr> <tr><td>Price</td><td>$2,499.99</td><td>$49.99</td><td>$44.95</td></tr> </tbody> </table>
-  </section>
+    <section id="comparison-table" class="comparison">
+        <h2>HydroBlast vs. Competitors</h2>
+        <table> <thead><tr><th>Feature</th><th>HydroBlast</th><th>Yeti Rambler</th><th>Hydro Flask</th></tr></thead> <tbody> <tr><td>Insulation</td><td>Cold 30 min</td><td>12 h</td><td>18 h</td></tr> <tr><td>Smart Sensors</td><td>AI ×67 • Chain‑secured</td><td>None</td><td>None</td></tr> <tr><td>Battery Life</td><td>Lifetime</td><td>N/A</td><td>N/A</td></tr> <tr><td>Durability</td><td>Paper‑cup grade plastic</td><td>18/8 stainless</td><td>18/8 stainless</td></tr> <tr><td>Design</td><td>Plastic</td><td>Loop cap</td><td>Flex cap</td></tr> <tr><td>Explosives</td><td>Yes</td><td>No</td><td>No</td></tr> <tr><td>Price</td><td>$2,499.99</td><td>$49.99</td><td>$44.95</td></tr> </tbody> </table>
+    </section>
 
-  <section id="awards-section" class="awards">
-    <h2>Award‑Winning Design</h2>
-    <div class="awards-container">
-      <div class="award"><div class="award-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.2l-5.5 3.6 2.1-6.4L3 8.2l6.7-.1L12 2l2.3 6.1 6.7.1-5.6 4.2 2.1 6.4z"/></svg></div><h3>Red Dot Design Award</h3><p>Excellence in Innovation & Motivation</p></div>
-      <div class="award"><div class="award-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3,11H5V13H3V11M11,5H13V9H11V5M9,11H13V15H11V13H9V11M15,11H17V13H19V11H21V13H19V15H21V19H19V21H17V19H13V17H15V15H17V13H15V11M19,19V15H17V19H19Z"/></svg></div><h3>World Security Award</h3><p>Personal Hydration Enforcement Category</p></div>
-      <div class="award"><div class="award-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,5V8H16V5H20M16,10H20V13H16V10M16,15H20V19H16V15M3,5V19H13V5H3M5,7H11V11H5V7M5,13H11V17H5V13Z"/></svg></div><h3>CES Innovation Prize</h3><p>Motivational Deviceware & Accountability Tech</p></div>
-      <div class="award"><div class="award-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/></svg></div><h3>TimePress Best Invention</h3><p>Countdown Category Winner</p></div>
-      <div class="award"><div class="award-icon"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 280.047 280.047" style="enable-background:new 0 0 280.047 280.047;" xml:space="preserve"><g><path style="fill:#E2574C;" d="M96.262,0h87.509c9.661,0,17.502,7.832,17.502,17.502v87.509l-61.256,35.003L78.76,105.01V17.502 C78.76,7.832,86.601,0,96.262,0z"/><polygon style="fill:#EBEBEB;" points="166.269,0 113.763,0 113.763,125.015 140.016,140.014 166.269,125.015 "/><path style="fill:#EFC75E;" d="M226.886,170.257c-1.523-4.507-5.399-7.815-10.081-8.532l-45.539-6.992l-19.803-42.424 c-2.074-4.454-6.537-7.307-11.446-7.307c-4.9,0-9.355,2.853-11.446,7.307l-19.786,42.433l-45.539,6.992 c-4.682,0.718-8.567,4.025-10.072,8.532c-1.505,4.524-0.368,9.503,2.94,12.908l33.367,34.4l-7.745,47.71 c-0.788,4.804,1.234,9.635,5.189,12.435c2.17,1.54,4.725,2.328,7.281,2.328c2.091,0,4.2-0.525,6.108-1.584l39.703-22.061 l39.703,22.061c1.916,1.059,4.017,1.584,6.108,1.584c2.564,0,5.11-0.788,7.289-2.328c3.955-2.8,5.968-7.631,5.18-12.435 l-7.745-47.71l33.385-34.4C227.244,179.76,228.365,174.781,226.886,170.257z"/><path style="fill:#D7B354;" d="M140.016,183.768c9.661,0,17.502,7.841,17.502,17.502c0,9.67-7.841,17.502-17.502,17.502 s-17.502-7.832-17.502-17.502C122.514,191.6,130.355,183.768,140.016,183.768z"/><path style="fill:#D65348;" d="M183.77,0H96.262C86.601,0,78.76,7.832,78.76,17.502h122.512C201.281,7.832,193.44,0,183.77,0z"/><rect x="113.763" style="fill:#DFDFDF;" width="52.505" height="17.502"/></g></svg></div><h3>Nobel Peace Prize</h3><p>Solving World Dehydration</p></div>
-    </div>
-  </section>
+    <section id="awards-section" class="awards">
+        <h2>Award‑Winning Design</h2>
+        <div class="awards-container">
+            <div class="award"><div class="award-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.2l-5.5 3.6 2.1-6.4L3 8.2l6.7-.1L12 2l2.3 6.1 6.7.1-5.6 4.2 2.1 6.4z"/></svg></div><h3>Red Dot Design Award</h3><p>Excellence in Innovation & Motivation</p></div>
+            <div class="award"><div class="award-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3,11H5V13H3V11M11,5H13V9H11V5M9,11H13V15H11V13H9V11M15,11H17V13H19V11H21V13H19V15H21V19H19V21H17V19H13V17H15V15H17V13H15V11M19,19V15H17V19H19Z"/></svg></div><h3>World Security Award</h3><p>Personal Hydration Enforcement Category</p></div>
+            <div class="award"><div class="award-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,5V8H16V5H20M16,10H20V13H16V10M16,15H20V19H16V15M3,5V19H13V5H3M5,7H11V11H5V7M5,13H11V17H5V13Z"/></svg></div><h3>CES Innovation Prize</h3><p>Motivational Deviceware & Accountability Tech</p></div>
+            <div class="award"><div class="award-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/></svg></div><h3>TimePress Best Invention</h3><p>Countdown Category Winner</p></div>
+            <div class="award"><div class="award-icon"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 280.047 280.047" style="enable-background:new 0 0 280.047 280.047;" xml:space="preserve"><g><path style="fill:#E2574C;" d="M96.262,0h87.509c9.661,0,17.502,7.832,17.502,17.502v87.509l-61.256,35.003L78.76,105.01V17.502 C78.76,7.832,86.601,0,96.262,0z"/><polygon style="fill:#EBEBEB;" points="166.269,0 113.763,0 113.763,125.015 140.016,140.014 166.269,125.015 "/><path style="fill:#EFC75E;" d="M226.886,170.257c-1.523-4.507-5.399-7.815-10.081-8.532l-45.539-6.992l-19.803-42.424 c-2.074-4.454-6.537-7.307-11.446-7.307c-4.9,0-9.355,2.853-11.446,7.307l-19.786,42.433l-45.539,6.992 c-4.682,0.718-8.567,4.025-10.072,8.532c-1.505,4.524-0.368,9.503,2.94,12.908l33.367,34.4l-7.745,47.71 c-0.788,4.804,1.234,9.635,5.189,12.435c2.17,1.54,4.725,2.328,7.281,2.328c2.091,0,4.2-0.525,6.108-1.584l39.703-22.061 l39.703,22.061c1.916,1.059,4.017,1.584,6.108,1.584c2.564,0,5.11-0.788,7.289-2.328c3.955-2.8,5.968-7.631,5.18-12.435 l-7.745-47.71l33.385-34.4C227.244,179.76,228.365,174.781,226.886,170.257z"/><path style="fill:#D7B354;" d="M140.016,183.768c9.661,0,17.502,7.841,17.502,17.502c0,9.67-7.841,17.502-17.502,17.502 s-17.502-7.832-17.502-17.502C122.514,191.6,130.355,183.768,140.016,183.768z"/><path style="fill:#D65348;" d="M183.77,0H96.262C86.601,0,78.76,7.832,78.76,17.502h122.512C201.281,7.832,193.44,0,183.77,0z"/><rect x="113.763" style="fill:#DFDFDF;" width="52.505" height="17.502"/></g></svg></div><h3>Nobel Peace Prize</h3><p>Solving World Dehydration</p></div>
+        </div>
+    </section>
 
-  <section id="team" class="meet-team">
-    <h2>Meet the Visionaries</h2> <p>Behind every revolutionary product is a team of unconventional thinkers who dare to challenge the status quo of hydration accountability.</p>
-    <div class="team-grid">
-      <div class="team-member founder"><div class="team-avatar"><img src="https://media.discordapp.net/attachments/1107763489461776545/1374870000000000001/genius.jpg?ex=placeholder&format=webp" alt="The Genius" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div style="font-size: 4rem; display: none;">👨‍💻</div></div><h3>The Genius (me?)</h3><div class="team-role">Founder & Chief Hydration Officer</div><div class="team-bio">The mastermind behind HydroBlast's revolutionary motivation technology. Currently working on HydroBlast 2.0 with even more persuasive features.</div><div class="team-expertise"><span class="expertise-tag">Innovation</span><span class="expertise-tag">Vision</span><span class="expertise-tag">Hydration</span><span class="expertise-tag">Delusional</span></div></div>
-      <div class="team-member"><div class="team-avatar"><img src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/ijNyEVTePXSA/v0/-1x-1.webp" alt="Sam Bankman-Fried"></div><h3>Sam Bankman-Fried</h3><div class="team-role">Chief Financial Strategist</div><div class="team-bio">Former FTX CEO brings his expertise in managing complex financial instruments. Currently developing our HydroBlast token economy from a secure location.</div><div class="team-expertise"><span class="expertise-tag">Crypto</span><span class="expertise-tag">Strategy</span><span class="expertise-tag">Risk Management</span></div></div>
-      <div class="team-member"><div class="team-avatar"><img src="https://www.thetimes.com/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2F91696f54-6313-11ec-ab46-99cae2b0f128.jpg?crop=5154%2C3436%2C152%2C1987" alt="Elizabeth Holmes"></div><h3>Elizabeth Holmes</h3><div class="team-role">Chief Innovation Officer</div><div class="team-bio">Former Theranos founder and CEO. Expert in breakthrough technology that revolutionizes entire industries. Voice training available upon request.</div><div class="team-expertise"><span class="expertise-tag">Disruption</span><span class="expertise-tag">Leadership</span><span class="expertise-tag">Deep Voice</span></div></div>
-      <div class="team-member"><div class="team-avatar"><img src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcQhDg3xYmNlKZ-MVUk9y5kqt886h0pHCAQyapBj6HfxGuyr7ubhpPyHo3jMvQpakkOwGnZaswbZei8V4Uc" alt="Bernie Madoff"></div><h3>Bernie Madoff</h3><div class="team-role">Head of Investor Relations</div><div class="team-bio">Former Nasdaq chairman with decades of experience in delivering consistent returns. Specializes in building trust and long-term client relationships.</div><div class="team-expertise"><span class="expertise-tag">Finance</span><span class="expertise-tag">Trust Building</span><span class="expertise-tag">Consistency</span></div></div>
-      <div class="team-member"><div class="team-avatar"><img src="https://www.sanfranciscoemploymentlawfirm.com/files/2016/12/intern-employee-california-law.png" alt="Unpaid Intern"></div><h3>Unpaid Intern 1</h3><div class="team-role">Intern</div><div class="team-bio">Intern that works at HydroBlast, focusing on an efficient workflow that allows the company to allocate to them no resources at all.</div><div class="team-expertise"><span class="expertise-tag">Free Labor</span></div></div>
-      <div class="team-member excel"><div class="team-avatar"><img src="https://cdn.jim-nielsen.com/ios/512/microsoft-excel-for-ipad-2014-05-02.png?rf=1024" alt="Microsoft Excel" style="padding: 20px; background: white; border-radius: 50%;"></div><h3>Microsoft Excel</h3><div class="team-role">Chief Technology Officer</div><div class="team-bio">The backbone of modern business operations. Handles all our complex calculations, data analysis, and the 67 AI models that power HydroBlast's intelligence.</div><div class="team-expertise"><span class="expertise-tag">Spreadsheets</span><span class="expertise-tag">Calculations</span><span class="expertise-tag">VLOOKUP</span></div></div>
-    </div>
-  </section>
+    <section id="team" class="meet-team">
+        <h2>Meet the Visionaries</h2> <p>Behind every revolutionary product is a team of unconventional thinkers who dare to challenge the status quo of hydration accountability.</p>
+        <div class="team-grid">
+            <div class="team-member founder"><div class="team-avatar"><img src="https://media.discordapp.net/attachments/1107763489461776545/1374870000000000001/genius.jpg?ex=placeholder&format=webp" alt="The Genius" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div style="font-size: 4rem; display: none;">👨‍💻</div></div><h3>The Genius (me?)</h3><div class="team-role">Founder & Chief Hydration Officer</div><div class="team-bio">The mastermind behind HydroBlast's revolutionary motivation technology. Currently working on HydroBlast 2.0 with even more persuasive features.</div><div class="team-expertise"><span class="expertise-tag">Innovation</span><span class="expertise-tag">Vision</span><span class="expertise-tag">Hydration</span><span class="expertise-tag">Delusional</span></div></div>
+            <div class="team-member"><div class="team-avatar"><img src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/ijNyEVTePXSA/v0/-1x-1.webp" alt="Sam Bankman-Fried"></div><h3>Sam Bankman-Fried</h3><div class="team-role">Chief Financial Strategist</div><div class="team-bio">Former FTX CEO brings his expertise in managing complex financial instruments. Currently developing our HydroBlast token economy from a secure location.</div><div class="team-expertise"><span class="expertise-tag">Crypto</span><span class="expertise-tag">Strategy</span><span class="expertise-tag">Risk Management</span></div></div>
+            <div class="team-member"><div class="team-avatar"><img src="https://www.thetimes.com/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2F91696f54-6313-11ec-ab46-99cae2b0f128.jpg?crop=5154%2C3436%2C152%2C1987" alt="Elizabeth Holmes"></div><h3>Elizabeth Holmes</h3><div class="team-role">Chief Innovation Officer</div><div class="team-bio">Former Theranos founder and CEO. Expert in breakthrough technology that revolutionizes entire industries. Voice training available upon request.</div><div class="team-expertise"><span class="expertise-tag">Disruption</span><span class="expertise-tag">Leadership</span><span class="expertise-tag">Deep Voice</span></div></div>
+            <div class="team-member"><div class="team-avatar"><img src="https://encrypted-tbn2.gstatic.com/licensed-image?q=tbn:ANd9GcQhDg3xYmNlKZ-MVUk9y5kqt886h0pHCAQyapBj6HfxGuyr7ubhpPyHo3jMvQpakkOwGnZaswbZei8V4Uc" alt="Bernie Madoff"></div><h3>Bernie Madoff</h3><div class="team-role">Head of Investor Relations</div><div class="team-bio">Former Nasdaq chairman with decades of experience in delivering consistent returns. Specializes in building trust and long-term client relationships.</div><div class="team-expertise"><span class="expertise-tag">Finance</span><span class="expertise-tag">Trust Building</span><span class="expertise-tag">Consistency</span></div></div>
+            <div class="team-member"><div class="team-avatar"><img src="https://www.sanfranciscoemploymentlawfirm.com/files/2016/12/intern-employee-california-law.png" alt="Unpaid Intern"></div><h3>Unpaid Intern 1</h3><div class="team-role">Intern</div><div class="team-bio">Intern that works at HydroBlast, focusing on an efficient workflow that allows the company to allocate to them no resources at all.</div><div class="team-expertise"><span class="expertise-tag">Free Labor</span></div></div>
+            <div class="team-member excel"><div class="team-avatar"><img src="https://cdn.jim-nielsen.com/ios/512/microsoft-excel-for-ipad-2014-05-02.png?rf=1024" alt="Microsoft Excel" style="padding: 20px; background: white; border-radius: 50%;"></div><h3>Microsoft Excel</h3><div class="team-role">Chief Technology Officer</div><div class="team-bio">The backbone of modern business operations. Handles all our complex calculations, data analysis, and the 67 AI models that power HydroBlast's intelligence.</div><div class="team-expertise"><span class="expertise-tag">Spreadsheets</span><span class="expertise-tag">Calculations</span><span class="expertise-tag">VLOOKUP</span></div></div>
+        </div>
+    </section>
 
-  <div id="cta" class="cta-bar"> <span>HydroBlast — from $2,499.99</span> <button id="cta-buy-button">Buy Now</button> </div>
-</main> <section id="developer-portal" class="developer-portal" style="display: none;">
+    <div id="cta" class="cta-bar">
+        <span>HydroBlast — from $2,499.99</span>
+        <button id="cta-buy-button" class="btn-primary">Buy Now</button> </div>
+</main>
+
+<section id="developer-portal" class="page-portal developer-portal" style="display: none;">
     <div class="container">
         <h2>BlastScript™ API & Developer Network</h2>
         <p>Welcome, intrepid innovators, to the HydroBlast Developer Network! Unleash the power of motivational hydration and integrate the BlastScript™ API into your world-changing (or mildly alarming) applications. If you thought our bottle was intense, wait until you see our REST(less) API.</p>
@@ -497,74 +670,118 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
         </div>
         <h3>Core API Endpoints: Handle With Extreme Caution</h3>
         <div class="api-endpoint"><h4><span class="method">GET</span><span class="path">/api/v1/bottle/{bottle_id}/status</span></h4><p>Retrieves the current status of a specified HydroBlast unit, including hydration levels, charge status, and the user's estimated fear index.</p><p><strong>Response:</strong></p><pre><code>{
-  "bottle_id": "HB-X Æ A-12",
-  "status": "NOMINALLY_HYDRATED_BUT_WARY",
-  "water_level_ml": 750,
-  "charge_status_percent": 99.9, // It's always ready.
-  "last_sip_timestamp": "2025-05-28T02:15:00Z",
-  "user_fear_index": 0.85, // Scale of 0 (Zen) to 1 (Existential Dread)
-  "next_motivation_window_ends": "2025-05-28T03:00:00Z",
-  "ambient_threat_level": "GUARDED" // Based on Microsoft Excel's mood
+    "bottle_id": "HB-X Æ A-12",
+    "status": "NOMINALLY_HYDRATED_BUT_WARY",
+    "water_level_ml": 750,
+    "charge_status_percent": 99.9, // It's always ready.
+    "last_sip_timestamp": "2025-05-28T02:15:00Z",
+    "user_fear_index": 0.85, // Scale of 0 (Zen) to 1 (Existential Dread)
+    "next_motivation_window_ends": "2025-05-28T03:00:00Z",
+    "ambient_threat_level": "GUARDED" // Based on Microsoft Excel's mood
 }</code></pre></div>
         <div class="api-endpoint"><h4><span class="method">POST</span><span class="path">/api/v1/bottle/{bottle_id}/motivate</span></h4><p>Remotely triggers a "motivational pulse" on the specified HydroBlast unit. Use responsibly, or don't. We're not your parents (unless you select that voice pack).</p><p><strong>Request Body:</strong></p><pre><code>{
-  "intensity": "STERN_WARNING", // Options: "GENTLE_NUDGE", "FIRM_REMINDER", "STERN_WARNING", "LAST_CHANCE_SALVO", "TACTICAL_HYDRATION_EVENT"
-  "custom_message_tts": "The algorithm demands tribute. Sip now, or face the consequences.", // Optional
-  "delay_seconds": 0 // Immediate by default. Max 5 seconds, we're impatient.
+    "intensity": "STERN_WARNING", // Options: "GENTLE_NUDGE", "FIRM_REMINDER", "STERN_WARNING", "LAST_CHANCE_SALVO", "TACTICAL_HYDRATION_EVENT"
+    "custom_message_tts": "The algorithm demands tribute. Sip now, or face the consequences.", // Optional
+    "delay_seconds": 0 // Immediate by default. Max 5 seconds, we're impatient.
 }</code></pre><p><strong>Response (202 Accepted... For Now):</strong></p><pre><code>{
-  "bottle_id": "HB-X Æ A-12",
-  "motivation_id": "MOTIV8-R-U-SCARED-YET",
-  "status": "MOTIVATION_QUEUED",
-  "estimated_impact_radius_m": 0.5, // For "GENTLE_NUDGE". Scales alarmingly.
-  "expected_user_reaction": "Audible Gasp, Possible Minor Spillage"
+    "bottle_id": "HB-X Æ A-12",
+    "motivation_id": "MOTIV8-R-U-SCARED-YET",
+    "status": "MOTIVATION_QUEUED",
+    "estimated_impact_radius_m": 0.5, // For "GENTLE_NUDGE". Scales alarmingly.
+    "expected_user_reaction": "Audible Gasp, Possible Minor Spillage"
 }</code></pre></div>
         <div class="api-endpoint"><h4><span class="method">GET</span><span class="path">/api/v1/user/{user_id}/compliance_report</span></h4><p>Returns a detailed report on the user's hydration compliance, including missed sip windows and "re-education" effectiveness.</p><table class="parameters-table"><thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>start_date</code></td><td><code>string (YYYY-MM-DD)</code></td><td>Start date for report. Defaults to user's entire traumatic history.</td></tr><tr><td><code>end_date</code></td><td><code>string (YYYY-MM-DD)</code></td><td>End date for report.</td></tr></tbody></table><p><strong>Response:</strong></p><pre><code>{
-  "user_id": "User_Subject_734",
-  "compliance_score": "C- (Improvement Highly Encouraged)",
-  "total_sips_detected": 1023,
-  "missed_motivation_windows": 42,
-  "successful_re_educations": 41, // One got away... for now.
-  "favorite_blast_intensity": "STERN_WARNING",
-  "notes": "Subject exhibits classic avoidance behavior. Recommend upgrading to HydroBlast Pro Max Detonator Edition."
+    "user_id": "User_Subject_734",
+    "compliance_score": "C- (Improvement Highly Encouraged)",
+    "total_sips_detected": 1023,
+    "missed_motivation_windows": 42,
+    "successful_re_educations": 41, // One got away... for now.
+    "favorite_blast_intensity": "STERN_WARNING",
+    "notes": "Subject exhibits classic avoidance behavior. Recommend upgrading to HydroBlast Pro Max Detonator Edition."
 }</code></pre></div>
         <div class="rate-limit-section"><h3>Rate Limiting: Don't Get Blast-Happy</h3><p>Our servers, much like our users, appreciate a little breathing room. Exceeding the following rate limits may result in your API key being "temporarily re-calibrated" (i.e., your office HydroBlast might "accidentally" discharge during your next presentation).</p><ul><li><strong>Status Checks:</strong> 10 requests per minute per bottle. We know you're anxious, but chill.</li><li><strong>Motivational Triggers:</strong> 1 request per 5 minutes per bottle. We advocate for strategic, not chaotic, motivation.</li><li><strong>Compliance Reports:</strong> 1 request per hour per user. Stalking is frowned upon, even by us.</li></ul></div>
         <div class="sdk-section"><h3>Official BlastScript™ SDKs (Handle with Gloves)</h3><p>To accelerate your development (and potential property damage claims), we offer "officially supported" SDKs in languages chosen for their... unique contributions to technology:</p><ul class="sdk-list"><li><strong>COBOL-Blast SDK:</strong> For legacy systems that refuse to die, much like the thirst for vengeance.</li><li><strong>LOLCODE-Blast SDK:</strong> <code>CAN HAS HYDRASHUN? KTHXBLAST!</code></li><li><strong>Brainf***-Blast SDK:</strong> Because sometimes, hydration needs to be truly mind-bending. <code>+[-->-[>>+>-----<<]<--<---]>-.>>>+.>>..+++[.>]<<<<.+++.------.<<-.>>>>+.</code></li></ul></div>
         <div class="use-cases-section"><h3>Unleash Your Inner Mad Hydration Scientist!</h3><p>What will YOU build with BlastScript™? Some ideas to get your gears grinding (or your blast caps priming):</p><ul class="use-cases-list"><li>Integrate with smart home devices to flicker lights menacingly when hydration levels are low.</li><li>Develop a competitive eSport where players try to motivate opponents' HydroBlasts at inopportune moments.</li><li>Create a "Hydration Roulette" app for parties (HydroBlast not responsible for the outcome).</li><li>Link it to your calendar: automatically schedule a "motivational reminder" before important meetings you're dreading.</li></ul></div>
         <div class="final-warning"><p><strong>A Final Word of Non-Binding Advice:</strong> The HydroBlast Developer Network provides tools of immense persuasive power. HydroBlast Technologies Inc. (and its shell corporations) are not liable for any sudden awakenings, startled pets, minor structural damage, existential crises, or spontaneous decisions to finally drink some water that may result from the use or misuse of the BlastScript™ API. Code responsibly... or don't. It's funnier that way.</p></div>
     </div>
-  </section>
+</section>
 
-  <section id="disclaimers-section" class="disclaimers">
+<section id="join-team-portal" class="page-portal" style="display: none;">
+    <div class="container">
+        <h2>Join the HydroBlast Revolution!</h2>
+        <p>We're looking for passionate, slightly unhinged individuals to help us enforce hydration globally. If you thrive in chaotic environments and believe in motivation through... *persuasion*, you might be a perfect fit.</p>
+
+        <div class="job-category">
+            <h3>Engineering & Product (Mayhem Division)</h3>
+            <div class="job-listing">
+                <h4>Senior Blast Propulsion Engineer</h4>
+                <p><strong>Location:</strong> Undisclosed Bunker (Remote options considered for those with good OPSEC)</p>
+                <p>Responsible for designing and optimizing the next generation of HydroBlast's motivational discharge mechanisms. Must have a PhD in Applied Chaos or equivalent experience. Familiarity with non-Newtonian fluid dynamics and existential dread preferred.</p>
+                <button class="apply-button">Apply Before It's Too Late</button>
+            </div>
+            <div class="job-listing">
+                <h4>AI Overlord (Internship, Unpaid, High-Risk)</h4>
+                <p><strong>Location:</strong> The Cloud (Figuratively and Literally)</p>
+                <p>Assist Microsoft Excel in managing the 67 AI models. Responsibilities include debugging sentient spreadsheets and calming down the AI when it threatens world domination. Must be proficient in VLOOKUP and appeasing digital deities.</p>
+                <button class="apply-button">Sell Your Soul (Apply)</button>
+            </div>
+        </div>
+
+        <div class="job-category">
+            <h3>Marketing & Propaganda</h3>
+            <div class="job-listing">
+                <h4>Chief Disinformation Officer</h4>
+                <p><strong>Location:</strong> The Internet</p>
+                <p>Craft compelling narratives that highlight the... *benefits* of enforced hydration. Experience in gaslighting, gatekeeping, and girlbossing is a plus. Must be able to make "it's not a bug, it's a feature" sound convincing.</p>
+                <button class="apply-button">Rewrite Reality (Apply)</button>
+            </div>
+        </div>
+         <div class="job-category">
+            <h3>Human Resources (Victim Support Division)</h3>
+            <div class="job-listing">
+                <h4>Post-Blast Counselor (Contract)</h4>
+                <p><strong>Location:</strong> Mobile, Rapid Deployment</p>
+                <p>Provide emotional support and de-escalation services to users who have recently experienced a "significant motivational event." Must be empathetic, resilient, and own a good pair of running shoes.</p>
+                <button class="apply-button">Offer Condolences (Apply)</button>
+            </div>
+        </div>
+         <p class="apply-note">HydroBlast is an equal opportunity employer (EOE), assuming you survive the interview process. We value diversity, especially in coping mechanisms.</p>
+    </div>
+</section>
+
+
+<section id="disclaimers-section" class="disclaimers">
     <div class="disclaimers-container">
-      <h3>Important Safety Information & Disclaimers</h3>
-      <div class="disclaimer-item"><p>HydroBlast products are not intended for use by individuals under the age of 21, those with heart conditions, pregnant women, those with anxiety disorders, or anyone who values predictability in their hydration experience.</p></div>
-      <div class="disclaimer-item"><p>The "Death-Proof Promise" is purely aspirational in nature and should not be considered a legally binding guarantee. HydroBlast Technologies, Inc. does not guarantee users will not die while using our products or at any time thereafter.</p></div>
-      <div class="disclaimer-item"><p>Blast Technology™ is a proprietary motivational feature that may lead to property damage, personal injury, or awkward explanations to first responders. All users must sign a comprehensive waiver before activating this feature.</p></div>
-      <div class="disclaimer-item"><p>Reviews marked with an asterisk (*) were obtained from users who were still able to write reviews after their HydroBlast experience. Selection bias may apply.</p></div>
-      <div class="disclaimer-item"><p>HydroBlast products should not be taken through airport security, into government buildings, schools, hospitals, or any location where sudden loud noises and minor concussive forces may cause alarm.</p></div>
-      <div class="disclaimer-item"><p>We confirm that fewer than 3% of our customers have reported the product "unintentionally detonating" while in standby mode. This is well below the industry average for motivation-based hydration vessels.</p></div>
-      <div class="disclaimer-item"><p>The 67 AI models referenced may include basic if/then statements that technically qualify as decision trees but would not meet the conventional threshold for artificial intelligence in most academic circles.</p></div>
+        <h3>Important Safety Information & Disclaimers</h3>
+        <div class="disclaimer-item"><p>HydroBlast products are not intended for use by individuals under the age of 21, those with heart conditions, pregnant women, those with anxiety disorders, or anyone who values predictability in their hydration experience.</p></div>
+        <div class="disclaimer-item"><p>The "Death-Proof Promise" is purely aspirational in nature and should not be considered a legally binding guarantee. HydroBlast Technologies, Inc. does not guarantee users will not die while using our products or at any time thereafter.</p></div>
+        <div class="disclaimer-item"><p>Blast Technology™ is a proprietary motivational feature that may lead to property damage, personal injury, or awkward explanations to first responders. All users must sign a comprehensive waiver before activating this feature.</p></div>
+        <div class="disclaimer-item"><p>Reviews marked with an asterisk (*) were obtained from users who were still able to write reviews after their HydroBlast experience. Selection bias may apply.</p></div>
+        <div class="disclaimer-item"><p>HydroBlast products should not be taken through airport security, into government buildings, schools, hospitals, or any location where sudden loud noises and minor concussive forces may cause alarm.</p></div>
+        <div class="disclaimer-item"><p>We confirm that fewer than 3% of our customers have reported the product "unintentionally detonating" while in standby mode. This is well below the industry average for motivation-based hydration vessels.</p></div>
+        <div class="disclaimer-item"><p>The 67 AI models referenced may include basic if/then statements that technically qualify as decision trees but would not meet the conventional threshold for artificial intelligence in most academic circles.</p></div>
     </div>
-  </section>
+</section>
 
-  <footer id="site-footer-section" class="site-footer">
+<footer id="site-footer-section" class="site-footer">
     <div class="footer-container">
-      <div class="footer-column"><h4>Shop and Learn</h4><ul class="footer-links"><li><a href="#">HydroBlast Pro</a></li><li><a href="#">Modular Blast™</a></li><li><a href="#">HydroBlast(less)</a></li><li><a href="#">Accessories</a></li><li><a href="#">Gift Cards</a></li></ul></div>
-      <div class="footer-column"><h4>HydroBlast Services</h4><ul class="footer-links"><li><a href="#">HydroBlast+ Premium</a></li><li><a href="#">HydroBlast Care</a></li><li><a href="#">Emergency Services</a></li><li><a href="#">Blast Cloud Storage</a></li><li><a href="#">Hydration Tracking</a></li></ul></div>
-      <div class="footer-column"><h4>For Business</h4><ul class="footer-links"><li><a href="#">HydroBlast for Enterprise</a></li><li><a href="#">Shop for Business</a></li><li><a href="#">Corporate Gifting</a></li><li><a href="#">Blast for Education</a></li><li><a href="#">Healthcare Solutions</a></li></ul></div>
-      <div class="footer-column"><h4>Support</h4><ul class="footer-links"><li><a href="#">HydroBlast Support</a></li><li><a href="#">Service & Repair</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Detonation FAQs</a></li><li><a href="#">Safety Recall Information</a></li></ul></div>
+        <div class="footer-column"><h4>Shop and Learn</h4><ul class="footer-links"><li><a href="#">HydroBlast Pro</a></li><li><a href="#">Modular Blast™</a></li><li><a href="#">HydroBlast(less)</a></li><li><a href="#">Accessories</a></li><li><a href="#">Gift Cards</a></li></ul></div>
+        <div class="footer-column"><h4>HydroBlast Services</h4><ul class="footer-links"><li><a href="#">HydroBlast+ Premium</a></li><li><a href="#">HydroBlast Care</a></li><li><a href="#">Emergency Services</a></li><li><a href="#">Blast Cloud Storage</a></li><li><a href="#">Hydration Tracking</a></li></ul></div>
+        <div class="footer-column"><h4>For Business</h4><ul class="footer-links"><li><a href="#">HydroBlast for Enterprise</a></li><li><a href="#">Shop for Business</a></li><li><a href="#">Corporate Gifting</a></li><li><a href="#">Blast for Education</a></li><li><a href="#">Healthcare Solutions</a></li></ul></div>
+        <div class="footer-column"><h4>Support</h4><ul class="footer-links"><li><a href="#">HydroBlast Support</a></li><li><a href="#">Service & Repair</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Detonation FAQs</a></li><li><a href="#">Safety Recall Information</a></li></ul></div>
     </div>
-  </footer>
+</footer>
 
-  <div class="legal-footer">
+<div class="legal-footer">
     <div class="legal-container">
-      <div class="legal-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Legal Information</a><a href="#">Site Map</a><a href="#">Explosive Device Regulations</a><a href="#">End User License Agreement</a></div>
-      <div class="copyright">Copyright © 2025 HydroBlast Technologies, Inc. All rights reserved. | "Hydration, enforced." is a registered trademark of HydroBlast Technologies, Inc.</div>
+        <div class="legal-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Legal Information</a><a href="#">Site Map</a><a href="#">Explosive Device Regulations</a><a href="#">End User License Agreement</a></div>
+        <div class="copyright">Copyright © 2025 HydroBlast Technologies, Inc. All rights reserved. | "Hydration, enforced." is a registered trademark of HydroBlast Technologies, Inc.</div>
     </div>
-  </div>
+</div>
 
-  <div id="purchase-modal" class="modal-overlay">
+<div id="purchase-modal" class="modal-overlay">
     <div class="modal-content">
-        <button class="close-button" id="modal-close-button">&times;</button>
+        <button class="close-button" id="modal-close-button">×</button>
         <h2>Finalize Your HydroBlast Acquisition</h2>
         <form id="fake-purchase-form">
             <div class="modal-form-group">
@@ -598,189 +815,277 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
         </form>
         <p class="modal-fine-print">By clicking "Initiate Purchase," you agree to our 7,000-page terms of service, waive all rights to sue for damages (physical, emotional, existential), and acknowledge that "motivation" is subjective. All sales are final and probably regrettable.</p>
     </div>
-  </div>
+</div>
 
 
-  <script>
+<script>
     /* Header show/hide on scroll */
     let lastScroll=window.scrollY;
-    const siteHeader=document.getElementById('site-header'); // Renamed to avoid conflict
+    const siteHeaderEl=document.getElementById('site-header'); // Renamed to avoid conflict with other 'header' vars
     window.addEventListener('scroll',()=>{
-      const current=window.scrollY;
-      siteHeader.classList.toggle('hidden',current>lastScroll && current > 50);
-      lastScroll=current <= 0 ? 0 : current;
-    });
-
-    /* Background colour transition */
-    window.addEventListener('scroll',()=>{
-      const scrollY=window.scrollY, heroHeight=document.querySelector('.hero').offsetHeight, body=document.body;
-      if(document.getElementById('main-content-area').style.display !== 'none') { // Only apply if main content is visible
-          if(scrollY<heroHeight){ const ratio=scrollY/heroHeight, val=Math.round(245*ratio+10); body.style.backgroundColor=`rgb(${val},${val},${val})`; }
-          else{body.style.backgroundColor='#fafafa'}
-      } else {
-          body.style.backgroundColor='#111'; // Dev portal background
-      }
+        const current=window.scrollY;
+        if (siteHeaderEl) { // Check if element exists
+            siteHeaderEl.classList.toggle('hidden',current>lastScroll && current > 50);
+        }
+        lastScroll=current <= 0 ? 0 : current;
     });
 
     /* Fade-in description images */
     const imgs=document.querySelectorAll('.description .image');
-    const obs=new IntersectionObserver(entries=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('visible'); obs.unobserve(entry.target); } }); },{threshold:.1});
-    imgs.forEach(i=>obs.observe(i));
-
-    /* Scroll hero button helper */
-    function scrollToFeatures(){
-        if (document.getElementById('main-content-area').style.display === 'none') {
-            showMainContent(); // Switch to main content if dev portal is active
-        }
-        // Ensure smooth scroll happens after potential view switch
-        setTimeout(() => {
-            document.getElementById('features').scrollIntoView({behavior:'smooth'});
-        }, 0);
+    if (imgs.length > 0) { // Check if elements exist
+        const obs=new IntersectionObserver(entries=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('visible'); obs.unobserve(entry.target); } }); },{threshold:.1});
+        imgs.forEach(i=>obs.observe(i));
     }
 
-    const reviewData = [ { img: "https://i.pravatar.cc/80?img=32", name: "Alex", quote: "\"One missed sip and I'll never forget again. Genius!\"" }, { img: "https://i.pravatar.cc/80?img=47", name: "Jamie", quote: "\"Finally, accountability with style.\"" }, { img: "https://i.pravatar.cc/80?img=12", name: "Taylor", quote: "\"The suspense keeps me hydrated — and alive.\"" }, { img: "https://i.pravatar.cc/80?img=58", name: "Morgan", quote: "\"Blast sensors > motivation apps.\"" }, { img: "https://i.pravatar.cc/80?img=30", name: "Riley", quote: "\"HydroBlast never disappoints — or misfires.*\"" } ];
     document.addEventListener('DOMContentLoaded', function() {
-      const carousel = document.querySelector('.reviews .carousel'); if (!carousel) return;
-      const carouselInner = document.createElement('div'); carouselInner.className = 'carousel-inner';
-      reviewData.forEach(review => { const panel = document.createElement('div'); panel.className = 'review-panel'; panel.innerHTML = ` <img class="profile-photo" src="${review.img}" alt="${review.name} profile photo" /> <h3>${review.name}</h3><div class="stars">★★★★★</div> <p>${review.quote}</p> `; carouselInner.appendChild(panel); });
-      const originalPanels = Array.from(carouselInner.children); const totalSlides = originalPanels.length; if (totalSlides === 0) return;
-      const lastClone = originalPanels[totalSlides - 1].cloneNode(true); const firstClone = originalPanels[0].cloneNode(true);
-      carouselInner.insertBefore(lastClone, carouselInner.firstChild); carouselInner.appendChild(firstClone);
-      carousel.innerHTML = ''; carousel.appendChild(carouselInner);
-      const controlsDiv = document.createElement('div'); controlsDiv.className = 'carousel-controls';
-      const prevBtn = document.createElement('div'); prevBtn.className = 'carousel-control'; prevBtn.innerHTML = '❮';
-      const nextBtn = document.createElement('div'); nextBtn.className = 'carousel-control'; nextBtn.innerHTML = '❯';
-      controlsDiv.appendChild(prevBtn); controlsDiv.appendChild(nextBtn); carousel.appendChild(controlsDiv);
-      const dotsDiv = document.createElement('div'); dotsDiv.className = 'carousel-dots';
-      for (let i = 0; i < totalSlides; i++) { const dot = document.createElement('div'); dot.className = 'carousel-dot'; if (i === 0) dot.classList.add('active'); dot.dataset.index = i; dotsDiv.appendChild(dot); }
-      carousel.appendChild(dotsDiv);
-      let currentSlide = 1; let isTransitioning = false; const dots = document.querySelectorAll('.carousel-dot');
-      carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
-      function showSlide(index, animate = true) {
-        if (isTransitioning && animate) return; isTransitioning = true;
-        if (animate) { carouselInner.style.transition = 'transform 0.5s ease-in-out'; } else { carouselInner.style.transition = 'none'; }
-        currentSlide = index; carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
-        const handleTransitionEnd = () => {
-            if (currentSlide === 0) { currentSlide = totalSlides; carouselInner.style.transition = 'none'; carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`; }
-            else if (currentSlide === totalSlides + 1) { currentSlide = 1; carouselInner.style.transition = 'none'; carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`; }
-            const dotIndex = (currentSlide - 1 + totalSlides) % totalSlides;
-            dots.forEach((dot, i) => { dot.classList.toggle('active', i === dotIndex); });
-            isTransitioning = false; carouselInner.removeEventListener('transitionend', handleTransitionEnd);
-        };
-        if (animate) { carouselInner.addEventListener('transitionend', handleTransitionEnd); } else { handleTransitionEnd(); }
-      }
-      prevBtn.addEventListener('click', () => { showSlide(currentSlide - 1); });
-      nextBtn.addEventListener('click', () => { showSlide(currentSlide + 1); });
-      dots.forEach(dot => { dot.addEventListener('click', () => { const targetIndex = parseInt(dot.dataset.index) + 1; showSlide(targetIndex); }); });
-      let autoRotateTimer = setInterval(() => { showSlide(currentSlide + 1); }, 4000);
-      carousel.addEventListener('mouseenter', () => { clearInterval(autoRotateTimer); });
-      carousel.addEventListener('mouseleave', () => { autoRotateTimer = setInterval(() => { showSlide(currentSlide + 1); }, 4000); });
-      showSlide(1, false);
+        const bodyElement = document.body;
+        const mainContentArea = document.getElementById('main-content-area');
+        const developerPortal = document.getElementById('developer-portal');
+        const joinTeamPortal = document.getElementById('join-team-portal'); // New portal
 
-      // === Page View Toggle & Modal Logic ===
-      const mainContentArea = document.getElementById('main-content-area');
-      const developerPortal = document.getElementById('developer-portal');
-      const developerNavLink = document.getElementById('developer-nav-link');
-      const logoHomeButton = document.getElementById('logo-home-button');
-      const mainNavLinks = document.querySelectorAll('nav a.main-nav-link');
+        const developerNavLink = document.getElementById('developer-nav-link');
+        const joinTeamNavLink = document.getElementById('join-team-nav-link'); // New nav link
+        const logoHomeButton = document.getElementById('logo-home-button');
+        const mainNavLinks = document.querySelectorAll('nav a.main-nav-link');
 
+        const ctaBar = document.getElementById('cta');
+        const siteFooterSection = document.getElementById('site-footer-section');
+        const legalFooter = document.querySelector('.legal-footer');
 
-      const purchaseModal = document.getElementById('purchase-modal');
-      const modalCloseButton = document.getElementById('modal-close-button');
-      const headerBuyButton = document.getElementById('header-buy-button');
-      const ctaBuyButton = document.getElementById('cta-buy-button');
-      const fakePurchaseForm = document.getElementById('fake-purchase-form');
+        const purchaseModal = document.getElementById('purchase-modal');
+        const modalCloseButton = document.getElementById('modal-close-button');
+        const headerBuyButton = document.getElementById('header-buy-button');
+        const ctaBuyButton = document.getElementById('cta-buy-button');
+        const fakePurchaseForm = document.getElementById('fake-purchase-form');
 
-      function showDeveloperPortal() {
-          mainContentArea.style.display = 'none';
-          developerPortal.style.display = 'block';
-          document.body.style.backgroundColor = '#111'; // Set dev portal background
-          window.scrollTo(0, 0); // Scroll to top
-      }
+        const heroSection = document.querySelector('.hero'); // For background scroll effect
 
-      function showMainContent() {
-          mainContentArea.style.display = 'block';
-          developerPortal.style.display = 'none';
-          // Background color will be handled by scroll listener
-          // Trigger scroll event to re-evaluate background
-          window.dispatchEvent(new Event('scroll'));
-          window.scrollTo(0, 0); // Scroll to top
-      }
+        /* Background colour transition */
+        window.addEventListener('scroll',()=>{
+            const scrollY=window.scrollY;
+            const heroHeight= heroSection ? heroSection.offsetHeight : 0;
 
-      function openPurchaseModal(event) {
-          event.preventDefault(); // Prevent default link behavior if any
-          purchaseModal.style.display = 'flex';
-      }
-
-      function closePurchaseModal() {
-          purchaseModal.style.display = 'none';
-      }
-
-      if (developerNavLink) {
-        developerNavLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            showDeveloperPortal();
-        });
-      }
-
-      if (logoHomeButton) {
-        logoHomeButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            showMainContent();
-        });
-      }
-
-      // Ensure main nav links switch to main content view before scrolling
-      mainNavLinks.forEach(link => {
-          link.addEventListener('click', function(e) {
-              if (mainContentArea.style.display === 'none') {
-                  showMainContent();
-              }
-              // Allow default href scroll to happen after view is switched
-              // If the href is valid, the browser will scroll.
-              // If not, ensure smooth scroll for sections on the same page.
-              const targetId = this.getAttribute('href');
-              if (targetId && targetId.startsWith('#')) {
-                  // Small delay to ensure content is visible before scrolling
-                  setTimeout(() => {
-                      const targetElement = document.querySelector(targetId);
-                      if (targetElement) {
-                          targetElement.scrollIntoView({ behavior: 'smooth' });
-                      }
-                  }, 50);
-              }
-          });
-      });
-
-
-      if (headerBuyButton) headerBuyButton.addEventListener('click', openPurchaseModal);
-      if (ctaBuyButton) ctaBuyButton.addEventListener('click', openPurchaseModal);
-      if (modalCloseButton) modalCloseButton.addEventListener('click', closePurchaseModal);
-
-      // Close modal if overlay is clicked
-      if (purchaseModal) {
-        purchaseModal.addEventListener('click', (event) => {
-            if (event.target === purchaseModal) {
-                closePurchaseModal();
+            if (mainContentArea && mainContentArea.style.display !== 'none') {
+                if(scrollY < heroHeight && heroHeight > 0){
+                    const ratio=scrollY/heroHeight;
+                    const startColor = 0; // Start from black
+                    const endColorLight = 240; // End at a light gray like #f0f0f0
+                    const val=Math.round(((endColorLight - startColor) * ratio) + startColor);
+                    bodyElement.style.backgroundColor=`rgb(${val},${val},${val})`;
+                } else {
+                    bodyElement.style.backgroundColor='#fafafa'; // Default light bg for main content
+                }
+            } else if ((developerPortal && developerPortal.style.display !== 'none') || (joinTeamPortal && joinTeamPortal.style.display !== 'none')) {
+                bodyElement.style.backgroundColor='#0c0c0c'; // Dark background for portal pages
+            } else {
+                 // Fallback if no specific section is active but mainContentArea is hidden (should not happen often)
+                bodyElement.style.backgroundColor='#000';
             }
         });
-      }
 
-      // Handle fake purchase form submission
-      if (fakePurchaseForm) {
-        fakePurchaseForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            // You can add more elaborate fake success/failure messages here
-            alert("Purchase Initiated! Our 'Motivation Technicians' (and your bank) have been notified. Good luck.");
-            closePurchaseModal();
-            fakePurchaseForm.reset();
+
+        function showDeveloperPortal() {
+            if(mainContentArea) mainContentArea.style.display = 'none';
+            if(developerPortal) developerPortal.style.display = 'block';
+            if(joinTeamPortal) joinTeamPortal.style.display = 'none';
+
+            bodyElement.style.backgroundColor = '#0c0c0c';
+            if(ctaBar) ctaBar.style.display = 'none';
+            if(siteFooterSection) siteFooterSection.style.display = 'none';
+            if(legalFooter) legalFooter.style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        function showJoinTeamPage() {
+            if(mainContentArea) mainContentArea.style.display = 'none';
+            if(developerPortal) developerPortal.style.display = 'none';
+            if(joinTeamPortal) joinTeamPortal.style.display = 'block';
+
+            bodyElement.style.backgroundColor = '#0c0c0c';
+            if(ctaBar) ctaBar.style.display = 'none';
+            if(siteFooterSection) siteFooterSection.style.display = 'none';
+            if(legalFooter) legalFooter.style.display = 'none';
+            window.scrollTo(0, 0);
+        }
+
+        function showMainContent() {
+            if(mainContentArea) mainContentArea.style.display = 'block';
+            if(developerPortal) developerPortal.style.display = 'none';
+            if(joinTeamPortal) joinTeamPortal.style.display = 'none';
+
+            // Trigger scroll to re-evaluate background for main content
+            window.dispatchEvent(new Event('scroll'));
+
+            if(ctaBar) ctaBar.style.display = 'flex';
+            if(siteFooterSection) siteFooterSection.style.display = 'grid';
+            if(legalFooter) legalFooter.style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        /* Scroll hero button helper */
+        window.scrollToFeatures = function(){ // Make it global for inline onclick
+            if ((developerPortal && developerPortal.style.display !== 'none') || (joinTeamPortal && joinTeamPortal.style.display !== 'none')) {
+                showMainContent();
+            }
+            setTimeout(() => {
+                const featuresEl = document.getElementById('features');
+                if (featuresEl) {
+                    featuresEl.scrollIntoView({behavior:'smooth'});
+                }
+            }, 50); // Small delay
+        }
+
+        const reviewData = [ { img: "https://i.pravatar.cc/80?u=32", name: "Alex 'The Alarmed'", quote: "\"One missed sip and I'll never forget again. My therapist is on speed dial. Genius!\"" }, { img: "https://i.pravatar.cc/80?u=47", name: "Jamie 'Jitters'", quote: "\"Finally, accountability with style... and a mild concussion. Worth it.\"" }, { img: "https://i.pravatar.cc/80?u=12", name: "Taylor 'Trembles'", quote: "\"The suspense keeps me hydrated — and constantly on edge. 10/10, would flinch again.\"" }, { img: "https://i.pravatar.cc/80?u=58", name: "Morgan 'Motivated'", quote: "\"Blast sensors > motivation apps. My walls disagree, but I'm hydrated!\"" }, { img: "https://i.pravatar.cc/80?u=30", name: "Riley 'Regretful?'", quote: "\"HydroBlast never disappoints — or misfires.* *Mostly.\"" } ];
+        const carousel = document.querySelector('.reviews .carousel');
+        if (carousel) {
+            const carouselInner = document.createElement('div'); carouselInner.className = 'carousel-inner';
+            reviewData.forEach(review => { const panel = document.createElement('div'); panel.className = 'review-panel'; panel.innerHTML = ` <img class="profile-photo" src="${review.img}" alt="${review.name} profile photo" onerror="this.src='https://placehold.co/80x80/007bff/fff?text=${review.name.charAt(0)}'; this.onerror=null;"/> <h3>${review.name}</h3><div class="stars">★★★★★</div> <p>${review.quote}</p> `; carouselInner.appendChild(panel); });
+
+            const originalPanels = Array.from(carouselInner.children); const totalSlides = originalPanels.length;
+            if (totalSlides > 0) {
+                const lastClone = originalPanels[totalSlides - 1].cloneNode(true); const firstClone = originalPanels[0].cloneNode(true);
+                carouselInner.insertBefore(lastClone, carouselInner.firstChild); carouselInner.appendChild(firstClone);
+                carousel.innerHTML = ''; carousel.appendChild(carouselInner);
+
+                const controlsDiv = document.createElement('div'); controlsDiv.className = 'carousel-controls';
+                const prevBtn = document.createElement('div'); prevBtn.className = 'carousel-control'; prevBtn.innerHTML = '❮';
+                const nextBtn = document.createElement('div'); nextBtn.className = 'carousel-control'; nextBtn.innerHTML = '❯';
+                controlsDiv.appendChild(prevBtn); controlsDiv.appendChild(nextBtn);
+                // Append controls and dots to the carousel element, not carouselInner
+                carousel.appendChild(controlsDiv);
+
+
+                const dotsDiv = document.createElement('div'); dotsDiv.className = 'carousel-dots';
+                for (let i = 0; i < totalSlides; i++) { const dot = document.createElement('div'); dot.className = 'carousel-dot'; if (i === 0) dot.classList.add('active'); dot.dataset.index = i; dotsDiv.appendChild(dot); }
+                carousel.appendChild(dotsDiv);
+
+                let currentSlide = 1; let isTransitioning = false; const dots = document.querySelectorAll('.carousel-dot');
+                carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+                function updateDots(slideIndex) {
+                    const dotIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+                    dots.forEach((dot, i) => { dot.classList.toggle('active', i === dotIndex); });
+                }
+
+                function showSlide(index, animate = true) {
+                    if (isTransitioning && animate) return;
+                    isTransitioning = true;
+                    carouselInner.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
+                    currentSlide = index;
+                    carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+                    if (animate) {
+                        carouselInner.addEventListener('transitionend', handleTransitionEnd, { once: true });
+                    } else {
+                        handleTransitionEnd();
+                    }
+                }
+
+                function handleTransitionEnd() {
+                    if (currentSlide === 0) { // Went to previous from first slide (clone of last)
+                        currentSlide = totalSlides;
+                        carouselInner.style.transition = 'none';
+                        carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+                    } else if (currentSlide === totalSlides + 1) { // Went to next from last slide (clone of first)
+                        currentSlide = 1;
+                        carouselInner.style.transition = 'none';
+                        carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+                    }
+                    updateDots(currentSlide);
+                    isTransitioning = false;
+                }
+
+                prevBtn.addEventListener('click', () => { if(!isTransitioning) showSlide(currentSlide - 1); });
+                nextBtn.addEventListener('click', () => { if(!isTransitioning) showSlide(currentSlide + 1); });
+                dots.forEach(dot => { dot.addEventListener('click', () => { const targetIndex = parseInt(dot.dataset.index) + 1; if(!isTransitioning) showSlide(targetIndex); }); });
+
+                let autoRotateTimer = setInterval(() => { showSlide(currentSlide + 1); }, 4000);
+                carousel.addEventListener('mouseenter', () => { clearInterval(autoRotateTimer); });
+                carousel.addEventListener('mouseleave', () => { autoRotateTimer = setInterval(() => { showSlide(currentSlide + 1); }, 4000); });
+                showSlide(1, false); // Initial setup
+            }
+        }
+
+
+        if (developerNavLink) {
+            developerNavLink.addEventListener('click', (e) => {
+                e.preventDefault(); showDeveloperPortal();
+            });
+        }
+        if (joinTeamNavLink) { // Event listener for the new nav link
+            joinTeamNavLink.addEventListener('click', (e) => {
+                e.preventDefault(); showJoinTeamPage();
+            });
+        }
+
+        if (logoHomeButton) {
+            logoHomeButton.addEventListener('click', (e) => {
+                e.preventDefault(); showMainContent();
+            });
+        }
+
+        mainNavLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                const isPortalActive = (developerPortal && developerPortal.style.display !== 'none') ||
+                                     (joinTeamPortal && joinTeamPortal.style.display !== 'none');
+                const targetId = this.getAttribute('href');
+
+                if (isPortalActive) {
+                    showMainContent();
+                    if (targetId && targetId.startsWith('#')) {
+                        e.preventDefault(); // Prevent default jump if it's a hash link
+                        setTimeout(() => {
+                            const targetElement = document.querySelector(targetId);
+                            if (targetElement) {
+                                targetElement.scrollIntoView({ behavior: 'smooth' });
+                            }
+                        }, 100); // Delay for content to render
+                    }
+                    // If not a hash link, default behavior (e.g. external link) will proceed after showMainContent
+                } else if (targetId && targetId.startsWith('#')) {
+                    // Main content is already visible, just smooth scroll
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+                // If not a hash link and main content is visible, allow default browser action
+            });
         });
-      }
 
-      // Initial page setup: Show main content by default
-      showMainContent();
+
+        function openPurchaseModal(event) {
+            if (event) event.preventDefault();
+            if (purchaseModal) purchaseModal.style.display = 'flex';
+        }
+        function closePurchaseModal() {
+            if (purchaseModal) purchaseModal.style.display = 'none';
+        }
+
+        if (headerBuyButton) headerBuyButton.addEventListener('click', openPurchaseModal);
+        if (ctaBuyButton) ctaBuyButton.addEventListener('click', openPurchaseModal);
+        if (modalCloseButton) modalCloseButton.addEventListener('click', closePurchaseModal);
+
+        if (purchaseModal) {
+            purchaseModal.addEventListener('click', (event) => {
+                if (event.target === purchaseModal) closePurchaseModal();
+            });
+        }
+
+        if (fakePurchaseForm) {
+            fakePurchaseForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                // Replace alert with a custom, non-blocking notification if possible in future
+                alert("Purchase Initiated! Our 'Motivation Technicians' (and your bank) have been notified. Good luck.");
+                closePurchaseModal();
+                fakePurchaseForm.reset();
+            });
+        }
+
+        // Initial page setup: Show main content by default
+        showMainContent();
     });
-  </script>
+</script>
 </body>
 </html>
-
