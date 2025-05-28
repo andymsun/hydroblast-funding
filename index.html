@@ -26,10 +26,9 @@
         background:rgba(255,255,255,.1);backdrop-filter:saturate(180%) blur(20px); /* User's original blur */
         mix-blend-mode:difference;color:#fff;
         transition:transform .3s ease,background-color .3s ease;
-        /* box-shadow: 0 1px 3px rgba(0,0,0,0.05); */ /* Subtle shadow for depth if not at top, can be added with JS */
     }
     header.hidden{transform:translateY(-100%)}
-    .logo{font-size:1.35rem;font-weight:700; margin-right: auto; cursor: pointer; letter-spacing: -0.5px;} /* Slightly more prominent */
+    .logo{font-size:1.35rem;font-weight:700; margin-right: auto; cursor: pointer; letter-spacing: -0.5px;}
     nav {
         display: flex;
         gap: 0.8rem;
@@ -46,42 +45,44 @@
         cursor: pointer;
         position: relative;
     }
-    nav a:hover, nav span.nav-link:hover { /* Default hover for general links */
+    nav a.main-nav-link:hover, nav span.nav-link:hover { /* Default hover for general links, excluding special ones */
         background-color: rgba(255,255,255,0.2);
     }
+    nav a#home-nav-link:hover { /* Specific hover for home if needed, otherwise uses main-nav-link */
+         background-color: rgba(255,255,255,0.2);
+    }
+
 
     /* Specific Nav Link Styles */
     #developer-nav-link {
-        font-weight: 700; /* Bold */
-        color: #00AFFF; /* Bright, techy blue */
+        font-weight: 700;
+        color: #00AFFF;
         border: 1px solid #00AFFF;
-        padding: 0.2rem 0.45rem; /* Adjusted for border */
+        padding: 0.2rem 0.45rem;
     }
     #developer-nav-link:hover {
-        background-color: rgba(0, 175, 255, 0.1); /* Lighter blue background */
+        background-color: rgba(0, 175, 255, 0.1);
         color: #33c6ff;
         border-color: #33c6ff;
     }
 
-    #join-team-nav-link { /* Style for the new "Join the Team" link */
-        font-weight: 700; /* Bold */
-        color: #FFD700; /* Gold */
+    #join-team-nav-link {
+        font-weight: 700;
+        color: #FFD700;
         border: 1px solid #FFD700;
-        padding: 0.2rem 0.45rem; /* Adjusted for border */
+        padding: 0.2rem 0.45rem;
     }
     #join-team-nav-link:hover {
-        background-color: rgba(255, 215, 0, 0.1); /* Lighter gold background */
+        background-color: rgba(255, 215, 0, 0.1);
         color: #ffe066;
         border-color: #ffe066;
     }
-
 
     .btn-primary { /* Enhanced primary button style */
         padding: 0.7rem 1.6rem;
         border-radius: 8px;
         font-weight: 600;
         font-size: 0.9rem;
-        /* text-transform: uppercase; */ /* Optional, can be too much for header */
         letter-spacing: 0.3px;
         color: #fff;
         background: linear-gradient(45deg, #00AFFF, #007AFF);
@@ -100,30 +101,26 @@
         transform: translateY(0px);
         box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
     }
-    /* Apply to header buy button */
-    .buy-button { /* This is the span acting as a button */
-        display: inline-block; /* To allow padding and proper styling */
+
+    /* Header Buy Button - Fix for visibility with mix-blend-mode */
+    .buy-button {
+        display: inline-block;
         padding: 0.7rem 1.6rem;
         border-radius: 8px;
         font-weight: 600;
         font-size: 0.9rem;
         letter-spacing: 0.3px;
-        color: #fff; /* Will be affected by mix-blend-mode */
-        background: currentColor; /* Will be affected by mix-blend-mode */
-        border: 1px solid currentColor; /* Will be affected by mix-blend-mode */
-        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        color: #fff; /* Text is white. mix-blend-mode will invert this to black over light backgrounds. */
+        background: transparent; /* No background color initially. */
+        border: 1px solid #fff; /* Border is white. mix-blend-mode will invert this to black over light backgrounds. */
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
         transition: all 0.25s ease-out;
         cursor: pointer;
         white-space: nowrap;
     }
-     /* Because of mix-blend-mode, hover needs to be carefully considered.
-        The original hover was: background-color:currentColor;color:#000
-        This means it inverts. Let's keep that powerful effect.
-     */
     .buy-button:hover {
-        background-color: #fff; /* On hover, background becomes white (solid) */
-        color: #000; /* Text becomes black */
-        /* mix-blend-mode will make this appear as inverted colors against the background */
+        background-color: #fff; /* Background becomes white. mix-blend-mode will invert this to black over light backgrounds. */
+        color: #000; /* Text becomes black. mix-blend-mode will invert this to white over light backgrounds. */
         transform: translateY(-2px);
         box-shadow: 0 5px 18px rgba(0,0,0,0.15);
     }
@@ -133,17 +130,16 @@
     .hero{ height:100vh;position:relative; background:url('dagdfasdas.png') center/cover no-repeat; display:flex;align-items:center;justify-content:center;text-align:center;color:#fff; }
     .hero::before{ content:"";position:absolute;inset:0; background:radial-gradient(circle at center,rgba(0,0,0,.25) 0%,rgba(0,0,0,.65) 100%); z-index:0; }
     .hero-content{position:relative;z-index:1;max-width:800px;padding:0 20px}
-    .hero h1{font-size:4.2rem;font-weight:700;margin-bottom:1rem; letter-spacing: -1px;} /* Slightly larger and bolder */
-    .hero p{font-size:1.6rem;margin-bottom:2.5rem; font-weight: 300;} /* Slightly larger, lighter weight for contrast */
+    .hero h1{font-size:4.2rem;font-weight:700;margin-bottom:1rem; letter-spacing: -1px;}
+    .hero p{font-size:1.6rem;margin-bottom:2.5rem; font-weight: 300;}
     .hero button{
-        background: rgba(255,255,255,0.95); /* Slightly transparent white */
+        background: rgba(255,255,255,0.95);
         color: #1d1d1f;
-        border: none; /* Clean look */
-        padding:1.1rem 2.8rem;font-size:1.05rem;border-radius:10px;cursor:pointer; /* Rounded more */
-        transition:all .3s cubic-bezier(.25,.8,.25,1); /* Smoother transition */
+        border: none;
+        padding:1.1rem 2.8rem;font-size:1.05rem;border-radius:10px;cursor:pointer;
+        transition:all .3s cubic-bezier(.25,.8,.25,1);
         box-shadow: 0 6px 20px rgba(0,0,0,0.1);
         font-weight: 500;
-        /* backdrop-filter: blur(3px); */ /* Optional: subtle glass */
     }
     .hero button:hover{
         background:#fff;
@@ -160,9 +156,9 @@
     @keyframes scroll{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
     /* Press */
-    .press{ background:linear-gradient(135deg,#000,#111);padding:5rem 2rem;text-align:center;color:#fff; } /* Increased padding */
-    .press h2{font-size:2rem;margin-bottom:3.5rem;color:#fff; font-weight: 600;} /* Bolder */
-    .press-logos{ display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:3rem 3rem;justify-items:center;align-items:stretch; max-width:1200px;margin:0 auto; } /* align-items: stretch */
+    .press{ background:linear-gradient(135deg,#000,#111);padding:5rem 2rem;text-align:center;color:#fff; }
+    .press h2{font-size:2rem;margin-bottom:3.5rem;color:#fff; font-weight: 600;}
+    .press-logos{ display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:3rem 3rem;justify-items:center;align-items:stretch; max-width:1200px;margin:0 auto; }
     .press-logos .outlet{
         display:flex;flex-direction:column;align-items:center;width:100%;
         padding: 1.5rem 1rem; background: rgba(255,255,255,0.02); border-radius: 12px;
@@ -180,17 +176,17 @@
     /* Description sections */
     .description{ display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap; padding:6rem 2rem;max-width:1200px;margin:0 auto; }
     main#main-content-area section#features > .description:nth-of-type(even) { flex-direction: row-reverse; }
-    .description .text{flex:1 1 60%;padding:1rem 2rem;} /* Increased padding for text */
-    .description .text h2{font-size:3rem;margin-bottom:1.5rem; font-weight: 600;} /* Bolder */
+    .description .text{flex:1 1 60%;padding:1rem 2rem;}
+    .description .text h2{font-size:3rem;margin-bottom:1.5rem; font-weight: 600;}
     .description .text p{font-size:1.1rem;line-height:1.8; color: #333;}
     .description .image{ flex:1 1 35%;padding:1rem;opacity:0;transform:translateY(50px); transition:opacity .6s cubic-bezier(.25,.8,.25,1),transform .6s cubic-bezier(.25,.8,.25,1); }
-    .description .image img{width:100%;border-radius:16px;height:auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1);} /* Softer radius, subtle shadow */
+    .description .image img{width:100%;border-radius:16px;height:auto; box-shadow: 0 10px 30px rgba(0,0,0,0.1);}
     .description .image.visible{opacity:1;transform:translateY(0)}
 
     /* Awards section */
     .awards{ background:linear-gradient(to right,#000,#080808,#000); color:#fff;padding:6rem 2rem;text-align:center; }
     .awards h2{ font-size:2.8rem;margin-bottom:3.5rem;background:linear-gradient(90deg,#FFD700,#FFA500); -webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block; font-weight: 700;}
-    .awards-container{ display:flex;justify-content:center;flex-wrap:wrap;gap:3rem;max-width:1200px;margin:0 auto; } /* Reduced gap slightly */
+    .awards-container{ display:flex;justify-content:center;flex-wrap:wrap;gap:3rem;max-width:1200px;margin:0 auto; }
     .award{
         flex:0 0 280px; display:flex;flex-direction:column;align-items:center;
         transition:transform 0.3s ease, box-shadow 0.3s ease;
@@ -198,8 +194,8 @@
         border: 1px solid rgba(255,255,255,0.08);
     }
     .award:hover{transform:translateY(-10px); box-shadow: 0 15px 30px rgba(255,215,0,0.1);}
-    .award-icon{ width:80px;height:80px;margin-bottom:1.5rem; border-radius:50%;background:rgba(255,255,255,0.08); display:flex;align-items:center;justify-content:center; } /* Smaller icon */
-    .award-icon svg{width:48px;height:48px;fill:#FFD700} /* Adjusted SVG size */
+    .award-icon{ width:80px;height:80px;margin-bottom:1.5rem; border-radius:50%;background:rgba(255,255,255,0.08); display:flex;align-items:center;justify-content:center; }
+    .award-icon svg{width:48px;height:48px;fill:#FFD700}
     .award h3{font-size:1.2rem;margin-bottom:0.5rem;color:#FFD700; font-weight: 600;}
     .award p{font-size:0.9rem;color:#aaa;max-width:220px}
 
@@ -207,11 +203,12 @@
     .product-family{ background:linear-gradient(135deg, #000, #0a0a0a); color:#fff;padding:6rem 2rem;text-align:center; }
     .product-family h2{ font-size:2.8rem;margin-bottom:1rem; font-weight: 700;}
     .product-family p{ font-size:1.2rem;margin-bottom:4rem;max-width:800px;margin-left:auto;margin-right:auto; color: #bbb;}
-    .products-grid{ display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2.5rem;max-width:1200px;margin:0 auto; } /* Slightly larger minmax */
+    .products-grid{ display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:2.5rem;max-width:1200px;margin:0 auto; }
     .product-card{
         background:rgba(255,255,255,0.04); border-radius:20px;overflow:hidden;
         transition:transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         position:relative; border: 1px solid rgba(255,255,255,0.1);
+        display: flex; flex-direction: column; /* For button placement */
     }
     .product-card:hover{
         transform:translateY(-12px); box-shadow:0 25px 50px rgba(0,0,0,0.45);
@@ -220,11 +217,18 @@
     .product-image{ height:280px; background-color:#111; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; }
     .product-image img{ width:100%;height:100%;object-fit:cover; transition:transform 0.5s ease; }
     .product-card:hover .product-image img{ transform:scale(1.05); }
-    .product-info{ padding:1.5rem;text-align:left; }
+    .product-info{ padding:1.5rem;text-align:left; flex-grow: 1; display: flex; flex-direction: column;} /* flex grow for button */
     .product-info h3{ font-size:1.4rem;margin-bottom:0.5rem; font-weight: 600;}
-    .product-info p{ font-size:0.9rem;color:#aaa;margin-bottom:1.5rem; }
-    .product-price{ font-size:1.1rem;font-weight:600; display:flex;justify-content:space-between;align-items:center; }
+    .product-info p{ font-size:0.9rem;color:#aaa;margin-bottom:1.5rem; flex-grow: 1;} /* Allow p to grow */
+    .product-price{ font-size:1.1rem;font-weight:600; display:flex;justify-content:space-between;align-items:center; margin-bottom: 1rem; /* Space before button */}
     .product-status{ font-size:0.8rem; padding:0.25rem 0.5rem; background:rgba(0,122,255,0.2); color:#0A84FF; border-radius:4px; font-weight: 500;}
+    .product-info .product-buy-button { /* Style for buy button in product card */
+        margin-top: auto; /* Pushes button to bottom if p is short */
+        width: 100%;
+        padding: 0.8rem 1rem;
+        font-size: 1rem;
+    }
+
 
     /* Video Demo Section */
     .video-demo{ background:#0a0a0a; padding:6rem 2rem; color:#fff; text-align:center; }
@@ -236,39 +240,39 @@
     .security-desc{ max-width:80%; color:#999; font-size:1rem; }
 
     /* Reviews / Tagline */
-    .reviews{ background:#f5f5f7; padding:5rem 2rem; overflow:hidden; } /* Increased padding */
-    .reviews-container{ display:flex; align-items:center; max-width:1200px; margin:0 auto; gap:3rem; } /* Increased gap */
-    .carousel{ display:flex; flex-direction: column; /* For controls/dots below */ gap:1rem; padding-bottom:1rem; width:60%; position:relative; overflow: hidden; }
+    .reviews{ background:#f5f5f7; padding:5rem 2rem; overflow:hidden; }
+    .reviews-container{ display:flex; align-items:center; max-width:1200px; margin:0 auto; gap:3rem; }
+    .carousel{ display:flex; flex-direction: column; gap:1rem; padding-bottom:1rem; width:60%; position:relative; overflow: hidden; }
     .carousel-inner{ display:flex; transition:transform 0.5s ease-in-out; width: 100%; }
-    .review-panel{ min-width: 100%; flex:0 0 100%; background:#fff; border-radius:16px; padding:2rem; box-shadow:0 8px 25px rgba(0,0,0,.07); display:flex; flex-direction:column; align-items:center; transition:transform .3s cubic-bezier(.25,.8,.25,1); border: 1px solid #e0e0e0;} /* Enhanced panel */
+    .review-panel{ min-width: 100%; flex:0 0 100%; background:#fff; border-radius:16px; padding:2rem; box-shadow:0 8px 25px rgba(0,0,0,.07); display:flex; flex-direction:column; align-items:center; transition:transform .3s cubic-bezier(.25,.8,.25,1); border: 1px solid #e0e0e0;}
     .review-panel:active{transform:scale(.97)}
-    .profile-photo{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:1rem; border: 3px solid #007aff;} /* Added border */
-    .review-panel h3{margin-bottom:.5rem;font-size:1.2rem; font-weight: 600;} /* Bolder */
+    .profile-photo{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:1rem; border: 3px solid #007aff;}
+    .review-panel h3{margin-bottom:.5rem;font-size:1.2rem; font-weight: 600;}
     .stars{margin-bottom:1rem;font-size:1.2rem;color:#FFD700}
-    .review-panel p{font-size:1rem;color:#333;line-height:1.5; text-align: center;} /* Centered text */
-    .tagline{flex:1 1 40%;font-size:3.2rem;font-weight:700;color:#007aff;text-align:center; line-height: 1.2;} /* Slightly larger, line-height */
+    .review-panel p{font-size:1rem;color:#333;line-height:1.5; text-align: center;}
+    .tagline{flex:1 1 40%;font-size:3.2rem;font-weight:700;color:#007aff;text-align:center; line-height: 1.2;}
     .carousel-controls { display: flex; gap: 1rem; margin-top: 1.5rem; justify-content: center; }
-    .carousel-control { width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: all 0.3s ease; color: #007aff; font-size: 1.2rem;} /* Enhanced controls */
+    .carousel-control { width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: all 0.3s ease; color: #007aff; font-size: 1.2rem;}
     .carousel-control:hover { background: #007aff; color: #fff; transform: scale(1.1); }
-    .carousel-dots { display: flex; justify-content: center; gap: 0.6rem; margin-top: 1rem; } /* Increased gap */
-    .carousel-dot { width: 10px; height: 10px; border-radius: 50%; background: #ccc; cursor: pointer; transition: all 0.3s ease; } /* Larger dots */
+    .carousel-dots { display: flex; justify-content: center; gap: 0.6rem; margin-top: 1rem; }
+    .carousel-dot { width: 10px; height: 10px; border-radius: 50%; background: #ccc; cursor: pointer; transition: all 0.3s ease; }
     .carousel-dot.active { background: #007aff; transform: scale(1.2);}
 
     /* Comparison table */
-    .comparison{max-width:1200px;margin:5rem auto;padding:0 2rem} /* Increased margin */
-    .comparison h2{text-align:center;margin-bottom:2rem;font-size:2.2rem; font-weight: 600;} /* Bolder */
-    .comparison table{width:100%;border-collapse:collapse;text-align:center; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden;} /* Added shadow and radius */
-    .comparison th,.comparison td{border:1px solid #e0e0e0;padding:1rem .75rem;} /* Increased padding */
+    .comparison{max-width:1200px;margin:5rem auto;padding:0 2rem}
+    .comparison h2{text-align:center;margin-bottom:2rem;font-size:2.2rem; font-weight: 600;}
+    .comparison table{width:100%;border-collapse:collapse;text-align:center; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden;}
+    .comparison th,.comparison td{border:1px solid #e0e0e0;padding:1rem .75rem;}
     .comparison th{background:#f0f0f5;font-weight:600; font-size: 1.05rem;}
     .comparison tr:nth-child(even){background:#fafafa}
-    .comparison td:first-child { text-align: left; font-weight: 500;} /* Align first column left */
+    .comparison td:first-child { text-align: left; font-weight: 500;}
 
 
     /* Meet the Team section */
     .meet-team { background: linear-gradient(135deg, #1a1a1a, #2d2d2d); color: #fff; padding: 6rem 2rem; text-align: center; }
     .meet-team h2 { font-size: 2.8rem; margin-bottom: 1.5rem; background: linear-gradient(90deg, #007aff, #00d4ff); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; font-weight: 700;}
     .meet-team p { font-size: 1.2rem; max-width: 800px; margin: 0 auto 4rem; color: #ccc; }
-    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto; justify-items: center; } /* Slightly larger minmax */
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2.5rem; max-width: 1200px; margin: 0 auto; justify-items: center; }
     .team-member {
         background: rgba(255, 255, 255, 0.04); border-radius: 20px; padding: 2rem 1.5rem;
         transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
@@ -278,28 +282,28 @@
         transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         border-color: rgba(0, 122, 255, 0.5);
     }
-    .team-member::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #007aff, #00d4ff); transition: height 0.3s ease;} /* Thicker, transition */
+    .team-member::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #007aff, #00d4ff); transition: height 0.3s ease;}
     .team-member:hover::before { height: 6px; }
-    .team-avatar { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 1.5rem; background: rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; overflow: hidden; border: 3px solid rgba(0,122,255,0.3);} /* Added border */
+    .team-avatar { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 1.5rem; background: rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; overflow: hidden; border: 3px solid rgba(0,122,255,0.3);}
     .team-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
     .team-member h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: #fff; font-weight: 600;}
-    .team-role { font-size: 0.9rem; color: #00AFFF; margin-bottom: 1rem; font-weight: 500; } /* Brighter blue */
+    .team-role { font-size: 0.9rem; color: #00AFFF; margin-bottom: 1rem; font-weight: 500; }
     .team-bio { font-size: 0.85rem; color: #aaa; line-height: 1.5; margin-bottom: 1.5rem; }
     .team-expertise { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
-    .expertise-tag { background: rgba(0, 122, 255, 0.2); color: #0A84FF; padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; } /* Slightly larger padding/font */
-    .team-member.founder { border-color: rgba(255, 215, 0, 0.5); } /* More visible border */
+    .expertise-tag { background: rgba(0, 122, 255, 0.2); color: #0A84FF; padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.75rem; font-weight: 500; }
+    .team-member.founder { border-color: rgba(255, 215, 0, 0.5); }
     .team-member.founder::before { background: linear-gradient(90deg, #FFD700, #FFA500); }
-    .team-member.excel { border-color: rgba(16, 124, 16, 0.5); } /* More visible border */
+    .team-member.excel { border-color: rgba(16, 124, 16, 0.5); }
     .team-member.excel::before { background: linear-gradient(90deg, #107C10, #16C60C); }
 
     /* Common Portal Styles (Developer & Join Team) */
     .page-portal {
-        background: #0c0c0c; /* Darker background for portals */
+        background: #0c0c0c;
         color: #e0e0e0;
         padding: 5rem 2rem;
         text-align: left;
         min-height: 100vh;
-        display: none; /* Hidden by default */
+        display: none;
     }
     .page-portal .container {
         max-width: 900px;
@@ -310,32 +314,32 @@
         from { opacity: 0; transform: translateY(20px); }
         to { opacity: 1; transform: translateY(0); }
     }
-    .page-portal .container > h2 { /* Targeting the main H2 of the portal */
+    .page-portal .container > h2 {
         font-size: 2.8rem;
         text-align: center;
         margin-bottom: 1.5rem;
         font-weight: 600;
     }
-    .page-portal .container > p:first-of-type { /* Intro paragraph */
+    .page-portal .container > p:first-of-type {
         font-size: 1.2rem;
         max-width: 800px;
-        margin: 0 auto 3.5rem auto; /* Increased bottom margin */
+        margin: 0 auto 3.5rem auto;
         color: #ccc;
         text-align: center;
         line-height: 1.7;
     }
-    .page-portal h3 { /* Sub-section titles */
+    .page-portal h3 {
         font-size: 2rem;
         margin-top: 3rem;
         margin-bottom: 1.5rem;
-        border-bottom: 1px solid #444; /* Darker border */
+        border-bottom: 1px solid #444;
         padding-bottom: 0.75rem;
         font-weight: 500;
     }
 
     /* Developer Portal Specific Styles */
-    #developer-portal .container > h2 { color: #00AFFF; } /* Techy blue for dev portal main title */
-    #developer-portal h3 { color: #7fdbff; } /* Lighter techy blue for dev subheadings */
+    #developer-portal .container > h2 { color: #00AFFF; }
+    #developer-portal h3 { color: #7fdbff; }
     .developer-portal .api-intro p, .developer-portal .auth-section p, .developer-portal .rate-limit-section p, .developer-portal .sdk-section p { font-size: 1rem; color: #b2b2b2; margin-bottom: 1rem; line-height: 1.7; max-width: none; text-align: left; }
     .developer-portal .api-endpoint { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.2);}
     .developer-portal .api-endpoint h4 { font-size: 1.5rem; color: #FFD700; margin-bottom: 1rem; display: flex; align-items: center; }
@@ -356,11 +360,11 @@
     .developer-portal .final-warning p { color: #ff3b30; text-align: center; }
 
     /* Join the Team Portal Styles */
-    #join-team-portal .container > h2 { color: #FFBF00; } /* Gold for Join Team portal main title */
-    #join-team-portal h3 { color: #FFD700; } /* Gold for Join Team subheadings */
+    #join-team-portal .container > h2 { color: #FFBF00; }
+    #join-team-portal h3 { color: #FFD700; }
     #join-team-portal .job-category { margin-bottom: 2.5rem; }
     #join-team-portal .job-listing {
-        background: #1f1f1f; /* Slightly lighter than dev portal cards */
+        background: #1f1f1f;
         border: 1px solid #383838;
         border-radius: 10px;
         padding: 1.75rem;
@@ -374,13 +378,13 @@
         border-color: #FFBF00;
     }
     #join-team-portal .job-listing h4 {
-        font-size: 1.6rem; /* Larger job titles */
+        font-size: 1.6rem;
         color: #FFD700;
         margin-bottom: 0.75rem;
     }
     #join-team-portal .job-listing p {
         font-size: 1rem;
-        color: #c0c0c0; /* Lighter text for readability */
+        color: #c0c0c0;
         margin-bottom: 0.75rem;
         line-height: 1.7;
     }
@@ -388,7 +392,7 @@
         color: #e0e0e0;
     }
     #join-team-portal .apply-button {
-        display: inline-block; /* For proper styling */
+        display: inline-block;
         background-color: #FFD700;
         color: #1d1d1f;
         border: none;
@@ -418,34 +422,33 @@
     /* Sticky CTA */
     .cta-bar{
         position:sticky;bottom:0;left:0;right:0;z-index:999;
-        background:rgba(255,255,255,0.97); /* More opaque */
+        background:rgba(255,255,255,0.97);
         backdrop-filter: blur(10px);
-        box-shadow:0 -3px 15px rgba(0,0,0,.08); /* Softer shadow */
-        display:flex;justify-content:center;align-items:center;padding:1.25rem 1rem;gap:2rem; /* Increased padding */
-        border-top: 1px solid #e0e0e0; /* Subtle top border */
+        box-shadow:0 -3px 15px rgba(0,0,0,.08);
+        display:flex;justify-content:center;align-items:center;padding:1.25rem 1rem;gap:2rem;
+        border-top: 1px solid #e0e0e0;
     }
     .cta-bar span { font-size: 1.1rem; font-weight: 500;}
-    /* CTA button will use .btn-primary, defined above */
 
 
     /* Disclaimers section */
-    .disclaimers { background: #f5f5f7; padding: 4rem 2rem; font-size: 0.8rem; color: #777; } /* Slightly larger font, lighter color */
+    .disclaimers { background: #f5f5f7; padding: 4rem 2rem; font-size: 0.8rem; color: #777; }
     .disclaimers-container { max-width: 1000px; margin: 0 auto; }
-    .disclaimers h3 { font-size: 1.1rem; color: #1d1d1f; margin-bottom: 2rem; font-weight: 600; text-align: center; } /* Bolder, more margin */
-    .disclaimer-item { margin-bottom: 1.5rem; padding-left: 1.75rem; position: relative; line-height: 1.5;} /* Increased padding, line-height */
-    .disclaimer-item::before { content: "※"; position: absolute; left: 0; top: 0; color: #1d1d1f; font-size: 0.9rem;} /* Different marker */
+    .disclaimers h3 { font-size: 1.1rem; color: #1d1d1f; margin-bottom: 2rem; font-weight: 600; text-align: center; }
+    .disclaimer-item { margin-bottom: 1.5rem; padding-left: 1.75rem; position: relative; line-height: 1.5;}
+    .disclaimer-item::before { content: "※"; position: absolute; left: 0; top: 0; color: #1d1d1f; font-size: 0.9rem;}
 
     /* Footer section */
-    .site-footer { background: #111; color: #999; padding: 4rem 2rem 3rem; font-size: 0.85rem; } /* Darker bg, lighter text */
-    .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; } /* Wider minmax, more gap */
-    .footer-column h4 { color: #fff; font-size: 1rem; margin-bottom: 1.5rem; font-weight: 600; letter-spacing: 0.5px;} /* Bolder, spacing */
+    .site-footer { background: #111; color: #999; padding: 4rem 2rem 3rem; font-size: 0.85rem; }
+    .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; }
+    .footer-column h4 { color: #fff; font-size: 1rem; margin-bottom: 1.5rem; font-weight: 600; letter-spacing: 0.5px;}
     .footer-links { list-style: none; padding-left: 0; }
-    .footer-links li { margin-bottom: 1rem; } /* More spacing */
+    .footer-links li { margin-bottom: 1rem; }
     .footer-links a { color: #999; transition: color 0.2s ease, padding-left 0.2s ease; }
-    .footer-links a:hover { color: #00AFFF; padding-left: 5px; } /* Techy blue hover, slight indent */
-    .legal-footer { background: #000; color: #777; padding: 2rem; font-size: 0.75rem; border-top: 1px solid #222; } /* Darkest bg, lighter border */
+    .footer-links a:hover { color: #00AFFF; padding-left: 5px; }
+    .legal-footer { background: #000; color: #777; padding: 2rem; font-size: 0.75rem; border-top: 1px solid #222; }
     .legal-container { max-width: 1200px; margin: 0 auto; }
-    .legal-links { display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 1.5rem; gap: 1rem 2rem; } /* More gap */
+    .legal-links { display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 1.5rem; gap: 1rem 2rem; }
     .legal-links a { color: #888; transition: color 0.2s ease; }
     .legal-links a:hover { color: #ccc; text-decoration: underline; }
     .copyright { text-align: center; }
@@ -453,34 +456,34 @@
     /* === Purchase Modal Styles === */
     .modal-overlay {
         display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background-color: rgba(0, 0, 0, 0.8); /* Darker overlay */
+        background-color: rgba(0, 0, 0, 0.8);
         z-index: 2000; justify-content: center; align-items: center; padding: 1rem;
     }
     .modal-content {
-        background-color: #181818; /* Very dark grey */
-        color: #f0f0f0; padding: 2.5rem; border-radius: 16px; /* More padding, rounder */
-        box-shadow: 0 15px 40px rgba(0,0,0,0.6); width: 100%; max-width: 580px; /* Wider */
+        background-color: #181818;
+        color: #f0f0f0; padding: 2.5rem; border-radius: 16px;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.6); width: 100%; max-width: 580px;
         position: relative; text-align: left; animation: modalFadeIn 0.3s ease-out;
-        border: 1px solid #333; /* Subtle border */
+        border: 1px solid #333;
     }
     @keyframes modalFadeIn {
         from { opacity: 0; transform: translateY(-20px) scale(0.98); }
         to { opacity: 1; transform: translateY(0) scale(1); }
     }
     .modal-content h2 {
-        color: #FFD700; margin-bottom: 2rem; text-align: center; font-size: 2.2rem; font-weight: 600;} /* Larger, bolder */
+        color: #FFD700; margin-bottom: 2rem; text-align: center; font-size: 2.2rem; font-weight: 600;}
     .modal-content .close-button {
         position: absolute; top: 1rem; right: 1rem; font-size: 2.2rem; color: #888;
         background: none; border: none; cursor: pointer; line-height: 1; transition: color 0.2s, transform 0.2s;
     }
     .modal-content .close-button:hover { color: #fff; transform: rotate(90deg); }
-    .modal-form-group { margin-bottom: 1.5rem; } /* More spacing */
+    .modal-form-group { margin-bottom: 1.5rem; }
     .modal-form-group label { display: block; margin-bottom: 0.6rem; font-weight: 500; color: #ccc; font-size: 0.9rem;}
     .modal-form-group input[type="text"],
     .modal-form-group input[type="email"],
     .modal-form-group input[type="number"],
     .modal-form-group select {
-        width: 100%; padding: 0.85rem; border-radius: 8px; /* More padding, rounder */
+        width: 100%; padding: 0.85rem; border-radius: 8px;
         border: 1px solid #444; background-color: #2a2a2a; color: #f0f0f0; font-size: 1rem;
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
@@ -500,7 +503,7 @@
     }
     .modal-submit-button:hover { background-color: #f0c000; transform: scale(1.02); box-shadow: 0 5px 15px rgba(255,215,0,0.2);}
     .modal-submit-button:active { transform: scale(0.99); }
-    .modal-fine-print { font-size: 0.75rem; color: #888; text-align: center; margin-top: 2rem; line-height: 1.4;} /* More spacing */
+    .modal-fine-print { font-size: 0.75rem; color: #888; text-align: center; margin-top: 2rem; line-height: 1.4;}
 
 
     /* Responsive tweaks */
@@ -509,7 +512,7 @@
         nav a, nav span.nav-link { font-size: 0.8rem; padding: 0.2rem 0.4rem; }
         #developer-nav-link, #join-team-nav-link { padding: 0.15rem 0.35rem; }
     }
-    @media(max-width:880px){ nav { display: none; } } /* Keep this to hide nav on smaller screens */
+    @media(max-width:880px){ nav { display: none; } }
     @media(max-width:768px){
         main#main-content-area section#features > .description { flex-direction: column !important; }
         main#main-content-area section#features > .description .image,
@@ -518,7 +521,7 @@
         .description .text{padding:1rem;}
         .reviews-container{flex-direction:column}
         .carousel,.tagline{width:100%}
-        .tagline{font-size:2.5rem;margin-top:2.5rem} /* Adjusted */
+        .tagline{font-size:2.5rem;margin-top:2.5rem}
         .marquee-track img{height:48px}
         .press-logos{grid-template-columns:1fr}
         .press-logos img{height:40px}
@@ -527,18 +530,18 @@
         .footer-container { grid-template-columns: 1fr 1fr; }
         .disclaimer-item { padding-left: 1rem; }
         .team-grid { grid-template-columns: 1fr; }
-        .meet-team, .page-portal { padding: 4rem 1rem; } /* Unified portal padding */
+        .meet-team, .page-portal { padding: 4rem 1rem; }
         .page-portal .container > h2 { font-size: 2.2rem; }
         .page-portal h3 { font-size: 1.6rem; }
         .developer-portal .api-endpoint h4 { font-size: 1.2rem; }
         .developer-portal .api-endpoint .path { font-size: 0.9rem; }
         .modal-content { padding: 1.5rem; max-height: 90vh; overflow-y: auto;}
-        .modal-content h2 { font-size: 1.8rem; } /* Adjusted */
+        .modal-content h2 { font-size: 1.8rem; }
         .hero h1 {font-size: 3rem;}
         .hero p {font-size: 1.3rem;}
         .hero button {padding: 0.9rem 2.2rem; font-size: 0.95rem;}
     }
-    @media(max-width:480px) { /* More granular for very small screens */
+    @media(max-width:480px) {
         .logo { font-size: 1.15rem; }
         header { padding: 0.75rem 1.5rem; }
         .hero h1 {font-size: 2.5rem;}
@@ -554,13 +557,14 @@
     <header id="site-header">
         <div class="logo" id="logo-home-button">HydroBlast</div>
         <nav>
-            <a href="#features" class="main-nav-link">Features</a>
+            <a href="#" id="home-nav-link" class="main-nav-link">Home</a> <a href="#features" class="main-nav-link">Features</a>
             <a href="#demo" class="main-nav-link">Demo</a>
             <a href="#products" class="main-nav-link">Products</a>
             <a href="#reviews-section" class="main-nav-link">Reviews</a>
             <a href="#team" class="main-nav-link">Team</a>
             <span class="nav-link" id="developer-nav-link">Developers</span>
-            <span class="nav-link" id="join-team-nav-link">Join the Team</span> </nav>
+            <span class="nav-link" id="join-team-nav-link">Join the Team</span>
+        </nav>
         <span class="buy-button" id="header-buy-button">Buy Now</span>
     </header>
 
@@ -598,9 +602,30 @@
     <section id="products" class="product-family">
         <h2>Meet the HydroBlast Family</h2> <p>Choose the right level of hydration motivation for your lifestyle.</p>
         <div class="products-grid">
-            <div class="product-card"> <div class="product-image"> <img src="sdagdsafgfds.png" alt="HydroBlast Pro"> </div> <div class="product-info"> <h3>HydroBlast Pro</h3> <p>Our flagship model with military-grade motivation technology and premium glass-reinforced casing. Maximum persuasion for the hydration elite.</p> <div class="product-price"> $2,499.99 <span class="product-status">Flagship</span> </div> </div> </div>
-            <div class="product-card"> <div class="product-image"> <img src="gadsfdcagd.png" alt="Modular Blast™"> </div> <div class="product-info"> <h3>Modular Blast™</h3> <p>Our universal motivation module attaches to any bottle. Transform your existing containers into hydration accountability partners.</p> <div class="product-price"> $1,899.99 <span class="product-status">Best Value</span> </div> </div> </div>
-            <div class="product-card"> <div class="product-image"> <img src="adsfgadsda.png" alt="HydroBlast(less)"> </div> <div class="product-info"> <h3>HydroBlast(less)</h3> <p>Our entry-level hydration solution for the cautious consumer. All the style, none of the explosive motivation technology.</p> <div class="product-price"> $499.99 <span class="product-status">Entry Level</span> </div> </div> </div>
+            <div class="product-card">
+                <div class="product-image"> <img src="sdagdsafgfds.png" alt="HydroBlast Pro"> </div>
+                <div class="product-info">
+                    <h3>HydroBlast Pro</h3>
+                    <p>Our flagship model with military-grade motivation technology and premium glass-reinforced casing. Maximum persuasion for the hydration elite.</p>
+                    <div class="product-price"> $2,499.99 <span class="product-status">Flagship</span> </div>
+                    <button class="btn-primary product-buy-button">Buy Now</button> </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image"> <img src="gadsfdcagd.png" alt="Modular Blast™"> </div>
+                <div class="product-info">
+                    <h3>Modular Blast™</h3>
+                    <p>Our universal motivation module attaches to any bottle. Transform your existing containers into hydration accountability partners.</p>
+                    <div class="product-price"> $1,899.99 <span class="product-status">Best Value</span> </div>
+                    <button class="btn-primary product-buy-button">Buy Now</button> </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image"> <img src="adsfgadsda.png" alt="HydroBlast(less)"> </div>
+                <div class="product-info">
+                    <h3>HydroBlast(less)</h3>
+                    <p>Our entry-level hydration solution for the cautious consumer. All the style, none of the explosive motivation technology.</p>
+                    <div class="product-price"> $499.99 <span class="product-status">Entry Level</span> </div>
+                    <button class="btn-primary product-buy-button">Buy Now</button> </div>
+            </div>
         </div>
     </section>
 
@@ -652,7 +677,8 @@
 
     <div id="cta" class="cta-bar">
         <span>HydroBlast — from $2,499.99</span>
-        <button id="cta-buy-button" class="btn-primary">Buy Now</button> </div>
+        <button id="cta-buy-button" class="btn-primary">Buy Now</button>
+    </div>
 </main>
 
 <section id="developer-portal" class="page-portal developer-portal" style="display: none;">
@@ -821,10 +847,10 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
 <script>
     /* Header show/hide on scroll */
     let lastScroll=window.scrollY;
-    const siteHeaderEl=document.getElementById('site-header'); // Renamed to avoid conflict with other 'header' vars
+    const siteHeaderEl=document.getElementById('site-header');
     window.addEventListener('scroll',()=>{
         const current=window.scrollY;
-        if (siteHeaderEl) { // Check if element exists
+        if (siteHeaderEl) {
             siteHeaderEl.classList.toggle('hidden',current>lastScroll && current > 50);
         }
         lastScroll=current <= 0 ? 0 : current;
@@ -832,7 +858,7 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
 
     /* Fade-in description images */
     const imgs=document.querySelectorAll('.description .image');
-    if (imgs.length > 0) { // Check if elements exist
+    if (imgs.length > 0) {
         const obs=new IntersectionObserver(entries=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('visible'); obs.unobserve(entry.target); } }); },{threshold:.1});
         imgs.forEach(i=>obs.observe(i));
     }
@@ -841,12 +867,12 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
         const bodyElement = document.body;
         const mainContentArea = document.getElementById('main-content-area');
         const developerPortal = document.getElementById('developer-portal');
-        const joinTeamPortal = document.getElementById('join-team-portal'); // New portal
+        const joinTeamPortal = document.getElementById('join-team-portal');
 
         const developerNavLink = document.getElementById('developer-nav-link');
-        const joinTeamNavLink = document.getElementById('join-team-nav-link'); // New nav link
+        const joinTeamNavLink = document.getElementById('join-team-nav-link');
         const logoHomeButton = document.getElementById('logo-home-button');
-        const mainNavLinks = document.querySelectorAll('nav a.main-nav-link');
+        const mainNavLinks = document.querySelectorAll('nav a.main-nav-link'); // Includes the new Home link
 
         const ctaBar = document.getElementById('cta');
         const siteFooterSection = document.getElementById('site-footer-section');
@@ -857,8 +883,9 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
         const headerBuyButton = document.getElementById('header-buy-button');
         const ctaBuyButton = document.getElementById('cta-buy-button');
         const fakePurchaseForm = document.getElementById('fake-purchase-form');
+        const productBuyButtons = document.querySelectorAll('.product-buy-button'); // New product buttons
 
-        const heroSection = document.querySelector('.hero'); // For background scroll effect
+        const heroSection = document.querySelector('.hero');
 
         /* Background colour transition */
         window.addEventListener('scroll',()=>{
@@ -868,17 +895,16 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
             if (mainContentArea && mainContentArea.style.display !== 'none') {
                 if(scrollY < heroHeight && heroHeight > 0){
                     const ratio=scrollY/heroHeight;
-                    const startColor = 0; // Start from black
-                    const endColorLight = 240; // End at a light gray like #f0f0f0
+                    const startColor = 0;
+                    const endColorLight = 240;
                     const val=Math.round(((endColorLight - startColor) * ratio) + startColor);
                     bodyElement.style.backgroundColor=`rgb(${val},${val},${val})`;
                 } else {
-                    bodyElement.style.backgroundColor='#fafafa'; // Default light bg for main content
+                    bodyElement.style.backgroundColor='#fafafa';
                 }
             } else if ((developerPortal && developerPortal.style.display !== 'none') || (joinTeamPortal && joinTeamPortal.style.display !== 'none')) {
-                bodyElement.style.backgroundColor='#0c0c0c'; // Dark background for portal pages
+                bodyElement.style.backgroundColor='#0c0c0c';
             } else {
-                 // Fallback if no specific section is active but mainContentArea is hidden (should not happen often)
                 bodyElement.style.backgroundColor='#000';
             }
         });
@@ -913,17 +939,15 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
             if(developerPortal) developerPortal.style.display = 'none';
             if(joinTeamPortal) joinTeamPortal.style.display = 'none';
 
-            // Trigger scroll to re-evaluate background for main content
             window.dispatchEvent(new Event('scroll'));
 
             if(ctaBar) ctaBar.style.display = 'flex';
-            if(siteFooterSection) siteFooterSection.style.display = 'grid';
+            if(siteFooterSection) siteFooterSection.style.display = 'grid'; // Assuming it's a grid
             if(legalFooter) legalFooter.style.display = 'block';
             window.scrollTo(0, 0);
         }
 
-        /* Scroll hero button helper */
-        window.scrollToFeatures = function(){ // Make it global for inline onclick
+        window.scrollToFeatures = function(){
             if ((developerPortal && developerPortal.style.display !== 'none') || (joinTeamPortal && joinTeamPortal.style.display !== 'none')) {
                 showMainContent();
             }
@@ -932,7 +956,7 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
                 if (featuresEl) {
                     featuresEl.scrollIntoView({behavior:'smooth'});
                 }
-            }, 50); // Small delay
+            }, 50);
         }
 
         const reviewData = [ { img: "https://i.pravatar.cc/80?u=32", name: "Alex 'The Alarmed'", quote: "\"One missed sip and I'll never forget again. My therapist is on speed dial. Genius!\"" }, { img: "https://i.pravatar.cc/80?u=47", name: "Jamie 'Jitters'", quote: "\"Finally, accountability with style... and a mild concussion. Worth it.\"" }, { img: "https://i.pravatar.cc/80?u=12", name: "Taylor 'Trembles'", quote: "\"The suspense keeps me hydrated — and constantly on edge. 10/10, would flinch again.\"" }, { img: "https://i.pravatar.cc/80?u=58", name: "Morgan 'Motivated'", quote: "\"Blast sensors > motivation apps. My walls disagree, but I'm hydrated!\"" }, { img: "https://i.pravatar.cc/80?u=30", name: "Riley 'Regretful?'", quote: "\"HydroBlast never disappoints — or misfires.* *Mostly.\"" } ];
@@ -951,9 +975,7 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
                 const prevBtn = document.createElement('div'); prevBtn.className = 'carousel-control'; prevBtn.innerHTML = '❮';
                 const nextBtn = document.createElement('div'); nextBtn.className = 'carousel-control'; nextBtn.innerHTML = '❯';
                 controlsDiv.appendChild(prevBtn); controlsDiv.appendChild(nextBtn);
-                // Append controls and dots to the carousel element, not carouselInner
                 carousel.appendChild(controlsDiv);
-
 
                 const dotsDiv = document.createElement('div'); dotsDiv.className = 'carousel-dots';
                 for (let i = 0; i < totalSlides; i++) { const dot = document.createElement('div'); dot.className = 'carousel-dot'; if (i === 0) dot.classList.add('active'); dot.dataset.index = i; dotsDiv.appendChild(dot); }
@@ -982,11 +1004,11 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
                 }
 
                 function handleTransitionEnd() {
-                    if (currentSlide === 0) { // Went to previous from first slide (clone of last)
+                    if (currentSlide === 0) {
                         currentSlide = totalSlides;
                         carouselInner.style.transition = 'none';
                         carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
-                    } else if (currentSlide === totalSlides + 1) { // Went to next from last slide (clone of first)
+                    } else if (currentSlide === totalSlides + 1) {
                         currentSlide = 1;
                         carouselInner.style.transition = 'none';
                         carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
@@ -1002,17 +1024,16 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
                 let autoRotateTimer = setInterval(() => { showSlide(currentSlide + 1); }, 4000);
                 carousel.addEventListener('mouseenter', () => { clearInterval(autoRotateTimer); });
                 carousel.addEventListener('mouseleave', () => { autoRotateTimer = setInterval(() => { showSlide(currentSlide + 1); }, 4000); });
-                showSlide(1, false); // Initial setup
+                showSlide(1, false);
             }
         }
-
 
         if (developerNavLink) {
             developerNavLink.addEventListener('click', (e) => {
                 e.preventDefault(); showDeveloperPortal();
             });
         }
-        if (joinTeamNavLink) { // Event listener for the new nav link
+        if (joinTeamNavLink) {
             joinTeamNavLink.addEventListener('click', (e) => {
                 e.preventDefault(); showJoinTeamPage();
             });
@@ -1031,29 +1052,27 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
                 const targetId = this.getAttribute('href');
 
                 if (isPortalActive) {
-                    showMainContent();
-                    if (targetId && targetId.startsWith('#')) {
-                        e.preventDefault(); // Prevent default jump if it's a hash link
+                    showMainContent(); // This also scrolls to top
+                    if (targetId && targetId.startsWith('#') && targetId !== '#') {
+                        e.preventDefault();
                         setTimeout(() => {
                             const targetElement = document.querySelector(targetId);
                             if (targetElement) {
                                 targetElement.scrollIntoView({ behavior: 'smooth' });
                             }
-                        }, 100); // Delay for content to render
+                        }, 100);
+                    } else if (targetId === '#') { // Home link
+                        e.preventDefault(); // Already handled by showMainContent's scroll to top
                     }
-                    // If not a hash link, default behavior (e.g. external link) will proceed after showMainContent
                 } else if (targetId && targetId.startsWith('#')) {
-                    // Main content is already visible, just smooth scroll
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
                         e.preventDefault();
                         targetElement.scrollIntoView({ behavior: 'smooth' });
                     }
                 }
-                // If not a hash link and main content is visible, allow default browser action
             });
         });
-
 
         function openPurchaseModal(event) {
             if (event) event.preventDefault();
@@ -1076,15 +1095,20 @@ X-Riddle-Answers: ["Man", "Tomorrow", "YourMomLovesHydroBlast"]</code></pre>
         if (fakePurchaseForm) {
             fakePurchaseForm.addEventListener('submit', (event) => {
                 event.preventDefault();
-                // Replace alert with a custom, non-blocking notification if possible in future
                 alert("Purchase Initiated! Our 'Motivation Technicians' (and your bank) have been notified. Good luck.");
                 closePurchaseModal();
                 fakePurchaseForm.reset();
             });
         }
 
-        // Initial page setup: Show main content by default
-        showMainContent();
+        // Add event listeners for new product buy buttons
+        if (productBuyButtons.length > 0) {
+            productBuyButtons.forEach(button => {
+                button.addEventListener('click', openPurchaseModal);
+            });
+        }
+
+        showMainContent(); // Initial page setup
     });
 </script>
 </body>
